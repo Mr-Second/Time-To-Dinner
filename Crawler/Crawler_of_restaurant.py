@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
 import requests, json
 from bs4 import BeautifulSoup
-base_url = "http://www.gomaji.com/"
-fileName = 'gomaji.json'
-json_arr = []
 
 def startCrawler():
     prod_dict={}
+    base_url = "http://www.gomaji.com/"
+    fileName = 'gomaji.json'
+    json_arr = []
+
     res = requests.get('http://www.gomaji.com/index.php?city=Taichung&tag_id=99')
     #print(res.text)
     soup = BeautifulSoup(res.text)
     liTag = soup.find_all("li","box-shadow2px ")
     for i in liTag:
-        href = i.find('a')['href']
+        href = i.find('a')['href']# 把a的href屬性的值抓出來
         href = base_url+href
-        # arr1[0] = href
-        name = i.find('a').find('div','program').find('h1')
+
+        name = i.find('a').find('div','program').find('h1')# find可以找到他的child那一層
         name = name.text.strip()
-        #arr2[0] = name
-        # d = dict(zip(arr2,arr1))
+
         d = {name: href}
         json_arr.append(d)
     
