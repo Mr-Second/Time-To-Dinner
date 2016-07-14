@@ -3,32 +3,33 @@
 import requests, json, pyprind, sys
 from bs4 import BeautifulSoup
 base_url = "http://www.gomaji.com/"
-json_arr = []
+json_arr = {}
 
 def startCrawler(fileName):
     res = requests.get('http://www.gomaji.com/index.php?city=Taichung')
     #一開始的台中頁面  然後去爬上面所有的餐廳分類網址
     soup = BeautifulSoup(res.text)
+    location = soup.select('.sf-with-ul')[0].text
 
     aLen = len(soup.select("#lb_tag  a"))/2 # "lb_tag  a"是餐廳分類的tag 但是每個分類都有2個重複的tag，所以要/2
     aIndex = 1
     recipNum = len(soup.select('ul.deal16 li.box-shadow2px'))
-    ProgreBar = pyprind.ProgBar(aLen, title = "共 %d 個餐廳類別要處理" % aLen)
+    ProgreBar = pyprind.ProgBar(aLen, title = "%s 共 %d 個餐廳類別要處理" %( location, aLen))
     for a in soup.select("#lb_tag  a"):
         href = a['href']
         if aIndex > aLen: break
-        parsePage(base_url+href)
+        parsePage(base_url+href, location)
         aIndex = aIndex + 1
         ProgreBar.update(1,item_id = aIndex, force_flush=True)#item_id可以讓使用者追蹤到底執行到第幾個ID
         #ID通常是放for loop裏面的變數，update()會讓進度條更新
 
-
     #建立一個進度條物件
     dump(fileName)
 
-def parsePage(url):
+def parsePage(url, location):
     res = requests.get(url)
     childSoup = BeautifulSoup(res.text)
+    tmp = {location:{}}
 
     for i in childSoup.select('ul.deal16 li.box-shadow2px'):
         href = i.find('a')['href']# 把a的href屬性的值抓出來
@@ -38,11 +39,11 @@ def parsePage(url):
         name = name.text.strip()
 
         d = {"restaurant": name, "url":href}
-        json_arr.append(d)
+        json_arr.update(d)
 
 def dump(fileName):
     with open(fileName, 'w', encoding='UTF-8') as f:
-        json.dump(json_arr, f)    
+        json.dump(json_arr, f)
 
 if __name__  ==  "__main__":
     if len(sys.argv) < 2:
