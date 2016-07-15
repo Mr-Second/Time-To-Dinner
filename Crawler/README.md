@@ -22,78 +22,42 @@ git clone https://github.com/Stufinite/Time-To-Dinner.git
 make install
 ```
 
-## Deployment
+## Run
 
-1. Change your directory to this project
-
-  * `cd /path/to/project`
-
-2. Use Crontab to make crawler automatically run in background
-
-  * `crontab -e`
-
-3. Paste the command below into the bottom of the crontab file :
-
-  * 獲得全部課程 ( For all Course ) `* * * * * python3 CoursePickingHelperCrawler.py`
+* `python3 Crawler_of_restaurant.py <fileName.json>`
 
 ### Result
 
-預設會將json存在這個路徑底下:
-
-    os.chdir('/var/www/html/Python-Crawler/nchu/json')
-
-若沒有這個資料夾會產生exception 並直接將json儲存在當前目底下
-輸出 JSON 格式
-
-    {
-      "course": [
+* json結果
+  * 
+  ```
+  {
+    "台中": {
+      "下午茶": [
         {
-          "class": "1",
-          "code": "1032",
-          "credits": "2",
-          "credits_parsed": 2,
-          "department": "環境工程學系學士班",
-          "discipline": "",
-          "enrolled_num": "0",
-          "for_dept": "環境工程學系學士班",
-          "hours": "2",
-          "hours_parsed": "2",
-          "intern_location": [
-            ""
-          ],
-          "intern_time": "",
-          "language": "中文",
-          "location": [
-            "C405"
-          ],
-          "note": "",
-          "number": "52",
-          "number_parsed": 52,
-          "obligatory": "選修",
-          "obligatory_tf": false,
-          "prerequisite": "",
-          "professor": "望熙榮",
-          "time": "412",
-          "time_parsed": [
-            {
-              "day": 4,
-              "time": [
-                1,
-                2
-              ]
-            }
-          ],
-          "title": "R程式在環工之應用 `Application of R Program on Environmental Engineering",
-          "title_parsed": {
-            "en_US": "Application of R Program on Environmental Engineering",
-            "zh_TW": "R程式在環工之應用"
-          },
-          "url": "1415",
-          "year": "半"
+          "restaurant": "哈根達斯 Häagen-Dazs(敦南旗鑑店)",
+          "url": "http://www.gomaji.com/Taipei_p127829.html",
+          "地址": "台北市大安區敦化南路一段173號(近忠孝敦化捷運)\r\t\t\t\t\t\t\t\t\t\t\t",
+          "營業時間": "週一至週四、週日  11:00~23:00 週五至週六 11:00~23:30",
+          "電話": "(02)2776-9553"
         },
+        {
+          "restaurant": "J coffee",
+          "url": "http://www.gomaji.com/Taichung_p126863.html",
+          "地址": "台中市中區雙十路一段35-14號(近台中火車站)\r\t\t\t\t\t\t\t\t\t\t\t",
+          "營業時間": "週一至週日 06:00~21:00 每週四公休",
+          "電話": "(04)2220-0072"
+        }
         ...
       ]
     }
+  }
+  ```
+
+
+* 餐廳圖片
+  * ![restaurant](隱藏丼飯達人(崇德店).jpg)
+
 
 ## Built With
 
@@ -104,23 +68,10 @@ make install
 For the versions available, see the [tags on this repository](https://github.com/NCHUSG/Python-Crawler/tags). 
 
 ## Contributors
-
-* **邱冠喻** - *Initial work* - [Pastleo](https://github.com/chgu82837)
-* **戴均民** - *Initial work* - [taichunmin](https://github.com/taichunmin)
-* **黃川哲** - *Initial work* - [CJHwong](https://github.com/CJHwong)
 * **張泰瑋** [david](https://github.com/david30907d)
 
 ## License
 
-This project is licensed under the **GNU 3.0** License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## Acknowledgments
 
-* 感謝中興大學計資中心提供
-    * [學士班](https://onepiece.nchu.edu.tw/cofsys/plsql/json_for_course?p_career=U)
-    * [通識加體育課](https://onepiece.nchu.edu.tw/cofsys/plsql/json_for_course?p_career=O)
-    * [進修部](https://onepiece.nchu.edu.tw/cofsys/plsql/json_for_course?p_career=N)
-    * [在職專班](https://onepiece.nchu.edu.tw/cofsys/plsql/json_for_course?p_career=W)
-    * [碩班](https://onepiece.nchu.edu.tw/cofsys/plsql/json_for_course?p_career=G)
-    * [博士班](https://onepiece.nchu.edu.tw/cofsys/plsql/json_for_course?p_career=D)
-* 感謝[Pastleo](https://github.com/chgu82837)大大開的坑，讓學弟學了不少的Python，學長們的 code 也讓我受益良多~
+* 感謝gomaji的資料

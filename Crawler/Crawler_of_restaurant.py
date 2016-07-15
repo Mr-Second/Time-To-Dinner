@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import requests, json, pyprind, sys
+import requests, json, pyprind, sys, shutil
 from bs4 import BeautifulSoup
 base_url = "http://www.gomaji.com/"
 json_arr = {}
@@ -11,6 +11,7 @@ def startCrawler(fileName):
     soup = BeautifulSoup(res.text)
 
     location = soup.select('.sf-with-ul')[0].text
+    global json_arr 
     json_arr = {location:{}}
 
     aLen = len(soup.select("#lb_tag  a"))/2 # "lb_tag  a"是餐廳分類的tag 但是每個分類都有2個重複的tag，所以要/2
@@ -34,20 +35,57 @@ def parsePage(url, location, resType):
     childSoup = BeautifulSoup(res.text)
     tmp = {resType:[]}
 
-    for i in childSoup.select('ul.deal16 li.box-shadow2px'):
+    for i, img in zip(childSoup.select('ul.deal16 li.box-shadow2px'), childSoup.select('ul.deal16 li.box-shadow2px img')):
         href = i.find('a')['href']# 把a的href屬性的值抓出來
         href = base_url+href
+        d = getResProf(href)
 
         name = i.find('a').find('div','boxc').find('h2')# find可以找到他的child那一層
-        name = name.text.strip()
+        name = purgeResName(name.text.strip(), d)
 
-        d = {"restaurant": name, "url":href}
+        imageUrl = img['src']
+        img = requests.get(imageUrl,stream=True)
+        with open(name+'.jpg', 'wb') as f:
+            shutil.copyfileobj(img.raw, f)
+        d["url"] = href
         tmp[resType].append(d)
-    json_arr[location] = tmp
+
+    json_arr[location].update(tmp)
 
 def dump(fileName):
     with open(fileName, 'w', encoding='UTF-8') as f:
         json.dump(json_arr, f)
+
+def purgeResName(raw, d):
+    try:
+        return d['restaurant']
+    except Exception as e:
+        return raw.split('】')[0].replace('【','')
+
+def getResProf(href):
+    res = requests.get(href)
+    resSoup = BeautifulSoup(res.text)
+    tmp = {}
+    # tmp['restaurant'] = resSoup.find('div', style="display: table-cell;").text
+    # print(tmp['restaurant'])
+    num=1
+    try:
+        for i in resSoup.findAll('div', style="display: table-cell;")[1].children:
+            try:
+                if len(i.text) > 0:     
+                    if num==1:
+                        tmp['restaurant'] = i.text   
+                    else:        
+                        i = i.text.replace('\n','')
+                        clean = i.split('：')
+                        tmp[clean[0]] = clean[1]
+                    num=num+1
+            except AttributeError as e:
+                pass
+    except Exception as e:
+        print(href)
+    
+    return tmp
 
 if __name__  ==  "__main__":
     if len(sys.argv) < 2:
