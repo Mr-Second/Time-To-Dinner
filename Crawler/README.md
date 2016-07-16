@@ -25,6 +25,7 @@ make install
 ## Run
 
 * `python3 Crawler_of_restaurant.py <fileName.json>`
+* Or `make test` (This command must be executed in root directory of this project)
 
 ### Result
 
@@ -56,7 +57,7 @@ make install
 
 
 * 餐廳圖片
-  * ![restaurant](隱藏丼飯達人(崇德店).jpg)
+  * ![restaurant](demoJpg/隱藏丼飯達人(崇德店).jpg)
 
 
 ## Built With
@@ -65,7 +66,7 @@ make install
 
 ## Versioning
 
-For the versions available, see the [tags on this repository](https://github.com/NCHUSG/Python-Crawler/tags). 
+For the versions available, see the [tags on this repository](https://github.com/Stufinite/Time-To-Dinner/releases). 
 
 ## Contributors
 * **張泰瑋** [david](https://github.com/david30907d)
