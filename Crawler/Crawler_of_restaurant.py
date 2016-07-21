@@ -59,6 +59,7 @@ def purgeResName(raw, d):
     try:
         return d['restaurant']
     except Exception as e:
+        raw = raw.replace('/','')
         return raw.split('】')[0].replace('【','')
 
 def getResProf(href):
@@ -73,7 +74,7 @@ def getResProf(href):
                 if len(i.text) > 0:     
                     # 因為第一個都是餐廳名稱（理論上），所以需要一個num來紀錄現在是for回圈的第幾次
                     if num==1:
-                        tmp['restaurant'] = i.text   
+                        tmp['restaurant'] = i.text.replace('/','')
                     else:     
                         i = re.sub(r'(\r)*(\t)*(\n)*','',i.text)
                         clean = i.split('：')
