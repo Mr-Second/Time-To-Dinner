@@ -4,15 +4,42 @@ import requests, json, pyprind, sys, shutil, re
 from bs4 import BeautifulSoup
 base_url = "http://www.gomaji.com/"
 json_arr = {} # 最終結果json
+trans = {
+    '營業時間':'service_h',
+    "電話":'phone',
+    "地址":'address',
+    "最晚預約或點餐時間":'last_reserv'
+}
 
-def startCrawler(fileName):
-    res = requests.get('http://www.gomaji.com/index.php?city=Taichung')
+def startCrawler():
+    res = requests.get('http://www.gomaji.com/Taichung')
+    soup = BeautifulSoup(res.text)
+    aLen = len(soup.select("#LB_filter .box-shadow2px  a"))/2 # "#LB_filter .box-shadow2px  a"是Region分類的tag 但是每個分類都有2個重複的tag，所以要/2
+    aIndex = 1
+    counter = 1
+    ProgreBar = pyprind.ProgBar(aLen, title = "共 {} 個Region類別要處理" .format(aLen)) #建立一個進度條物件
+
+    for a in soup.select("#LB_filter .box-shadow2px  a"):
+        if counter == 1: #因為gomaji沒有主頁，第一個網址會是自己的java script，所以用if跳過
+            aIndex = aIndex + 1
+        else:
+            href = a['href']
+            if aIndex > aLen: break
+            aIndex = aIndex + 1
+            print()#progrebar change line
+            parseRegion(base_url+href)
+            ProgreBar.update(1,item_id = aIndex, force_flush=True)
+
+        counter = counter + 1
+
+def parseRegion(url):
+    res = requests.get(url)
     #一開始的台中頁面  然後去爬上面所有的餐廳分類網址
     soup = BeautifulSoup(res.text)
 
     location = soup.select('.sf-with-ul')[0].text #得到縣市的文字  這邊是台中
     global json_arr # global var : 最終結果json，在python中，想要再函式裏面呼叫全物變數要加一個global
-    json_arr = {location:{}}
+    json_arr[location] = {}
 
     aLen = len(soup.select("#lb_tag  a"))/2 # "lb_tag  a"是餐廳分類的tag 但是每個分類都有2個重複的tag，所以要/2
     aIndex = 1
@@ -29,8 +56,6 @@ def startCrawler(fileName):
         ProgreBar.update(1,item_id = aIndex, force_flush=True)#item_id可以讓使用者追蹤到底執行到第幾個ID
         #ID通常是放for loop裏面的變數，update()會讓進度條更新
 
-    dump(fileName) #儲存json
-
 def parsePage(url, location, resType):
     res = requests.get(url)
     childSoup = BeautifulSoup(res.text)
@@ -43,7 +68,7 @@ def parsePage(url, location, resType):
 
         restaurant = i.find('a').find('div','boxc').find('h2')# find可以找到他的child那一層
         restaurant = purgeResName(restaurant.text.strip(), d)
-        savePict(img, restaurant)
+        #savePict(img, restaurant)
         d["url"] = href
         d['restaurant'] = restaurant
         tmp[resType].append(d)
@@ -68,6 +93,10 @@ def getResProf(href):
     num=1
     # 去爬餐廳簡介的資料，因為格式沒有完全統一，所以需要很多try catch防止程式噴錯
     try:
+        tmp['score'] = resSoup.select('.big')[0].text + '(' + resSoup.select('.bnb .lab')[0].text + ')'
+    except Exception as e:
+        tmp['score'] = '無評分資料'
+    try:
         for i in resSoup.findAll('div', style="display: table-cell;")[1].children:
             try:
                 if len(i.text) > 0:     
@@ -77,13 +106,12 @@ def getResProf(href):
                     else:     
                         i = re.sub(r'(\r)*(\t)*(\n)*','',i.text)
                         clean = i.split('：')
-                        tmp[clean[0]] = clean[1]
+                        tmp[trans[clean[0]]] = clean[1]
                     num=num+1
             except AttributeError as e:
-                print(e, href)
+                pass
     except Exception as e:
-        print(e, href)
-    
+        pass
     return tmp
 
 def savePict(img, restaurant):
@@ -98,4 +126,6 @@ if __name__  ==  "__main__":
         print("Usage:\n\tpython[3] "+sys.argv[0]+" <filename.json>")
         print("\n\tURL can be:http://www.gomaji.com/index.php?city=Taichung&tag_id=99");
         sys.exit(1)#0為正常結束，其他數字exit會拋出一個例外，可以被捕獲
-    startCrawler(sys.argv[1])
+    startCrawler()
+    dump(sys.argv[1]) #儲存json
+
