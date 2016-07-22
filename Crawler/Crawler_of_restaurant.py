@@ -1,15 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import requests, json, pyprind, sys, shutil, re
+import requests, json, pyprind, sys, shutil, re, pickle
 from bs4 import BeautifulSoup
-base_url = "http://www.gomaji.com/"
-json_arr = {} # 最終結果json
-trans = {
-    '營業時間':'service_h',
-    "電話":'phone',
-    "地址":'address',
-    "最晚預約或點餐時間":'last_reserv'
-}
 
 def startCrawler():
     res = requests.get('http://www.gomaji.com/Taichung')
@@ -68,12 +60,19 @@ def parsePage(url, location, resType):
 
         restaurant = i.find('a').find('div','boxc').find('h2')# find可以找到他的child那一層
         restaurant = purgeResName(restaurant.text.strip(), d)
-        #savePict(img, restaurant)
-        d["url"] = href
-        d['restaurant'] = restaurant
-        tmp[resType].append(d)
+
+        if restaurant not in ResTable:
+            # 更新餐廳名稱的set
+            ResTable.add(restaurant)
+            savePict(img, restaurant)
+            d["url"] = href
+            d['restaurant'] = restaurant
+            tmp[resType].append(d)
 
     json_arr[location].update(tmp)
+
+def dumpResTable(ResTable):
+    pickle.dump(ResTable, open("ResTable.pickle", "wb"))
 
 def dump(fileName):
     with open(fileName, 'w', encoding='UTF-8') as f:
@@ -84,6 +83,7 @@ def purgeResName(raw, d):
     try:
         return d['restaurant']
     except Exception as e:
+        raw = raw.replace('/','')
         return raw.split('】')[0].replace('【','')
 
 def getResProf(href):
@@ -102,7 +102,7 @@ def getResProf(href):
                 if len(i.text) > 0:     
                     # 因為第一個都是餐廳名稱（理論上），所以需要一個num來紀錄現在是for回圈的第幾次
                     if num==1:
-                        tmp['restaurant'] = i.text   
+                        tmp['restaurant'] = i.text.replace('/','')
                     else:     
                         i = re.sub(r'(\r)*(\t)*(\n)*','',i.text)
                         clean = i.split('：')
@@ -111,7 +111,7 @@ def getResProf(href):
             except AttributeError as e:
                 pass
     except Exception as e:
-        pass
+        err_url.append(href)
     return tmp
 
 def savePict(img, restaurant):
@@ -120,12 +120,30 @@ def savePict(img, restaurant):
     with open(restaurant+'.jpg', 'wb') as f:
         shutil.copyfileobj(img.raw, f)
 
+def saveERR():
+    with open('err_url.json', 'w', encoding='UTF-8') as e:
+        json.dump(err_url, e)
+
 if __name__  ==  "__main__":
     if len(sys.argv) < 2:
         #sys.argv[0]是模組名稱喔!
         print("Usage:\n\tpython[3] "+sys.argv[0]+" <filename.json>")
         print("\n\tURL can be:http://www.gomaji.com/index.php?city=Taichung&tag_id=99");
         sys.exit(1)#0為正常結束，其他數字exit會拋出一個例外，可以被捕獲
+
+    trans = {
+        '營業時間':'service_h',
+        "電話":'phone',
+        "地址":'address',
+        "最晚預約或點餐時間":'last_reserv'
+    }
+    base_url = "http://www.gomaji.com/"
+    err_url = []
+    json_arr = {} # 最終結果json
+    ResTable = set() # 建立餐廳名稱的set
+    # 而在函式裏面，如果你有指派值給該變數，python就會自動為你建立區域變數
+    ResTable = pickle.load(open("ResTable.pickle", "rb"))
     startCrawler()
     dump(sys.argv[1]) #儲存json
-
+    dumpResTable(ResTable) # 儲存餐廳名稱的set
+    saveERR() # 把發生錯誤的網址處存起來
