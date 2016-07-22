@@ -43,9 +43,9 @@ def parsePage(url, location, resType):
 		restaurant = i.find('a').find('div','boxc').find('h2')# find可以找到他的child那一層
 		restaurant = purgeResName(restaurant.text.strip(), d)
 
-		# 更新餐廳名稱的set
-		ResTable.add(restaurant)
 		if restaurant not in ResTable:
+			# 更新餐廳名稱的set
+			ResTable.add(restaurant)
 			savePict(img, restaurant)
 			d["url"] = href
 			d['restaurant'] = restaurant
