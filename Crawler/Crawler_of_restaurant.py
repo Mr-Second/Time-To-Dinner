@@ -7,22 +7,17 @@ def startCrawler():
     res = requests.get('http://www.gomaji.com/Taichung')
     soup = BeautifulSoup(res.text)
     aLen = len(soup.select("#LB_filter .box-shadow2px  a"))/2 # "#LB_filter .box-shadow2px  a"是Region分類的tag 但是每個分類都有2個重複的tag，所以要/2
-    aIndex = 1
-    counter = 1
     ProgreBar = pyprind.ProgBar(aLen, title = "共 {} 個Region類別要處理" .format(aLen)) #建立一個進度條物件
 
-    for a in soup.select("#LB_filter .box-shadow2px  a"):
-        if counter == 1: #因為gomaji沒有主頁，第一個網址會是自己的java script，所以用if跳過
-            aIndex = aIndex + 1
+    for a, index in zip( soup.select("#LB_filter .box-shadow2px  a"), range(1, aLen+1) ):
+        if index == 1: #因為gomaji沒有主頁，第一個網址會是自己的java script，所以用if跳過
+            continue
         else:
             href = a['href']
-            if aIndex > aLen: break
-            aIndex = aIndex + 1
+            if index > aLen: break
             print()#progrebar change line
             parseRegion(base_url+href)
-            ProgreBar.update(1,item_id = aIndex, force_flush=True)
-
-        counter = counter + 1
+            ProgreBar.update(1,item_id = index, force_flush=True)
 
 def parseRegion(url):
     res = requests.get(url)
@@ -34,18 +29,16 @@ def parseRegion(url):
     json_arr[location] = {}
 
     aLen = len(soup.select("#lb_tag  a"))/2 # "lb_tag  a"是餐廳分類的tag 但是每個分類都有2個重複的tag，所以要/2
-    aIndex = 1
-    # recipNum = len(soup.select('ul.deal16 li.box-shadow2px'))
     ProgreBar = pyprind.ProgBar(aLen, title = "{} 共 {} 個餐廳類別要處理" .format( location, aLen)) #建立一個進度條物件
 
-    for a in soup.select("#lb_tag  a"):
+    for a,ProgIndex in zip( soup.select("#lb_tag  a"), range(1, aLen+1)):
         # soup.select("#lb_tag  a") 會選取到餐廳分類的超連結 <a>這的tag然後把他的網址抓出來，進到那個分類 例如火鍋，再把所有火鍋類的餐廳爬出來
         href = a['href']
         resType = a.text #餐廳類別的中文字  例如火鍋
-        if aIndex > aLen: break
-        aIndex = aIndex + 1
+        if ProgIndex > aLen: break
+        ProgIndex = ProgIndex + 1
         parsePage(base_url+href, location, resType) # 把火鍋的網址傳進函式裏面然後開始爬火鍋那一類別的所有資料
-        ProgreBar.update(1,item_id = aIndex, force_flush=True)#item_id可以讓使用者追蹤到底執行到第幾個ID
+        ProgreBar.update(1,item_id = ProgIndex, force_flush=True)#item_id可以讓使用者追蹤到底執行到第幾個ID
         #ID通常是放for loop裏面的變數，update()會讓進度條更新
 
 def parsePage(url, location, resType):
@@ -64,7 +57,7 @@ def parsePage(url, location, resType):
         if restaurant not in ResTable:
             # 更新餐廳名稱的set
             ResTable.add(restaurant)
-            savePict(img, restaurant)
+            savePict(img['src'], restaurant)
             d["url"] = href
             d['restaurant'] = restaurant
             tmp[resType].append(d)
@@ -114,8 +107,7 @@ def getResProf(href):
         err_url.append(href)
     return tmp
 
-def savePict(img, restaurant):
-    imageUrl = img['src']
+def savePict(imageUrl, restaurant):
     img = requests.get(imageUrl,stream=True)
     with open(restaurant+'.jpg', 'wb') as f:
         shutil.copyfileobj(img.raw, f)
