@@ -8,8 +8,7 @@ def startCrawler():
     soup = BeautifulSoup(res.text)
     aLen = len(soup.select("#LB_filter .box-shadow2px  a"))/2 # "#LB_filter .box-shadow2px  a"是Region分類的tag 但是每個分類都有2個重複的tag，所以要/2
     ProgreBar = pyprind.ProgBar(aLen, title = "共 {} 個Region類別要處理" .format(aLen)) #建立一個進度條物件
-
-    for a, index in zip( soup.select("#LB_filter .box-shadow2px  a"), range(1, aLen+1) ):
+    for a, index in zip( soup.select("#LB_filter .box-shadow2px  a"), range(1, int(aLen)+1) ):
         if index == 1: #因為gomaji沒有主頁，第一個網址會是自己的java script，所以用if跳過
             continue
         else:
@@ -31,7 +30,7 @@ def parseRegion(url):
     aLen = len(soup.select("#lb_tag  a"))/2 # "lb_tag  a"是餐廳分類的tag 但是每個分類都有2個重複的tag，所以要/2
     ProgreBar = pyprind.ProgBar(aLen, title = "{} 共 {} 個餐廳類別要處理" .format( location, aLen)) #建立一個進度條物件
 
-    for a,ProgIndex in zip( soup.select("#lb_tag  a"), range(1, aLen+1)):
+    for a,ProgIndex in zip( soup.select("#lb_tag  a"), range(1, int(aLen+1))):
         # soup.select("#lb_tag  a") 會選取到餐廳分類的超連結 <a>這的tag然後把他的網址抓出來，進到那個分類 例如火鍋，再把所有火鍋類的餐廳爬出來
         href = a['href']
         resType = a.text #餐廳類別的中文字  例如火鍋
