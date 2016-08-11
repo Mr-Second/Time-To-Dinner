@@ -1,7 +1,6 @@
 install:
 	pip install -r Crawler/requirements.txt
 
-num = `ls *.jpg | wc -l`
 test:
 	cd Crawler;python3 Crawler_of_restaurant.py test.json;python3 test.py
 

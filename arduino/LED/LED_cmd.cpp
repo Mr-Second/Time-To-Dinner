@@ -2,6 +2,8 @@ const unsigned int LED_PIN = 13;
 const unsigned int BAUD_RATE = 9600;
 void setup(){
 	pinMode(LED_PIN, OUTPUT);
+	pinMode(8, OUTPUT);
+	digitalWrite(8, HIGH);
 	Serial.begin(BAUD_RATE);
 }
 void loop(){
@@ -12,7 +14,7 @@ void loop(){
 		{
 			digitalWrite(LED_PIN, HIGH);
 		}
-		else if(com=='2'){
+		else if(com=='0'){
 			digitalWrite(LED_PIN, LOW);
 		}
 		else{

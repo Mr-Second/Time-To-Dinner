@@ -7,6 +7,8 @@ def startCrawler():
     res = requests.get('http://www.gomaji.com/Taichung')
     soup = BeautifulSoup(res.text)
     aLen = len(soup.select("#LB_filter .box-shadow2px  a"))/2 # "#LB_filter .box-shadow2px  a"是Region分類的tag 但是每個分類都有2個重複的tag，所以要/2
+    print(len(soup.select("#LB_filter .box-shadow2px  a")))
+    print(aLen)
     ProgreBar = pyprind.ProgBar(aLen, title = "共 {} 個Region類別要處理" .format(aLen)) #建立一個進度條物件
     for a, index in zip( soup.select("#LB_filter .box-shadow2px  a"), range(1, int(aLen)+1) ):
         if index == 1: #因為gomaji沒有主頁，第一個網址會是自己的java script，所以用if跳過
