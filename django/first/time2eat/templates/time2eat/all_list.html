@@ -1,0 +1,144 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TimeToEat</title>
+    <link rel="icon" href="nchu_sg.jpg" type="image/ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 引入Ｊquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- 引入Ｊs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
+    <!-- 引入CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css"> {% block eachStyle %}{% endblock %}
+</head>
+
+<body>
+    <!-- Following Menu -->
+    <!-- Page Contents 功能簡介 -->
+    <div class="pusher">
+        <!-- ================================================= -->
+        <div class="ui huge secondary pointing menu">
+            <a class="item" href="http://127.0.0.1:8000/time2eat/">
+                <h2>推薦餐廳</h2>
+            </a>
+            <a class="active item" href="http://127.0.0.1:8000/time2eat/all_list/">
+                <h2>餐廳總覽</h2>
+            </a>
+            <a class="item" href="http://127.0.0.1:8000/time2eat/nearby_list">
+                <h2>附近餐廳</h2>
+            </a>
+            <a class="item" href="">
+                <h2>今晚吃什麼</h2>
+            </a>
+            <div class="right menu">
+                <div class="ui transparent icon input">
+                    <input placeholder="尋找餐廳" type="text">
+                    <i class="search link icon"></i>
+                </div>
+                <div class="item">
+                    <div class="ui icon button"><i class="user icon"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="ui segment">
+            <p>
+                <div class="ui two column centered grid">
+                    <div class="column">
+                        <div class="ui three column centered grid">
+                            <div class="column"></div>
+                            <div class="column"></div>
+                            <div class="column">
+                                <div class="ui right floated compact icon menu">
+                                    <a class="item" href="http://127.0.0.1:8000/time2eat/all_picture/">
+                                        <i class="grid layout icon"></i>
+                                    </a>
+                                    <a class="item" href="http://127.0.0.1:8000/time2eat/all_list/">
+                                        <i class="list layout icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui divided items">
+                            <div class="item">
+                                <a class="image" href="http://127.0.0.1:8000/time2eat/inside_resturant">
+                                    <img src="http://a4.mzstatic.com/us/r30/Purple5/v4/96/19/e5/9619e54e-4353-b46e-ba2e-74653baa2dd4/icon175x175.png">
+                                </a>
+                                <div class="content">
+                                    <a class="header" href="http://127.0.0.1:8000/time2eat/inside_resturant">麥當勞</a>
+                                    <div class="meta">
+                                        <span class="cinema">台中市國光路二段710號號 2 樓</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>營業時間:10:00–22:00</p>
+                                    </div>
+                                    <div class="extra">
+                                        <div class="ui labeled button" tabindex="0">
+                                            <div class="ui button">
+                                                <i class="heart icon"></i> Like
+                                            </div>
+                                            <a class="ui basic label">2,048</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="image">
+                                    <img src="http://a1.mzstatic.com/us/r30/Purple60/v4/ce/de/31/cede31e4-a3d2-050d-e98c-f5996699b3f8/icon175x175.png">
+                                </div>
+                                <div class="content">
+                                    <a class="header">肯德基</a>
+                                    <div class="meta">
+                                        <span class="cinema">台中市大里區中興路二段478號號</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>營業時間:07:00–23:00</p>
+                                    </div>
+                                    <div class="extra">
+                                        <div class="ui button">收藏</div>
+                                        <div class="ui label"><i class="heart icon"></i>23 likes</div>
+                                        <div class="ui right floated primary button">
+                                            訂餐NOW!!
+                                            <i class="right chevron icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="image">
+                                    <img src="http://a4.mzstatic.com/us/r30/Purple60/v4/63/60/16/636016cb-9601-4115-fb2b-186f17dddfd7/icon175x175.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header">摩斯漢堡</a>
+                                    <div class="meta">
+                                        <span class="cinema">台中市南區國光路250號</span>
+                                    </div>
+                                    <div class="description">
+                                        <p></p>
+                                    </div>
+                                    <div class="extra">
+                                        <div class="ui button">收藏</div>
+                                        <div class="ui label"><i class="heart icon"></i>23 likes</div>
+                                        <div class="ui right floated primary button">
+                                            訂餐NOW!!
+                                            <i class="right chevron icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p>
+        </div>
+        <!-- ============================================== -->
+    </div>
+</body>
+<script type="text/javascript">
+// pasthere
+</script>
+
+</html>
