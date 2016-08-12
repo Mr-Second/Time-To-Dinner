@@ -6,7 +6,7 @@ try:
 		json.load(f)
 	with open('ResTable.pickle', 'rb') as f:
 		p = pickle.load(f)
-		print(len(p))
+		print("共有{}間餐廳".format(len(p)))
 except Exception as e:
 	raise e
 	print(e)
