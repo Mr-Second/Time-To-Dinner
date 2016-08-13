@@ -10,4 +10,5 @@ urlpatterns = patterns('apps.time2eat.views',
   url(r'^nearby_picture/$', 'nearby_picture'),
   url(r'^nearby_list/$', 'nearby_list'),
   url(r'^nearby_listpic/$', 'nearby_listpic'),
+  url(r'^import_json/$', 'import_json', name='import_json'),
 )
