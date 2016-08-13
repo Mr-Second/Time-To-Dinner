@@ -18,6 +18,8 @@ def all_list(request):
 	# 		d['score'] = r['score']
 	# 		d['']
 	# 		ResObj, created = ResProf.objects.get_or_create(restaurant=r['restaurant'],defaults=d)
+	res = ResProf.objects.all()
+	# print(res)
 	return render_to_response('time2eat/all_list.html', locals())
 def all_picture(request):
 	return render_to_response('time2eat/all_picture.html',locals())
@@ -40,8 +42,8 @@ def import_json(request):
 	d = {}
 	d['restaurant'] = '鼎日竹葉蒸飯' 
 	d['address'] = '台中市南區仁義街89號' 
-	d['district'] = 'Mon-Fri, Sun:11:00 am - 2:00 pm5:00 pm - 8:00 pm' 
-	d['service_h'] = '南區'   
+	d['district'] = '南區'
+	d['service_h'] = 'Mon-Fri, Sun:11:00 am - 2:00 pm5:00 pm - 8:00 pm'
 	d['phone'] = '04-2285-2888'
 	d['ResLike'] = 3
 	d['score'] = 3
