@@ -16,3 +16,5 @@ def nearby_picture(request):
 	return render_to_response('time2eat/nearby_picture.html',locals())
 def nearby_listpic(request):
 	return render_to_response('time2eat/nearby_listpic.html',locals())
+def purchase(request):
+	return render_to_response('time2eat/purchase.html',locals())
