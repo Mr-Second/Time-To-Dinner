@@ -31,73 +31,36 @@
                             <a class="item" href="http://127.0.0.1:8000/time2eat/nearby_listpic/"><i class="content icon"></i></a>
                         </div>
                         <div class="ui divided items">
-                            <div class="item">
-                                <a class="image" href="http://127.0.0.1:8000/time2eat/inside_resturant">
-                                    <img src="http://a4.mzstatic.com/us/r30/Purple5/v4/96/19/e5/9619e54e-4353-b46e-ba2e-74653baa2dd4/icon175x175.png">
-                                </a>
-                                <div class="content">
-                                    <a class="header" href="http://127.0.0.1:8000/time2eat/inside_resturant">麥當勞</a>
-                                    <div class="meta">
-                                        <span class="cinema">台中市國光路二段710號號 2 樓</span>
-                                    </div>
-                                    <div class="description">
-                                        <p>營業時間:10:00–22:00</p>
-                                    </div>
-                                    <div class="extra">
-                                        <div class="ui labeled button" tabindex="0">
-                                            <div class="ui button">
-                                                <i class="heart icon"></i> Like
+                            {% for r in res %}
+                                <div class="item">
+                                    <a class="image" href="http://127.0.0.1:8000/time2eat/inside_resturant">
+                                        <img src="http://a4.mzstatic.com/us/r30/Purple5/v4/96/19/e5/9619e54e-4353-b46e-ba2e-74653baa2dd4/icon175x175.png">
+                                    </a>
+                                    <div class="content">
+                                        <a class="header" href="http://127.0.0.1:8000/time2eat/inside_resturant">{{r.restaurant}}</a>
+                                        <div class="meta">
+                                            <span class="cinema">{{r.address}}</span>
+                                        </div>
+                                        <div class="description">
+                                            <p>營業時間:{{r.service_h}}</p>
+                                        </div>
+                                        <div class="extra">
+                                            <div class="ui labeled button" tabindex="0">
+                                                <div class="ui button">
+                                                    <i class="heart icon"></i> Like
+                                                </div>
+                                                <a class="ui basic label">{{r.ResLike}}</a>
                                             </div>
-                                            <a class="ui basic label">2,048</a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <div class="image">
-                                    <img src="http://a1.mzstatic.com/us/r30/Purple60/v4/ce/de/31/cede31e4-a3d2-050d-e98c-f5996699b3f8/icon175x175.png">
-                                </div>
-                                <div class="content">
-                                    <a class="header">肯德基</a>
-                                    <div class="meta">
-                                        <span class="cinema">台中市大里區中興路二段478號號</span>
-                                    </div>
-                                    <div class="description">
-                                        <p>營業時間:07:00–23:00</p>
-                                    </div>
-                                    <div class="extra">
-                                        <div class="ui button">收藏</div>
-                                        <div class="ui label"><i class="heart icon"></i>23 likes</div>
-                                        <div class="ui right floated primary button">
-                                            訂餐NOW!!
-                                            <i class="right chevron icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="image">
-                                    <img src="http://a4.mzstatic.com/us/r30/Purple60/v4/63/60/16/636016cb-9601-4115-fb2b-186f17dddfd7/icon175x175.jpeg">
-                                </div>
-                                <div class="content">
-                                    <a class="header">摩斯漢堡</a>
-                                    <div class="meta">
-                                        <span class="cinema">台中市南區國光路250號</span>
-                                    </div>
-                                    <div class="description">
-                                        <p></p>
-                                    </div>
-                                    <div class="extra">
-                                        <div class="ui button">收藏</div>
-                                        <div class="ui label"><i class="heart icon"></i>23 likes</div>
-                                        <div class="ui right floated primary button">
-                                            訂餐NOW!!
-                                            <i class="right chevron icon"></i>
-                                        </div>
-                                    </div>
-                                </div>
+<<<<<<< HEAD
                             </div>
                             
+=======
+
+                            {% endfor %}
+>>>>>>> 8fa446c96a6667210dc3d8abe6501fa0b2dde8f7
                         </div>
 
                         <div class="ui divider"></div>
