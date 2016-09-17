@@ -5,8 +5,8 @@ from apps.time2eat.models import Type , ResProf
 import json
 
 
-def time2eat(request):
-	return render_to_response('time2eat/time2eat.html',locals())
+def index(request):
+	return render_to_response('time2eat/index.html',locals())
 def all_list(request):
 	# with open('sites/sandbox/apps/time2eat/Crawler/json/final.json', 'r', encoding='UTF-8') as f:
 	# 	j = json.load(f)
