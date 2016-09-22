@@ -15,7 +15,6 @@ class Type(models.Model):
 class ResProf(models.Model):
     ResName = models.CharField(max_length=30, default='') # 餐廳名稱
     address = models.CharField(max_length=30, default='')
-    district = models.CharField(max_length=10, default='') # 例如：南區
     ResLike = models.DecimalField(default=50,max_digits=6, decimal_places=0  ) # always add default value!
     score = models.DecimalField(default=3,max_digits=1, decimal_places=0)
     last_reserv = models.CharField(max_length=20)

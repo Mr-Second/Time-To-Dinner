@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.utils import timezone # auto generate create time.
-from apps.time2eat.models import Type , ResProf 
+from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, SmallOrder,
 import json
 
 
@@ -54,3 +54,6 @@ def import_json(request):
 	ResObj, created = ResProf.objects.update_or_create(restaurant=d['restaurant'],defaults=d)
 	ResObj.ResType.add(Tobj)
 	return render_to_response('time2eat/all_list.html', locals())
+# def rest_api(request):
+# 	OrderObject = Order.objects.all()
+# 	return Response("test")
