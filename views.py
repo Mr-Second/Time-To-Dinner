@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.utils import timezone # auto generate create time.
-from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, SmallOrder,
-import json
-
+from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, SmallOrder
+from django.http import JsonResponse
 
 def index(request):
 	return render_to_response('time2eat/index.html',locals())
@@ -54,6 +53,20 @@ def import_json(request):
 	ResObj, created = ResProf.objects.update_or_create(restaurant=d['restaurant'],defaults=d)
 	ResObj.ResType.add(Tobj)
 	return render_to_response('time2eat/all_list.html', locals())
-# def rest_api(request):
-# 	OrderObject = Order.objects.all()
-# 	return Response("test")
+def rest_api(request):
+	OrderObject = Order.objects.all()
+	a = OrderObject[0]	
+	json = {}
+	json['restaurant'] = a.restaurant.ResName
+	json['total'] = a.total
+	sOrder = a.smallorder_set.all()
+	u = sOrder[0].orderUser.all()
+	d = sOrder[0].dish
+	json['UserOrder'] = []
+	json['UserOrder'].append({str(sOrder[0].dish) : sOrder[0].amount, "orderUserer" : u[0].name, "price" : d.price})
+	json['Order'] = {str(sOrder[0].dish) : sOrder[0].amount}
+	# print(a)
+	# print(sOrder[0].amount)
+	# print(sOrder[0].dish)
+	print(u[0])
+	return JsonResponse(json)
