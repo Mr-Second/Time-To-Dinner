@@ -1,9 +1,8 @@
-from django.shortcuts import render
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response,  get_object_or_404, render
 from django.utils import timezone # auto generate create time.
 from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, SmallOrder
 from django.http import JsonResponse
-
+import datetime
 def index(request):
 	return render_to_response('time2eat/index.html',locals())
 def all_list(request):
@@ -35,14 +34,14 @@ def purchase(request):
 
 def import_json(request):
 	t={}
-	t['country'] = '台灣' 
-	t['ResType'] = '便當'  
+	t['country'] = '台灣'
+	t['ResType'] = '便當'
 	Tobj =Type.objects.create(**t)
 
 
 	d = {}
-	d['restaurant'] = '鼎日竹葉蒸飯' 
-	d['address'] = '台中市南區仁義街89號' 
+	d['restaurant'] = '鼎日竹葉蒸飯'
+	d['address'] = '台中市南區仁義街89號'
 	d['district'] = '南區'
 	d['service_h'] = 'Mon-Fri, Sun:11:00 am - 2:00 pm5:00 pm - 8:00 pm'
 	d['phone'] = '04-2285-2888'
@@ -53,20 +52,40 @@ def import_json(request):
 	ResObj, created = ResProf.objects.update_or_create(restaurant=d['restaurant'],defaults=d)
 	ResObj.ResType.add(Tobj)
 	return render_to_response('time2eat/all_list.html', locals())
-def rest_api(request):
-	OrderObject = Order.objects.all()
-	a = OrderObject[0]	
-	json = {}
-	json['restaurant'] = a.restaurant.ResName
-	json['total'] = a.total
-	sOrder = a.smallorder_set.all()
-	u = sOrder[0].orderUser.all()
-	d = sOrder[0].dish
-	json['UserOrder'] = []
-	json['UserOrder'].append({str(sOrder[0].dish) : sOrder[0].amount, "orderUserer" : u[0].name, "price" : d.price})
-	json['Order'] = {str(sOrder[0].dish) : sOrder[0].amount}
+def rest_api(request, res, year, month, date):
+	Res = get_object_or_404(ResProf, id=res)
+	jsonList = []
+	for OrderObject in Res.order_set.filter(create__date=datetime.date(int(year), int(month), int(date))):
+		json = {
+			'restaurant' : OrderObject.restaurant.ResName,
+			'total' : OrderObject.total,
+			'ResOrder' : [],
+			'UserOrder' : [],
+		}
+		userSet = set()
+		for sOrder in OrderObject.smallorder_set.all():
+			userSet.update([u for u in sOrder.orderUser.all()])
+			tmp = { 'orderUser' : [str(u) for u in sOrder.orderUser.all()] }
+			tmp.update({str(sOrder.dish) : sOrder.amount, "price" : sOrder.dish.price * sOrder.amount})
+			json['ResOrder'].append(tmp)
+
+		for u in userSet:
+			userTmp = {
+				'user' : str(u),
+				'order' : [],
+				'payment' : 0
+			}
+			for sOrder in OrderObject.smallorder_set.all():
+				for i in sOrder.orderUser.all():
+					print(type(i.UpperUser), type(u), i.UpperUser==u)
+					if i.UpperUser.email == str(u):
+						userTmp['order'].append(str(sOrder.dish))
+				# userTmp['order'] = [i for i in sOrder.orderUser.all() if i.UpperUser.name == u]
+			json['UserOrder'].append(userTmp)
+		jsonList.append(json)
+	###############
 	# print(a)
 	# print(sOrder[0].amount)
 	# print(sOrder[0].dish)
-	print(u[0])
-	return JsonResponse(json)
+
+	return JsonResponse(jsonList, safe=False)

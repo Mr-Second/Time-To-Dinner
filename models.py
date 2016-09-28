@@ -48,6 +48,28 @@ class Dish(models.Model):
     def __str__(self):
         return self.DishName
 
+class EatUser(models.Model):
+    # 今天吃什麼的使用者，用來紀錄使用者的飲食習慣
+    UpperUser = models.OneToOneField(User)
+    def __str__(self):
+        return str(self.UpperUser)
+
+class FavorType(models.Model):
+    EatUser = models.ForeignKey(EatUser)
+    freq = models.DecimalField(max_digits=4, decimal_places=0) # 紀錄你吃這種類型的餐廳幾次
+
+class FavorDish(models.Model):
+    EatUser = models.ForeignKey(EatUser)
+    freq = models.DecimalField(max_digits=4, decimal_places=0) # 紀錄你常常吃哪一道菜
+
+class ResFavorDish(models.Model):
+    # 用來紀錄餐廳的各個餐點受到歡迎的程度
+    Res = models.ForeignKey(ResProf)
+    dish = models.OneToOneField(Dish)
+    freq = models.DecimalField(max_digits=6, decimal_places=0)
+    dateOfMon_Year = models.DateTimeField() # 儲存這個月該餐點的銷售量就好
+
+
 class Order(models.Model):
     # 餐廳的訂單，是一個一對多的關係，因為一間餐廳會有多張訂單
     restaurant = models.ForeignKey(ResProf)
@@ -61,7 +83,7 @@ class Order(models.Model):
 class SmallOrder(models.Model):
     # 以同一道菜去彙整的訂單子集合
     dish = models.OneToOneField(Dish)
-    orderUser = models.ManyToManyField(User) # 為了要紀錄使用者有定過哪些菜色（這邊很有問題）
+    orderUser = models.ManyToManyField(EatUser) # 為了要紀錄使用者有定過哪些菜色（這邊很有問題）
     amount = models.DecimalField(max_digits=5, decimal_places=0) # 訂購該餐點的數量
     order = models.ForeignKey(Order) # 隸屬的訂單
     def __str__(self):

@@ -10,5 +10,5 @@ urlpatterns = patterns('apps.time2eat.views',
   url(r'^nearby_list/$', 'nearby_list', name='nearby_list'),
   url(r'^nearby_listpic/$', 'nearby_listpic', name='nearby_listpic'),
   url(r'^purchase/$', 'purchase', name='purchase'),
-  url(r'^rest_api/$', 'rest_api', name='rest_api'),
+  url(r'^rest_api/(?P<res>\d+)/(?P<year>\d+)/(?P<month>\d+)/(?P<date>\d+)/$', 'rest_api', name='rest_api'),
 )
