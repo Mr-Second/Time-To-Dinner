@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response,  get_object_or_404, render
 from django.utils import timezone # auto generate create time.
-from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, SmallOrder
+from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, UserOrder
 from django.http import JsonResponse
 import datetime
 def index(request):
@@ -53,39 +53,22 @@ def import_json(request):
 	ResObj.ResType.add(Tobj)
 	return render_to_response('time2eat/all_list.html', locals())
 def rest_api(request, res, year, month, date):
+	# 回傳餐廳物件
 	Res = get_object_or_404(ResProf, id=res)
 	jsonList = []
+	# 篩選出特定日期的訂單物件
 	for OrderObject in Res.order_set.filter(create__date=datetime.date(int(year), int(month), int(date))):
 		json = {
-			'restaurant' : OrderObject.restaurant.ResName,
-			'total' : OrderObject.total,
+			'total' : int(OrderObject.total),
 			'ResOrder' : [],
-			'UserOrder' : [],
 		}
-		userSet = set()
-		for sOrder in OrderObject.smallorder_set.all():
-			userSet.update([u for u in sOrder.orderUser.all()])
-			tmp = { 'orderUser' : [str(u) for u in sOrder.orderUser.all()] }
-			tmp.update({str(sOrder.dish) : sOrder.amount, "price" : sOrder.dish.price * sOrder.amount})
-			json['ResOrder'].append(tmp)
-
-		for u in userSet:
-			userTmp = {
-				'user' : str(u),
-				'order' : [],
-				'payment' : 0
-			}
-			for sOrder in OrderObject.smallorder_set.all():
-				for i in sOrder.orderUser.all():
-					print(type(i.UpperUser), type(u), i.UpperUser==u)
-					if i.UpperUser.email == str(u):
-						userTmp['order'].append(str(sOrder.dish))
-				# userTmp['order'] = [i for i in sOrder.orderUser.all() if i.UpperUser.name == u]
-			json['UserOrder'].append(userTmp)
+		tmpROrder = {}
+		for uOrder in OrderObject.userorder_set.all():
+			for sOrder in uOrder.smallorder_set.all():
+				if sOrder.dish.DishName not in tmpROrder:
+					tmpROrder[sOrder.dish.DishName] = sOrder.amount
+				else:
+					tmpROrder[sOrder.dish.DishName] += sOrder.amount
+		json['ResOrder'].append(tmpROrder)
 		jsonList.append(json)
-	###############
-	# print(a)
-	# print(sOrder[0].amount)
-	# print(sOrder[0].dish)
-
 	return JsonResponse(jsonList, safe=False)
