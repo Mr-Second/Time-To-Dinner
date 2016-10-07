@@ -31,10 +31,8 @@ def nearby_picture(request):
 	return render_to_response('time2eat/nearby_picture.html',locals())
 def nearby_listpic(request):
 	return render_to_response('time2eat/nearby_listpic.html',locals())
-<<<<<<< HEAD
 def purchase(request):
 	return render_to_response('time2eat/purchase.html',locals())
-=======
 
 def import_json(request):
 	t={}
@@ -56,4 +54,3 @@ def import_json(request):
 	ResObj, created = ResProf.objects.update_or_create(restaurant=d['restaurant'],defaults=d)
 	ResObj.ResType.add(Tobj)
 	return render_to_response('time2eat/all_list.html', locals())
->>>>>>> 8fa446c96a6667210dc3d8abe6501fa0b2dde8f7
