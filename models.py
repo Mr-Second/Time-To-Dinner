@@ -78,7 +78,7 @@ class Order(models.Model):
     # 餐廳的訂單，是一個一對多的關係，因為一間餐廳會有多張訂單
     restaurant = models.ForeignKey(ResProf)
     create = models.DateTimeField() # 訂單的精確時間
-    date = models.CharField(max_length=10) # 訂單的年月日
+    # date = models.CharField(max_length=10) # 訂單的年月日
     period = models.CharField(max_length=3) # 標示是早中午哪個時段
     total = models.DecimalField(max_digits=8, decimal_places=0) # 該訂單總額
     def __str__(self):

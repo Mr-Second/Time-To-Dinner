@@ -1,8 +1,9 @@
-from django.shortcuts import render_to_response,  get_object_or_404, render
+from django.shortcuts import get_object_or_404, render_to_response, render
 from django.utils import timezone # auto generate create time.
 from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, UserOrder
 from django.http import JsonResponse
 import datetime
+from apps.time2eat.view.rest_api import *
 def index(request):
 	return render_to_response('time2eat/index.html',locals())
 def all_list(request):
@@ -52,23 +53,34 @@ def import_json(request):
 	ResObj, created = ResProf.objects.update_or_create(restaurant=d['restaurant'],defaults=d)
 	ResObj.ResType.add(Tobj)
 	return render_to_response('time2eat/all_list.html', locals())
-def rest_api(request, res, year, month, date):
-	# 回傳餐廳物件
-	Res = get_object_or_404(ResProf, id=res)
-	jsonList = []
-	# 篩選出特定日期的訂單物件
-	for OrderObject in Res.order_set.filter(create__date=datetime.date(int(year), int(month), int(date))):
-		json = {
-			'total' : int(OrderObject.total),
-			'ResOrder' : [],
-		}
-		tmpROrder = {}
-		for uOrder in OrderObject.userorder_set.all():
-			for sOrder in uOrder.smallorder_set.all():
-				if sOrder.dish.DishName not in tmpROrder:
-					tmpROrder[sOrder.dish.DishName] = sOrder.amount
-				else:
-					tmpROrder[sOrder.dish.DishName] += sOrder.amount
-		json['ResOrder'].append(tmpROrder)
-		jsonList.append(json)
-	return JsonResponse(jsonList, safe=False)
+# def rest_api(request, res, year, month, date):
+# 	# 回傳餐廳物件
+# 	Res = get_object_or_404(ResProf, id=res)
+# 	result = {
+# 		"ResName" : Res.ResName,
+# 		"ResAddress" : Res.address,
+# 		"Score" : Res.score,
+# 		"Type" : [ str(t) for t in Res.ResType.all() ],
+# 		"OrderList" : [],
+# 		"Date" : ''
+# 	}
+# 	# 篩選出特定日期的訂單物件
+# 	for OrderObject in Res.order_set.filter(create__date=datetime.date(int(year), int(month), int(date))):
+# 		result['Date'] = str(OrderObject.create.year) +'-'+ str(OrderObject.create.month) +'-'+ str(OrderObject.create.day)
+# 		json = {
+# 			'total' : int(OrderObject.total),
+# 			'ResOrder' : {},
+# 			"Create" : ""
+# 		}
+
+# 		# 迭代訂單所有的使用者
+# 		for uOrder in OrderObject.userorder_set.all():
+# 			# 迭代一個使用者所訂的所有餐點
+# 			for sOrder in uOrder.smallorder_set.all():
+# 				if sOrder.dish.DishName not in json['ResOrder']:
+# 					json['ResOrder'][sOrder.dish.DishName] = sOrder.amount
+# 				else:
+# 					json['ResOrder'][sOrder.dish.DishName] += sOrder.amount
+# 			json['Create'] = OrderObject.create
+# 		result['OrderList'].append(json)
+# 	return JsonResponse(result, safe=False)
