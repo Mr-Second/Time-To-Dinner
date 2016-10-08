@@ -37,6 +37,7 @@ def rest_api(request, res, dateString = datetime.today()):
 	return JsonResponse(result, safe=False)
 
 def return_datetime(dateString):
+	if dateString=='': dateString=datetime.today()
 	if type(dateString) == datetime: 
 		return dateString
 	date = ( int(intValue) for intValue in dateString.split('-'))
