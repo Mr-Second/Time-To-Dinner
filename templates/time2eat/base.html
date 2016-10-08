@@ -1,29 +1,28 @@
-{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Time2Eat</title>    
-	<link rel="icon" href="nchu_sg.jpg" type="image/ico" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- 引入Ｊquery -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<!-- 引入Ｊs -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
-	<!-- 引入CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
-	{% block eachStyle %}{% endblock %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 引入Ｊquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- 引入Ｊs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
+    <!-- 引入CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' integrity='sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1' crossorigin='anonymous'>
+    <link rel='stylesheet' href='static/stufinite/css/stufinite.css'>
+    <link rel='stylesheet' href='static/timetable/css/timetable.css'> 
+    {% block eachStyle %}{% endblock %}
 </head>
-<body style="background-color:#C9FFC9;">
-<!-- Following Menu -->
-{% include "entry/top_bar.html" %}
-<!-- Page Contents 功能簡介 -->
-<div class="pusher">
-	{% block content%}{% endblock %}
-</div>
 
-{% include "entry/footer.html" %}
+<body>
+    <!-- Following Menu -->
+    {% include "time2eat/base/navbar.html" %}
+    <!-- Page Contents 功能簡介 -->
+    {% block content%}{% endblock %} {% include "time2eat/base/footer.html" %}
 </body>
+
 </html>
