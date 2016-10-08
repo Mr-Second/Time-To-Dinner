@@ -1,8 +1,5 @@
 from django.shortcuts import get_object_or_404, render_to_response, render
-from django.utils import timezone # auto generate create time.
-from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, UserOrder
 from django.http import JsonResponse
-import datetime
 from apps.time2eat.view.rest_api import *
 def index(request):
 	return render_to_response('time2eat/index.html',locals())

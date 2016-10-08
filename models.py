@@ -82,10 +82,9 @@ class Order(models.Model):
     period = models.CharField(max_length=3) # 標示是早中午哪個時段
     total = models.DecimalField(max_digits=8, decimal_places=0) # 該訂單總額
     def __str__(self):
-        return self.date + ' ' + str(self.restaurant)
+        return str(self.create) + ' ' + str(self.restaurant)
 
 class UserOrder(models.Model):
-    # 以同一道菜去彙整的訂單子集合
     orderUser = models.ForeignKey(EatUser, null=True) # 為了要紀錄使用者有定過哪些菜色（這邊很有問題）
     total = models.DecimalField(max_digits=5, decimal_places=0) # 該使用者這次定餐的總額
     order = models.ForeignKey(Order) # 隸屬的訂單
