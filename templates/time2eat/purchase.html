@@ -1,156 +1,134 @@
-{% extends "time2eat/base/base.html" %} 
-{% block title %}Time2Eat{% endblock %} 
-{% block content%}
+{% extends "time2eat/base/base.html" %} {% block title %}Time2Eat{% endblock %} {% block content%}
 <div class="pusher">
-    <p><p>
-        <div class="ui centered grid container">
-            <div class="column">
-                <div class="ui three fluid steps">
-                    <a class="active step">
-                        <i class="food icon"></i>
-                        <div class="content">
-                            <div class="title">菜單</div>
-                            <div class="description">選擇訂購的餐點</div>
-                        </div>
-                    </a>
-                    <a class="step">
-                        <i class="users icon"></i>
-                        <div class="content">
-                            <div class="title">團購Go</div>
-                            <div class="description">等待你的朋友訂購</div>
-                        </div>
-                    </a>
-                    <a class="disabled step">
-                        <i class="info icon"></i>
-                        <div class="content">
-                            <div class="title">確定</div>
-                            <div class="description">發起人確定訂單</div>
-                        </div>
-                    </a>
-                </div>
-                <div class="ui segment">
-                    <div class="ui divided items">
-                        <div class="item">
-                            <a class="image" href="http://127.0.0.1:8000/time2eat/inside_resturant">
-                                <img src="http://a4.mzstatic.com/us/r30/Purple5/v4/96/19/e5/9619e54e-4353-b46e-ba2e-74653baa2dd4/icon175x175.png">
-                            </a>
+    <p>
+        <p>
+            <div class="ui centered grid container">
+                <div class="column">
+                    <div class="ui three fluid steps">
+                        <a class="active step">
+                            <i class="food icon"></i>
                             <div class="content">
-                                <a class="header" href="http://127.0.0.1:8000/time2eat/inside_resturant"><h1>麥當勞</h1></a>
-                                <div class="meta">
-                                    <span class="cinema"><h2>台中市國光路二段710號號 2 樓</h2></span>
-                                </div>
-                                <div class="description">
-                                    <p>
-                                        <h3>營業時間:10:00–22:00</h3></p>
-                                </div>
-                                <div class="extra">
-                                    <div class="ui labeled button" tabindex="0">
-                                        <div class="ui button">
-                                            <i class="heart icon"></i> Like
+                                <div class="title">菜單</div>
+                                <div class="description">選擇訂購的餐點</div>
+                            </div>
+                        </a>
+                        <a class="step">
+                            <i class="users icon"></i>
+                            <div class="content">
+                                <div class="title">團購Go</div>
+                                <div class="description">等待你的朋友訂購</div>
+                            </div>
+                        </a>
+                        <a class="disabled step">
+                            <i class="info icon"></i>
+                            <div class="content">
+                                <div class="title">確定</div>
+                                <div class="description">發起人確定訂單</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="ui segment">
+                        <div class="ui divided items">
+                            {% include 'time2eat/res_profile.html' %}
+                        </div>
+                    </div>
+                    <div class="ui four column grid">
+                        <div class="column">
+                            <div class="ui special cards">
+                                <div class="ui fluid card">
+                                    <div class="blurring dimmable fluid image">
+                                        <div class="ui dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <h3>台中市大里區中興路二段478號</h3>
+                                                    <h3>營業時間:07:00–23:00    </h3>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <a class="ui basic label">2,048</a>
+                                        <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/1236.png?">
+                                    </div>
+                                    <div class="content">
+                                        <div class="ui right floated primary button">
+                                            訂購
+                                        </div>
+                                        <a class="header"><h1>揚蝦圈圈堡</h1></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="ui four column grid">
-                    <div class="column">
-                        <div class="ui special cards">
-                            <div class="ui fluid card">
-                                <div class="blurring dimmable fluid image">
-                                    <div class="ui dimmer">
-                                        <div class="content">
-                                            <div class="center">
-                                                <h3>台中市大里區中興路二段478號</h3>
-                                                <h3>營業時間:07:00–23:00    </h3>
+                        <div class="column">
+                            <div class="ui special cards">
+                                <div class="ui fluid card">
+                                    <div class="blurring dimmable fluid image">
+                                        <div class="ui dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <h3>台中市大里區中興路二段478號</h3>
+                                                    <h3>營業時間:07:00–23:00    </h3>
+                                                </div>
                                             </div>
                                         </div>
+                                        <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/31361.png?">
                                     </div>
-                                    <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/1236.png?">
-                                </div>
-                                <div class="content">
-                                    <div class="ui right floated primary button">
-                                        訂購
+                                    <div class="content">
+                                        <div class="ui right floated primary button">
+                                            訂購
+                                        </div>
+                                        <a class="header"><h1>嫩雞圈圈堡</h1></a>
                                     </div>
-                                    <a class="header"><h1>揚蝦圈圈堡</h1></a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="column">
-                        <div class="ui special cards">
-                            <div class="ui fluid card">
-                                <div class="blurring dimmable fluid image">
-                                    <div class="ui dimmer">
-                                        <div class="content">
-                                            <div class="center">
-                                                <h3>台中市大里區中興路二段478號</h3>
-                                                <h3>營業時間:07:00–23:00    </h3>
+                        <div class="column">
+                            <div class="ui special cards">
+                                <div class="ui fluid card">
+                                    <div class="blurring dimmable fluid image">
+                                        <div class="ui dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <h3>台中市大里區中興路二段478號</h3>
+                                                    <h3>營業時間:07:00–23:00    </h3>
+                                                </div>
                                             </div>
                                         </div>
+                                        <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/1540.png?">
                                     </div>
-                                    <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/31361.png?">
-                                </div>
-                                <div class="content">
-                                    <div class="ui right floated primary button">
-                                        訂購
+                                    <div class="content">
+                                        <div class="ui right floated primary button">
+                                            訂購
+                                        </div>
+                                        <a class="header"><h1>起司豬排堡</h1></a>
                                     </div>
-                                    <a class="header"><h1>嫩雞圈圈堡</h1></a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="column">
-                        <div class="ui special cards">
-                            <div class="ui fluid card">
-                                <div class="blurring dimmable fluid image">
-                                    <div class="ui dimmer">
-                                        <div class="content">
-                                            <div class="center">
-                                                <h3>台中市大里區中興路二段478號</h3>
-                                                <h3>營業時間:07:00–23:00    </h3>
+                        <div class="column">
+                            <div class="ui special cards">
+                                <div class="ui fluid card">
+                                    <div class="blurring dimmable fluid image">
+                                        <div class="ui dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <h3>台中市大里區中興路二段478號</h3>
+                                                    <h3>營業時間:07:00–23:00    </h3>
+                                                </div>
                                             </div>
                                         </div>
+                                        <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/1081.png?">
                                     </div>
-                                    <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/1540.png?">
-                                </div>
-                                <div class="content">
-                                    <div class="ui right floated primary button">
-                                        訂購
-                                    </div>
-                                    <a class="header"><h1>起司豬排堡</h1></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="ui special cards">
-                            <div class="ui fluid card">
-                                <div class="blurring dimmable fluid image">
-                                    <div class="ui dimmer">
-                                        <div class="content">
-                                            <div class="center">
-                                                <h3>台中市大里區中興路二段478號</h3>
-                                                <h3>營業時間:07:00–23:00    </h3>
-                                            </div>
+                                    <div class="content">
+                                        <div class="ui right floated primary button">
+                                            訂購
                                         </div>
+                                        <a class="header"><h1>培根牛肉堡</h1></a>
                                     </div>
-                                    <img src="https://drjaosdejw578.cloudfront.net/tw/static/1471535072755/assets/886/products/1081.png?">
-                                </div>
-                                <div class="content">
-                                    <div class="ui right floated primary button">
-                                        訂購
-                                    </div>
-                                    <a class="header"><h1>培根牛肉堡</h1></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </p><p>
+        </p>
+        <p>
 </div>
 {% endblock %}

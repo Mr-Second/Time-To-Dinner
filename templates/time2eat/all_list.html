@@ -1,36 +1,15 @@
-{% extends "time2eat/base/base.html" %} 
-{% block title %}Time2Eat{% endblock %} 
-{% block content%}
+{% extends "time2eat/base/base.html" %} {% block title %}Time2Eat{% endblock %} {% block content %}
 <div class="pusher">
-    <p><p>
-        <div class="ui centered grid container">
-            <div class="column">
-                <div class="ui divided items">
-                    <div class="item">
-                        <a class="image" href="http://127.0.0.1:8000/time2eat/inside_resturant">
-                            <img src="http://a4.mzstatic.com/us/r30/Purple5/v4/96/19/e5/9619e54e-4353-b46e-ba2e-74653baa2dd4/icon175x175.png">
-                        </a>
-                        <div class="content">
-                            <a class="header" href="http://127.0.0.1:8000/time2eat/inside_resturant">87</a>
-                            <div class="meta">
-                                <span class="cinema">87</span>
-                            </div>
-                            <div class="description">
-                                <p>營業時間:24hr</p>
-                            </div>
-                            <div class="extra">
-                                <div class="ui labeled button" tabindex="0">
-                                    <div class="ui button">
-                                        <i class="heart icon"></i> Like
-                                    </div>
-                                    <a class="ui basic label">aaa</a>
-                                </div>
-                            </div>
-                        </div>
+    <p>
+        <p>
+            <div class="ui centered grid container">
+                <div class="column">
+                    <div class="ui divided items">
+                        {% for i in res %} {% include 'time2eat/res_profile.html' %} {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
-    </p></p>
+        </p>
+    </p>
 </div>
 {% endblock %}

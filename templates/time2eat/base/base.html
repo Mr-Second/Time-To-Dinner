@@ -4,11 +4,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}選課小幫手{% endblock %}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-    
-    <link rel="stylesheet" type="text/css" href="{% static 'time2eat/stufinite/css/stufinite.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'time2eat/stufinite/css/stufinite.css' %}"> -->
+
     {% block eachStyle %}{% endblock %}
 </head>
 
@@ -16,10 +18,19 @@
     <!-- Following Menu -->
     {% include "time2eat/base/navbar.html" %}
     <!-- Page Contents 功能簡介 -->
-    {% block content%}
-
-    {% endblock %} 
+    {% block content %}
+    {% endblock %}
     {% include "time2eat/base/footer.html" %}
+    {% block javascript %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+    $('.ui.sticky')
+    .sticky({
+    context: '#example1'
+    });
+    })
+    </script>
+    {% endblock %}
 </body>
 
 </html>

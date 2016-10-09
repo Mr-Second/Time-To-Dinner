@@ -20,6 +20,7 @@ class ResProf(models.Model):
     last_reserv = models.CharField(max_length=20)
     ResType = models.ManyToManyField(Type) # 餐廳的料理類型
     country = models.CharField(max_length=10) # 哪個國家的餐廳
+    avatar = models.ImageField(default='images/time2eat/restaurant.svg')
     def __str__(self):
       return self.ResName
 

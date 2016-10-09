@@ -1,36 +1,34 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends "time2eat/base/base.html" %} 
+{% block title %}Time2Eat{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>TimeToEat</title>
-    <link rel="icon" href="nchu_sg.jpg" type="image/ico" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 引入Ｊquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <!-- 引入Ｊs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
-    <!-- 引入CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css"> {% block eachStyle %}{% endblock %}
-</head>
+{% block content%}
 
-<body>
-    <!-- Following Menu -->
-    <!-- Page Contents 功能簡介 -->
-    <div class="pusher">
-        <!-- ================================================= -->
-        
+    <div class="pusher" id="example1">        
         <div class="ui centered grid container">
             <div class="column">
-                <div class="ui sticky" style="width: 670.667px !important; height: 42.6667px !important; left: 278px;">
-                    <div class="ui fluid four item tabular inverted menu">
-                        <a class="active item">介紹</a>
-                        <a class="item">菜單</a>
-                        <a class="item">照片</a>
-                        <a class="item">評論</a>
+                <div class="ui sticky">
+                  <div style="clear:both" class="ui teal menu">
+                    <a class="active item">
+                      <i class="home icon"></i> Home
+                    </a>
+                    <a class="item">
+                      <i class="info icon"></i> About
+                    </a>
+                    <a class="item">
+                      <i class="book icon"></i> Read
+                    </a>
+                    <a class="item">
+                      <i class="edit icon"></i> Write
+                    </a>
+                    <div class="ui right menu">
+                      <a class="item" id="logIn">
+                        <i class="user icon"></i> Log In
+                      </a>
+                      <a class="item" href="signup">
+                        <i class="signup icon"></i> Sign Up
+                      </a>
                     </div>
+                  </div>
                 </div>
                 <div class="ui segment">
                     <h1>in the pot 鍋裡。鍋物</h1>
@@ -216,12 +214,7 @@
                 </div>
             </div>
         </div>
-        <!-- ============================================== -->
     </div>
-</body>
-<script type="text/javascript">
-$('.ui.sticky')
-    .sticky();
-</script>
-
-</html>
+{% endblock %}
+{% block javasript %}
+{% endblock %}
