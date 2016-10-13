@@ -20,9 +20,19 @@ class ResProf(models.Model):
     last_reserv = models.CharField(max_length=20)
     ResType = models.ManyToManyField(Type) # 餐廳的料理類型
     country = models.CharField(max_length=10) # 哪個國家的餐廳
-    avatar = models.ImageField(default='images/time2eat/restaurant.svg')
+    avatar = models.ImageField(default='images/time2eat/restaurant.svg') # 大頭貼照片
+    environment = models.ImageField(default='images/time2eat/burger.svg') # 店家的環境照片
+    envText = models.CharField(max_length=255, default='以新鮮食材佐特製湯頭，搭配風格設計空間，讓聚餐除了享受美食，也能提升時尚品味！')
+    feature = models.ImageField(default='images/time2eat/noodles.svg')
+    featureText = models.CharField(max_length=255, default='均勻分布的油花與鮮紅肉質，讓口感更加紮實不凡，肉獨有的香氣與油花潤飾，放進精心熬煮清甜的湯汁中輕涮，令人流連忘返的香滑柔嫩口感，讓你感動不已！')
     def __str__(self):
       return self.ResName
+
+class Menu(models.Model):
+    restaurant = models.ForeignKey(ResProf) # 菜單所屬的餐廳
+    image = models.ImageField(default='images/time2eat/menu.svg')
+    def __str__(self):
+        return self.restaurant.__str__()
 
 class Date(models.Model):
     # Date 是用來存星期幾有開店
@@ -46,6 +56,7 @@ class Dish(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=0) # 價錢
     isSpicy = models.BooleanField()
     restaurant = models.ForeignKey(ResProf) # 餐點的餐廳
+    image = models.ImageField(default='images/time2eat/turkey.svg') # 餐點的照片
     def __str__(self):
         return self.DishName
 
