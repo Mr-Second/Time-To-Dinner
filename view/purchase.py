@@ -20,12 +20,12 @@ def purchase(request, res_id):
 			# it will be dish that user ordered.
 			if ifElse_determiner(i):
 				db = Dish.objects.get(DishName=i[0])
-				total+=int(db.price)
+				total+=int(db.price)*int(i[1])
 				smorder = SmallOrder.objects.create(dish=db, amount=i[1], UserOrder=uorder)
 		# and then update the real total value into UserOrder
 		# UserOrder has the many SmallOrder points to it.
 		UserOrder.objects.filter(id=uorder.id).update(total=total)
-		print('check')
+		Order.objects.filter(id=ob.id).update(total=total)
 		return redirect('time2eat:check')
 	return render(request, 'time2eat/purchase.html', locals())
 
