@@ -3,6 +3,12 @@ from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, UserOr
 from collections import namedtuple
 from datetime import datetime, date
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from oscar.core.compat import get_user_model
+from apps.user.models import User
+User = get_user_model()
+
+@login_required
 def rest_api(request, res_id, dateString = datetime.today()):
 	# return_date will return a datetime Object 
 	# which has attribute of year, month, day
@@ -36,12 +42,16 @@ def rest_api(request, res_id, dateString = datetime.today()):
 		result['OrderList'].append(json)
 	return JsonResponse(result, safe=False)
 
-def user_api(request, user_id, dateString = datetime.today()):
+@login_required
+def user_api(request, dateString = datetime.today()):
+	# use session to determine your user id
+	# Cause UpUser and EatUser is in OneToOne Relationship
+	# so use it to find user's EatUser object instance.
+	UpUser = User.objects.get(id=request.user.id)
+	user = get_object_or_404(EatUser, id=UpUser.eatuser.id)
 	# return_date will return a datetime Object 
 	# which has attribute of year, month, day
 	dateTuple = return_datetime(dateString)
-	user = get_object_or_404(EatUser, id=user_id)
-	# print(user.userorder_set.all())
 	json = {
 		'User' : user.UpperUser.name,
 		"Date" : str(dateTuple.year)+'-'+str(dateTuple.month)+'-'+str(dateTuple.day),
@@ -50,9 +60,12 @@ def user_api(request, user_id, dateString = datetime.today()):
 		'Order' : []
 	}
 	for UOrderObject in user.userorder_set.filter(create__date=date(dateTuple.year, dateTuple.month, dateTuple.day)):
-		tmp = {'create' : UOrderObject.create, 'total' : int(UOrderObject.total)}
-		for SObject in UOrderObject.smallorder_set.all():
-			tmp[SObject.dish.DishName] = int(SObject.amount)
+		tmp = {
+			'create' : UOrderObject.create, 
+			'total' : int(UOrderObject.total), 
+			# meal是一個餐點的陣列 裏面的tuple第一位是餐點名稱，第2位是數量
+			'meal' : [ (SObject.dish.DishName, int(SObject.amount)) for SObject in UOrderObject.smallorder_set.all()]
+		}
 		json['Order'].append(tmp)
 	return JsonResponse(json, safe=False)
 
