@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from apps.time2eat.models import ResProf, Order, UserOrder, SmallOrder, EatUser, Dish
 
 @login_required
-def purchase(request, res_id):
-	res = ResProf.objects.get(id=res_id)
+def purchase(request):
+	if 'res_id' in request.GET and request.GET['res_id']!='':
+		res = ResProf.objects.get(id=request.GET['res_id'])
 	if request.POST:
 		data = request.POST
 		data=data.dict()

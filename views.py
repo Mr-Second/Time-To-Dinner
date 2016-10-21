@@ -14,8 +14,9 @@ def all_list(request):
 	res = ResProf.objects.all()
 	return render_to_response('time2eat/all_list.html', locals())
 
-def inside_resturant(request, res_id):
-	res = ResProf.objects.get(id=res_id)
+def inside_resturant(request):
+	if 'res_id' in request.GET and request.GET['res_id']!='':
+		res = ResProf.objects.get(id=request.GET['res_id'])
 	return render_to_response('time2eat/inside_resturant.html',locals())
 
 def check(request):

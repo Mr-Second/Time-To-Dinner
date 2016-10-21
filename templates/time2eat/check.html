@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
     
-		$.getJSON( "http://127.0.0.1:8000/time2eat/user_api")
+		$.getJSON( "http://127.0.0.1:8000/time2eat/order/user")
 		.done(function(json){
 			$("<h1>",{
 				text:'使用者 : '+json['User']+" 喜好的料理型態:"+ json["Ftype"]+" 最愛的菜:"+json['FDish']

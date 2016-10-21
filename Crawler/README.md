@@ -30,7 +30,7 @@ make install
 ### Result
 
 * json結果
-  * 
+  *
   ```
   {
     "台中": {
@@ -66,7 +66,7 @@ make install
 
 ## Versioning
 
-For the versions available, see the [tags on this repository](https://github.com/Stufinite/Time-To-Dinner/releases). 
+For the versions available, see the [tags on this repository](https://github.com/Stufinite/Time-To-Dinner/releases).
 
 ## Contributors
 * **張泰瑋** [david](https://github.com/david30907d)
