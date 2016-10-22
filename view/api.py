@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from apps.time2eat.models import Type, ResProf, Date, Phone, Dish, Order, UserOrder, EatUser
 from collections import namedtuple
 from datetime import datetime, date
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, QueryDict
 from django.contrib.auth.decorators import login_required
 from oscar.core.compat import get_user_model
 from apps.user.models import User
@@ -87,6 +87,8 @@ def return_datetime(dateString):
 		date = (int(intValue) for intValue in dateString['dateString'].split('-'))
 		d = datetime(*date)
 		return d
-	else:
+	elif dateString==QueryDict() or ('res_id' in dateString and len(dateString)==1 ):
 		dateString = datetime.today()
 		return dateString
+	else:
+		raise Http404("api does not exist")
