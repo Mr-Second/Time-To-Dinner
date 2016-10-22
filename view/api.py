@@ -81,6 +81,15 @@ def user_api(request):
 
 	return JsonResponse(json, safe=False)
 
+def restaurant_prof(request):
+	json = []
+
+	resObject = ResProf.objects.all()
+	for i in resObject:
+		tempT = dict(ResName=i.ResName, address=i.address, ResLike = int(i.ResLike), score = int(i.score), last_reserv = i.last_reserv, country = i.country, avatar = i.avatar.url, environment = i.environment.url, envText = i.envText, feature = i.feature.url, featureText = i.featureText)
+		json.append(tempT)
+	return JsonResponse(json, safe=False)
+
 
 def return_datetime(dateString):
 	if 'dateString' in dateString:
