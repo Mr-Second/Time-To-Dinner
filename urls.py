@@ -10,4 +10,5 @@ urlpatterns = patterns('apps.time2eat.views',
   url(r'^api/order/$', 'rest_api', name='rest_api'),
   url(r'^api/order/user/$', 'user_api', name='user_api'),
   url(r'^api/restaurant_prof/$', 'restaurant_prof', name='restaurant_prof'),
+  url(r'^api/restaurant_list/$', 'restaurant_list', name='restaurant_list'),
 )
