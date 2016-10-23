@@ -36,7 +36,6 @@ API使用方式（下面所寫的是api的URL pattern）：
 
 * 餐廳資料：
   * 取得所有餐廳列表：`/t2e/api/restaurant/list/`
-
     * result:
       ```
       [
@@ -49,9 +48,7 @@ API使用方式（下面所寫的是api的URL pattern）：
       ]
       ```
   * 取得特定餐廳的詳細介紹：`/t2e/api/restaurant/prof/?res_id=1`
-
   res_id是餐廳的id，可以把1改成任意阿拉伯數字
-
     * result:
       ```
       {
@@ -83,9 +80,7 @@ API使用方式（下面所寫的是api的URL pattern）：
       }
       ```
   * 取得特定餐廳的所有餐點：`/t2e/api/restaurant/menu/?res_id=1`
-
   res_id是餐廳的id，可以把1改成任意阿拉伯數字
-
     * result:
       ```
       {
