@@ -36,6 +36,7 @@ API使用方式（下面所寫的是api的URL pattern）：
 
 * 餐廳資料：
   * 取得所有餐廳列表：`/t2e/api/restaurant/list/`
+
     * result:
       ```
       [
@@ -45,12 +46,12 @@ API使用方式（下面所寫的是api的URL pattern）：
           "avatar": "/media/%E9%8D%8B%E8%A3%A1%E9%8D%8B%E7%89%A9_gygOC9M.jpg",
           "score": 3
         }
-        ...
-        ...
-        ...
       ]
       ```
-  * 取得特定餐廳的詳細介紹：`/t2e/api/restaurant/prof/?res_id=1` res_id是餐廳的id，可以把1改成任意阿拉伯數字
+  * 取得特定餐廳的詳細介紹：`/t2e/api/restaurant/prof/?res_id=1`
+
+  res_id是餐廳的id，可以把1改成任意阿拉伯數字
+
     * result:
       ```
       {
@@ -59,7 +60,6 @@ API使用方式（下面所寫的是api的URL pattern）：
             "今日特餐",
             100
           ]
-          ...
         ],
         "ResLike": 50,
         "ResName": "鼎日竹業爭飯",
@@ -69,7 +69,6 @@ API使用方式（下面所寫的是api的URL pattern）：
         "date": [
           "一",
           "二"
-          ...
         ],
         "envText": "以新鮮食材佐特製湯頭，搭配風格設計空間，讓聚餐除了享受美食，也能提升時尚品味！",
         "environment": "/media/%E9%9B%9E%E8%BF%B7%E8%BF%AD%E9%A6%99.jpg",
@@ -79,12 +78,14 @@ API使用方式（下面所寫的是api的URL pattern）：
         "phone": [
           "0972804840",
           "0912356789"
-          ...
         ],
         "score": 3
       }
       ```
-  * 取得特定餐廳的所有餐點：`/t2e/api/restaurant/menu/?res_id=1` res_id是餐廳的id，可以把1改成任意阿拉伯數字
+  * 取得特定餐廳的所有餐點：`/t2e/api/restaurant/menu/?res_id=1`
+
+  res_id是餐廳的id，可以把1改成任意阿拉伯數字
+
     * result:
       ```
       {
@@ -95,7 +96,6 @@ API使用方式（下面所寫的是api的URL pattern）：
             "name": "今日特餐",
             "price": 65
           }
-          ...
         ],
         "menu": [
           "/media/%E9%9B%9E%E8%BF%B7%E8%BF%AD%E9%A6%99_rSrzyjA.jpg"
@@ -104,8 +104,12 @@ API使用方式（下面所寫的是api的URL pattern）：
       ```
 * 訂單資料：
   * 餐廳訂單：
-    * 指定日期：`/t2e/api/order/?res_id=1&dateString=2016-10-23`(res_id是餐廳的id，可以把1改成任意阿拉伯數字，dateString可以替換成任意日期)
-    * 不指定日期（預設會提供當日的資料）：`/t2e/api/order/?res_id=1` res_id是餐廳的id，可以把1改成任意阿拉伯數字
+    * 指定日期：`/t2e/api/order/?res_id=1&dateString=2016-10-23`
+
+    (res_id是餐廳的id，可以把1改成任意阿拉伯數字，dateString可以替換成任意日期)
+    * 不指定日期（預設會提供當日的資料）：`/t2e/api/order/?res_id=1`
+
+    res_id是餐廳的id，可以把1改成任意阿拉伯數字
     * result:
     ```
     {
@@ -129,7 +133,9 @@ API使用方式（下面所寫的是api的URL pattern）：
     }
     ```
   * 使用者訂單：
-    * 指定日期：`/t2e/api/order/user/?dateString=2016-10-23` (dateString可以替換成任意日期)
+    * 指定日期：`/t2e/api/order/user/?dateString=2016-10-23`
+
+    (dateString可以替換成任意日期)
     * 不指定日期（預設會提供當日的資料）：`/t2e/api/order/user/`
     * result:
     ```
