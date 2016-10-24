@@ -20,7 +20,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Run
 
-* Execute : `python manage.py runserver`. If it work fine on [here](127.0.0.1:8000/t2e/all_list), then it's done. Congratulations~~
+* Execute : `python manage.py runserver`. If it work fine on [here](127.0.0.1:8000/t2e/all_list) , then it's done. Congratulations~~
 
 ### Break down into end to end tests
 
