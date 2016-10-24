@@ -20,7 +20,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Run
 
-* Execute : `python manage.py runserver`. If it work fine on [here](127.0.0.1:8000/t2e/all_list) , then it's done. Congratulations~~
+* Execute : `python manage.py runserver`. If it work fine on [here] , then it's done. Congratulations~~
 
 ### Break down into end to end tests
 
@@ -183,3 +183,5 @@ For the versions available, see the [tags on this repository](https://github.com
 目前還不清楚能不能open source，所以暫不添加License
 
 ## Acknowledgments
+
+[here]: 127.0.0.1:8000/t2e/all_list
