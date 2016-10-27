@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from t2e.models import ResProf, Order, UserOrder, SmallOrder, EatUser, Dish
 from t2e.view.api import get_user
 
-@login_required
+# @login_required
 def purchase(request):
 	if 'res_id' not in request.GET or request.GET['res_id'] == '':
 		raise Http404("api does not exist")

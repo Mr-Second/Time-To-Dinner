@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from userper import Userper
 
 # 顯示餐廳當天或特定日期的訂單資料
-@login_required
+# @login_required
 def rest_api(request):
 	if 'res_id' not in request.GET or request.GET['res_id'] == '':
 		raise Http404("api does not exist")
@@ -50,7 +50,7 @@ def rest_api(request):
 	return JsonResponse(result, safe=False)
 
 # 使用者的訂單資料，可指定當天或特定日期
-@login_required
+# @login_required
 def user_api(request):
 	# will return eatuser and user of System.
 	EatU, upperuser = get_user(request)
