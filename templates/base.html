@@ -5,23 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}選課小幫手{% endblock %}</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'time2eat/stufinite/css/stufinite.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stufinite/css/stufinite.css' %}">
 
     {% block eachStyle %}{% endblock %}
+    {% block stylesheet %}
+    {% endblock %}
 </head>
 
 <body>
     <!-- Following Menu -->
-    {% include "time2eat/base/navbar.html" %}
+    {% include "navbar.html" %}
     <!-- Page Contents 功能簡介 -->
     {% block content %}
     {% endblock %}
-    {% include "time2eat/base/footer.html" %}
+
+    {% include "footer.html" %}
+
+
     {% block javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function(){
     $('.ui.sticky')
