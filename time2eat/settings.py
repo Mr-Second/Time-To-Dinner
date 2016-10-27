@@ -133,13 +133,3 @@ STATICFILES_DIRS = [
 SESSION_COOKIE_DOMAIN = '.stufinite.faith'
 with open(BASE_DIR + '/' + 'sessionid.txt') as f:
     SESSION_COOKIE_NAME = f.read().strip()
-
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-
-# Cache
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
-}
