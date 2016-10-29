@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-1. `git clone https://david30907d@bitbucket.org/udiclab/term_classification.git`
+1. `git clone https://github.com/Stufinite/time2eat.git`
 2. `pip install -r requirements.txt`
 
 ## Running & Testing
@@ -184,4 +184,4 @@ For the versions available, see the [tags on this repository](https://github.com
 
 ## Acknowledgments
 
-[here]: 127.0.0.1:8000/t2e/all_list
+[here]: http://127.0.0.1:8000/t2e/all_list
