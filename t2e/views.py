@@ -3,7 +3,10 @@ from django.utils import timezone # auto generate create time.
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from t2e.models import Order, UserOrder, SmallOrder, EatUser, Dish, ResProf
-from t2e.view.api import rest_api, user_api, restaurant_prof, restaurant_list, restaurant_prof, restaurant_menu
+from t2e.view.api import rest_api, user_api
+from t2e.view.restaurant_list import restaurant_list
+from t2e.view.restaurant_prof import restaurant_prof
+from t2e.view.restaurant_menu import restaurant_menu
 from t2e.view.purchase import purchase
 import requests, json
 

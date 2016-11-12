@@ -77,38 +77,6 @@ def user_api(request):
 
 	return JsonResponse(json, safe=False)
 
-# 顯示所有餐廳的簡略資料
-def restaurant_list(request):
-	json = []
-	resObject = ResProf.objects.all()
-	for i in resObject:
-		tempT = dict(ResName=i.ResName, ResLike = int(i.ResLike), score = int(i.score),  avatar = i.avatar.url)
-		json.append(tempT)
-	return JsonResponse(json, safe=False)
-
-# 顯示特定一間餐廳的詳細簡介資料
-def restaurant_prof(request):
-	if 'res_id' not in request.GET or request.GET['res_id'] == '':
-		raise Http404("api does not exist")
-
-	resObject = get_object_or_404(ResProf, id=request.GET['res_id'])
-	json = dict(ResName = resObject.ResName, address = resObject.address, ResLike = int(resObject.ResLike), score = int(resObject.score), last_reserv = resObject.last_reserv, country = resObject.country, avatar = resObject.avatar.url, environment = resObject.environment.url, envText = resObject.envText, feature = resObject.feature.url, featureText = resObject.featureText)
-	json['phone'] = [str(i) for i in resObject.phone_set.all() ]
-	json['ResFavorDish'] = [ (i.dish.DishName.__str__(), int(i.freq)) for i in resObject.resfavordish_set.all() ]
-	json['date'] = [ i.DayOfWeek for i in resObject.date_set.all() ]
-
-	return JsonResponse(json, safe=False)
-
-# 顯示特定一間餐廳的菜單
-def restaurant_menu(request):
-	if 'res_id' not in request.GET or request.GET['res_id'] == '':
-		raise Http404("api does not exist")
-
-	resObject = get_object_or_404(ResProf, id=request.GET['res_id'])
-	json = dict(menu = [i.image.url for i in resObject.menu_set.all()], dish = [ dict(name = i.DishName, price = int(i.price), isSpicy = i.isSpicy, image= i.image.url) for i in resObject.dish_set.all() ] )
-
-	return JsonResponse(json, safe=False)
-
 # 透過川哲寫的userper套件，利用同一個session抓到系統的會員資料
 def get_user(request):
 	# use session to determine your user id
@@ -125,6 +93,7 @@ def return_datetime(dateString):
 		d = datetime(*date)
 		return d
 	elif dateString==QueryDict() or ('res_id' in dateString and len(dateString)==1 ):
+		# means didn't pass dateString parameter in.
 		dateString = datetime.today()
 		return dateString
 	else:
