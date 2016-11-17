@@ -24,6 +24,10 @@ class ResProf(models.Model):
     envText = models.CharField(max_length=255, default='以新鮮食材佐特製湯頭，搭配風格設計空間，讓聚餐除了享受美食，也能提升時尚品味！')
     feature = models.ImageField(default='images/time2eat/noodles.svg')
     featureText = models.CharField(max_length=255, default='均勻分布的油花與鮮紅肉質，讓口感更加紮實不凡，肉獨有的香氣與油花潤飾，放進精心熬煮清甜的湯汁中輕涮，令人流連忘返的香滑柔嫩口感，讓你感動不已！')
+    breakfast = models.CharField(max_length=11, default='6:00-10:00')
+    lunch = models.CharField(max_length=11, default='11:00-14:00')
+    dinner = models.CharField(max_length=11, default='17:00-21:00')
+
     def __str__(self):
       return self.ResName
 
@@ -65,6 +69,9 @@ class EatUser(models.Model):
     userName = models.CharField(max_length=30, null=True)
     FDish = models.ForeignKey(Dish, null=True)
     FType = models.ForeignKey(Type, null=True)
+    breakfast = models.BooleanField()
+    lunch = models.BooleanField()
+    dinner = models.BooleanField()
     def __str__(self):
         return str(self.UpperUser)
 
@@ -89,10 +96,12 @@ class ResFavorDish(models.Model):
 class Order(models.Model):
     # 餐廳的訂單，是一個一對多的關係，因為一間餐廳會有多張訂單
     restaurant = models.ForeignKey(ResProf)
+    createUser = models.ForeignKey(EatUser)
     create = models.DateTimeField() # 訂單的精確時間
     # date = models.CharField(max_length=10) # 訂單的年月日
     period = models.CharField(max_length=3) # 標示是早中午哪個時段
     total = models.DecimalField(max_digits=8, decimal_places=0) # 該訂單總額
+    finished = models.BooleanField()
     def __str__(self):
         return str(self.create) + ' ' + str(self.restaurant)
 
