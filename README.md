@@ -14,13 +14,17 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installing
 
 1. `git clone https://github.com/Stufinite/time2eat.git`
-2. `pip install -r requirements.txt`
+2. 使用虛擬環境：
+  1. `virtualenv venv`
+  2. `. venv/bin/activate`
+3. `pip install -r requirements.txt`
 
 ## Running & Testing
 
 ## Run
 
-* Execute : `python manage.py runserver`. If it work fine on [here] , then it's done. Congratulations~~
+1. 下載測試用的[資料庫](https://drive.google.com/open?id=0B19mg1oUrRQ3ODI5d1dTSWgwYTg)進去（裏面有預設好的測資），放到time2eat的資料夾底下，然後把名子改成db.sqlite3（覆蓋舊的資料庫）。
+2. Execute : `python manage.py runserver`. If it work fine on [here] , then it's done. Congratulations~~
 
 ### Break down into end to end tests
 
