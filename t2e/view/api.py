@@ -5,18 +5,15 @@ from datetime import datetime, date
 from django.http import JsonResponse, Http404, QueryDict
 from django.contrib.auth.decorators import login_required
 from userper import Userper
+from djangoApiDec.djangoApiDec import queryString_required, date_proc
+
 
 # 顯示餐廳當天或特定日期的訂單資料
 # @login_required
-def rest_api(request):
-	if 'res_id' not in request.GET or request.GET['res_id'] == '':
-		raise Http404("api does not exist")
-
+@date_proc
+@queryString_required(['res_id'])
+def rest_api(request, date):
 	Res = get_object_or_404(ResProf, id=request.GET['res_id'])  # 回傳餐廳物件
-
-	# return_date will return a datetime Object
-	# which has attribute of year, month, day
-	dateTuple = return_datetime(request.GET)
 
 	result = {
 		"ResName": Res.ResName,
@@ -24,11 +21,10 @@ def rest_api(request):
 		"Score": int(Res.score),
 		"Type": [str(t) for t in Res.ResType.all()],
 		"OrderList": [],
-		"Date": str(dateTuple.year) + '-' + str(dateTuple.month) + '-' + str(dateTuple.day)
+		"Date": str(date.year) + '-' + str(date.month) + '-' + str(date.day)
 	}
-
 	# 篩選出特定日期的訂單物件
-	for OrderObject in Res.order_set.filter(create__date=date(dateTuple.year, dateTuple.month, dateTuple.day)):
+	for OrderObject in Res.order_set.filter(create__date=datetime(date.year, date.month, date.day)):
 		json = {
 			'total': int(OrderObject.total),
 			'ResOrder': {},
@@ -51,22 +47,20 @@ def rest_api(request):
 
 # 使用者的訂單資料，可指定當天或特定日期
 # @login_required
-def user_api(request):
+@date_proc
+def user_api(request, date):
 	# will return eatuser and user of System.
 	EatU, upperuser = get_user(request)
 
-	# return_date will return a datetime Object
-	# which has attribute of year, month, day
-	dateTuple = return_datetime(request.GET)
 	json = {
 		'User': EatU.userName,
-		"Date": str(dateTuple.year) + '-' + str(dateTuple.month) + '-' + str(dateTuple.day),
+		"Date": str(date.year) + '-' + str(date.month) + '-' + str(date.day),
 		"FDish": EatU.FDish.DishName,
 		"Ftype": EatU.FType.ResType,
 		'Order': []
 	}
 
-	for UOrderObject in EatU.userorder_set.filter(create__date=date(dateTuple.year, dateTuple.month, dateTuple.day)):
+	for UOrderObject in EatU.userorder_set.filter(create__date=datetime(date.year, date.month, date.day)):
 		tmp = {
 			'create': UOrderObject.create,
 			'total': int(UOrderObject.total),
@@ -86,15 +80,3 @@ def get_user(request):
 	upperuser.get_test(session)
 	EatU = get_object_or_404(EatUser, userName=upperuser.name)
 	return EatU, upperuser
-
-def return_datetime(dateString):
-	if 'dateString' in dateString:
-		date = (int(intValue) for intValue in dateString['dateString'].split('-'))
-		d = datetime(*date)
-		return d
-	elif dateString==QueryDict() or ('res_id' in dateString and len(dateString)==1 ):
-		# means didn't pass dateString parameter in.
-		dateString = datetime.today()
-		return dateString
-	else:
-		raise Http404("api does not exist")

@@ -8,6 +8,7 @@ from t2e.view.restaurant_list import restaurant_list
 from t2e.view.restaurant_prof import restaurant_prof
 from t2e.view.restaurant_menu import restaurant_menu
 from t2e.view.purchase import purchase
+from t2e.view.join_order import join_order
 import requests, json
 
 def index(request):

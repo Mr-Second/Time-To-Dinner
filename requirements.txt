@@ -3,3 +3,4 @@ Pillow==3.4.2
 pytz==2016.7
 requests==2.11.1
 -e git://github.com/Stufinite/userper.git@20e8161313fb7b247f55ee6c9e4b3764740b1f98#egg=userper
+-e git+https://github.com/Stufinite/djangoApiDec.py.git@master#egg=djangoApiDec
