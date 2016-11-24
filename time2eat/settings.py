@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -133,3 +134,14 @@ STATICFILES_DIRS = [
 # SESSION_COOKIE_DOMAIN = '.stufinite.faith'
 # with open(BASE_DIR + '/' + 'sessionid.txt') as f:
 #     SESSION_COOKIE_NAME = f.read().strip()
+
+# CORS header
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_REGEX_WHITELIST = (
+    '^(https?://)?(\w+\.)?stufinite\.faith$',
+    '^(https?://)localhost$',
+    '(https?://)127.0.0.1'
+)  # TODO Use HTTPS
+CORS_ALLOW_METHODS = (
+    'GET',
+)
