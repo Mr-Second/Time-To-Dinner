@@ -24,10 +24,8 @@
     {% include "footer.html" %}
 
 
-    {% block javascript %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
-
     <script type="text/javascript">
     $(document).ready(function(){
     $('.ui.sticky')
@@ -36,6 +34,8 @@
     });
     })
     </script>
+
+    {% block javascript %}
     {% endblock %}
 </body>
 
