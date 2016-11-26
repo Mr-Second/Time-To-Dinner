@@ -28,7 +28,8 @@ def rest_api(request, date):
 		json = {
 			'total': int(OrderObject.total),
 			'ResOrder': {},
-			"Create": OrderObject.create
+			"Create": OrderObject.create,
+			"OrderId" : OrderObject.id
 		}
 
 		# 迭代訂單所有的使用者
