@@ -21,10 +21,11 @@ def rest_api(request, date):
 		"Score": int(Res.score),
 		"Type": [str(t) for t in Res.ResType.all()],
 		"OrderList": [],
-		"Date": str(date.year) + '-' + str(date.month) + '-' + str(date.day)
+		"Date": str(date.date())
 	}
-	# 篩選出特定日期的訂單物件
-	for OrderObject in Res.order_set.filter(create__date=datetime(date.year, date.month, date.day)):
+	# 篩選出特定日期的訂單物件, 而且一定要是finished=True代表已經截止揪團
+	for OrderObject in Res.order_set.filter(create__date=datetime(date.year, date.month, date.day), finished=False):
+
 		json = {
 			'total': int(OrderObject.total),
 			'ResOrder': {},
@@ -36,12 +37,7 @@ def rest_api(request, date):
 		for uOrder in OrderObject.userorder_set.all():
 			# 迭代一個使用者所訂的所有餐點
 			for sOrder in uOrder.smallorder_set.all():
-				if sOrder.dish.DishName not in json['ResOrder']:
-					json['ResOrder'][sOrder.dish.DishName] = int(
-						sOrder.amount)
-				else:
-					json['ResOrder'][
-						sOrder.dish.DishName] += int(sOrder.amount)
+				json['ResOrder'][sOrder.dish.DishName] = json['ResOrder'].setdefault(sOrder.dish.DishName, 0)+int(sOrder.amount)
 		result['OrderList'].append(json)
 
 	return JsonResponse(result, safe=False)
