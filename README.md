@@ -105,9 +105,9 @@ API使用方式（下面所寫的是api的URL pattern）：
       ```
 * 訂單資料：
   * 餐廳訂單：
-    * 指定日期：`/t2e/api/order/?res_id=1&dateString=2016-10-23`
+    * 指定日期：`/t2e/api/order/?res_id=1&date=2016-10-23`
 
-    (res_id是餐廳的id，可以把1改成任意阿拉伯數字，dateString可以替換成任意日期)
+    (res_id是餐廳的id，可以把1改成任意阿拉伯數字，date可以替換成任意日期)
     * 不指定日期（預設會提供當日的資料）：`/t2e/api/order/?res_id=1`
 
     res_id是餐廳的id，可以把1改成任意阿拉伯數字
@@ -134,9 +134,9 @@ API使用方式（下面所寫的是api的URL pattern）：
     }
     ```
   * 使用者訂單：
-    * 指定日期：`/t2e/api/order/user/?dateString=2016-10-23`
+    * 指定日期：`/t2e/api/order/user/?date=2016-10-23`
 
-    (dateString可以替換成任意日期)
+    (date可以替換成任意日期)
     * 不指定日期（預設會提供當日的資料）：`/t2e/api/order/user/`
     * result:
     ```
