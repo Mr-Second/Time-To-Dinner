@@ -13,8 +13,9 @@ import urllib, requests, json
 # 顯示特定一間餐廳的詳細簡介資料
 @queryString_required(['res_id', 'orderId'])
 def join_order(request):
-	res = ResProf.objects.get(id=request.GET['res_id'])
 	ob = get_object_or_404(Order, id=request.GET['orderId'])
+	if ob.isFinished(): raise Http404('api not found')
+	res = ResProf.objects.get(id=request.GET['res_id'])
 	EatU, upperuser = get_user(request)
 
 	if request.POST:
