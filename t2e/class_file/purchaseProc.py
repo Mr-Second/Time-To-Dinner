@@ -2,6 +2,7 @@ import requests, urllib, json
 from django.http import JsonResponse, Http404
 from django.urls import reverse
 from t2e.models import ResProf, Order, UserOrder, SmallOrder, EatUser, Dish
+from djangoApiDec.djangoApiDec import getJsonFromApi
 class purchaseProc(object):
 	"""docstring for purchaseProc"""
 	def __init__(self, res, postData, request, uorder):
@@ -32,10 +33,7 @@ class purchaseProc(object):
 				return True
 			return False
 
-		urlPattern = reverse('t2e:restaurant_menu')
-		apiURL = self.request.get_host() + urlPattern + "?res_id={}".format(urllib.parse.quote(str(self.restaurant.id)))
-		jsonText = requests.get('http://' + apiURL)
-		jsonText = json.loads(jsonText.text)
+		jsonText = getJsonFromApi(self.request, 'http', 't2e', 'restaurant_menu', (('res_id', self.restaurant.id)))
 		menuList = tuple(i['name'] for i in jsonText['dish'])
 
 		cleanPostData = {}
