@@ -51,7 +51,7 @@ def user_api(request, date):
 
 	json = {
 		'User': EatU.userName,
-		"Date": str(date.year) + '-' + str(date.month) + '-' + str(date.day),
+		"Date": str(date.date()),
 		"FDish": EatU.FDish.DishName,
 		"Ftype": EatU.FType.ResType,
 		'Order': []
@@ -62,7 +62,7 @@ def user_api(request, date):
 			'create': UOrderObject.create,
 			'total': int(UOrderObject.total),
 			# meal是一個餐點的陣列 裏面的tuple第一位是餐點名稱，第2位是數量
-			'meal': [(SObject.dish.DishName, int(SObject.amount)) for SObject in UOrderObject.smallorder_set.all()]
+			'meal': [dict(name=SObject.dish.DishName, amount=SObject.amount) for SObject in UOrderObject.smallorder_set.all()]
 		}
 		json['Order'].append(tmp)
 
