@@ -18,4 +18,4 @@ def join_order(request):
 		p = purchaseProc(res, data, request, ob)
 
 		return JsonResponse({"purchase":"success"}, safe=False)
-	return render(request, 'time2eat/join.html', locals())
+	raise Http404('you didnt supply post data.')

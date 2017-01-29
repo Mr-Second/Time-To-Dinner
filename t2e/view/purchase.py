@@ -15,20 +15,5 @@ import urllib, requests, json
 def purchase(request):
 	res = ResProf.objects.get(id=request.GET['res_id'])
 	EatU, upperuser = get_user(request)
-
-	if request.POST:
-		data = request.POST
-		data=data.dict()
-		ob = Order.objects.create( restaurant=res, createUser=EatU, create=timezone.localtime(timezone.now()), period=data['period'], total=0, finished=False)
-		uorder = UserOrder.objects.create( orderUser=EatU, total=0, order=ob, create=timezone.localtime(timezone.now()) )
-
-		p = purchaseProc(res, data, request, uorder)
-		p.placeingOrder()
-
-		# and then update the real total value into UserOrder
-		# UserOrder has the many SmallOrder points to it.
-		UserOrder.objects.filter(id=uorder.id).update(total=p.total)
-		Order.objects.filter(id=ob.id).update(total=p.total)
-		return redirect('t2e:check')
 	return render(request, 'time2eat/purchase.html', locals())
 
