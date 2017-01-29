@@ -95,7 +95,6 @@ class Order(models.Model):
     restaurant = models.ForeignKey(ResProf)
     createUser = models.ForeignKey(EatUser, null=True)
     create = models.DateTimeField() # 訂單的精確時間
-    # date = models.CharField(max_length=10) # 訂單的年月日
     period = models.CharField(max_length=1) # 標示是早中午哪個時段
     total = models.DecimalField(max_digits=8, decimal_places=0) # 該訂單總額
     finished = models.BooleanField(default=False)
