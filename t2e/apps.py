@@ -1,3 +1,10 @@
+from django.apps import AppConfig
+
+
+class T2eConfig(AppConfig):
+    name = 't2e'
+
+
 from django.http import Http404
 from django.utils import timezone # auto generate create time.
 from t2e.models import Order, UserOrder, SmallOrder, Dish

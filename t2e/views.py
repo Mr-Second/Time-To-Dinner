@@ -1,19 +1,10 @@
-from django.shortcuts import get_object_or_404, render_to_response, render
-from django.utils import timezone # auto generate create time.
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from t2e.models import Order, UserOrder, SmallOrder, EatUser, Dish, ResProf
-from t2e.view.api import rest_api, user_api
-from t2e.view.restaurant_list import restaurant_list
-from t2e.view.restaurant_prof import restaurant_prof
-from t2e.view.restaurant_menu import restaurant_menu
-from t2e.view.purchase import purchase
-from t2e.view.join_order import join_order
-from t2e.view.join_order_list import join_order_list
-import requests, json
+from django.shortcuts import render_to_response, render
+from t2e.models import ResProf
+from djangoApiDec.djangoApiDec import queryString_required
 
 def index(request):
 	return render_to_response('time2eat/index.html', locals())
+
 
 def all_list(request):
 	res = ResProf.objects.all()
@@ -28,3 +19,10 @@ def inside_resturant(request):
 
 def check(request):
 	return render_to_response('time2eat/check.html',locals())
+
+@queryString_required(['res_id'])
+def purchase(request):
+	from t2e.view.api import get_user
+	res = ResProf.objects.get(id=request.GET['res_id'])
+	EatU, upperuser = get_user(request)
+	return render(request, 'time2eat/purchase.html', locals())
