@@ -18,5 +18,10 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^t2e/',include('t2e.urls',namespace="t2e") ),
+	url(r'^time2eatWeb/',include('time2eatWeb.urls',namespace="time2eatWeb") ),
+]
+
+import gluttonyTw.urls
+urlpatterns += [
+	url(r'^t2e/',include(gluttonyTw.urls,namespace="t2e") ),
 ]

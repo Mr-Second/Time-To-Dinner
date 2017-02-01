@@ -1,12 +1,12 @@
 <div class="item">
     <!-- pass res_id int {{res.id}} this position, then django render that page with specific restaurant -->
-    <a class="image" href="/t2e/inside_resturant/?res_id={{res.id}}">
+    <a class="image" href="/time2eatWeb/inside_resturant/?res_id={{res.id}}">
         <!-- res.avatar是餐廳物件的照片欄位，有url這個attribute會顯示相對位置 -->
         <!-- res.avatar is imagefield of ResProf Object, which has url attribute that will be rendered into relative path -->
         <img src="{{ res.avatar.url }}">
     </a>
     <div class="content">
-        <a class="header" href="/t2e/inside_resturant/?res_id={{res.id}}">{{ res.ResName }}</a>
+        <a class="header" href="/time2eatWeb/inside_resturant/?res_id={{res.id}}">{{ res.ResName }}</a>
         <div class="meta">
             <span class="cinema">{{ res.address }}</span>
         </div>
