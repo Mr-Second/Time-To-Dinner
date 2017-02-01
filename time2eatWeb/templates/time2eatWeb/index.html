@@ -1,65 +1,8 @@
-{% extends 'base.html' %}
-
-{% load staticfiles %}
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'time2eatWeb/css/purchase.css' %}">
-{% endblock %}
-
+{% extends "base.html" %} 
+{% block title %}Time2Eat{% endblock %} 
 
 {% block content %}
-<div class="stufinite-app-container">
-    <div class='perchase-side'>
-        <div class='purchase-name'>
-            <a href='#'>Ding Z</a>
-        </div>
-        <div class='purchase-food'>
-        </div>
-        <div class='purchase-money'>
-            Total money:NT90
-            <br><a href='#'>Leave</a>
-        </div>
-    </div>
-    <nav class='purchase-nav'>
-        <div class='purchase-nav-item'>
-            <a href='#'>Food</a>
-        </div>
-        <div class='purchase-nav-item'>
-            <a href='#'>Drink</a>
-        </div>
-        <div class='purchase-nav-item'>
-            <a href='#'>Soup</a>
-        </div>
-    </nav>
-    <div class='box-display'>
-        <div class='box'>
-            1
-        </div>
-        <div class='box'>
-            2
-        </div>
-        <div class='box'>
-            3 </div>
-        <div class='box'>
-            4 </div>
-        <div class='box'>
-            5 </div>
-        <div class='box'>
-            6 </div>
-        <div class='box'>
-            6 </div>
-        <div class='box'>
-            6 </div>
-        <div class='box'>
-            6 </div>
-        <div class='box'>
-            6 </div>
-        <div class='box'>
-            6 </div>
-        <div class='box'>
-            6 </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block javascript %}
+    {% for res in res %} 
+        {% include 'time2eatWeb/res_profile.html' %} 
+    {% endfor %}
 {% endblock %}
