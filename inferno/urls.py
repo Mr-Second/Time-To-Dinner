@@ -15,13 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^time2eatWeb/',include('time2eatWeb.urls',namespace="time2eatWeb") ),
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 import gluttonyTw.urls
 urlpatterns += [
-	url(r'^t2e/',include(gluttonyTw.urls,namespace="t2e") ),
+    url(r'^t2e/',include(gluttonyTw.urls,namespace="gluttonyTw") ),
 ]
