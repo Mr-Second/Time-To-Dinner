@@ -3,12 +3,13 @@
 就只是個中二的名子  
 讓我寫程式的時候比較爽  
 
-Inferno 是[`七原罪`](httpL://github.com/stufinite/journey)的載體，詳細的七原罪架構規劃在這邊 [`連結`](httpL://github.com/stufinite/journey)  
+Inferno 是[七原罪](httpL://github.com/stufinite/journey)的載體，詳細的七原罪架構規劃在這邊 [連結](httpL://github.com/stufinite/journey)  
 Inferno會是一個通用的論壇型式框架  
 七原罪代表七種不同功能的api  都是django app的型式  
 可以透過pip，直接安裝到inferno的django project之中  
 
 目前正在進行的七原罪：
+
 1. 暴食：安裝完成，[察看api](httpL://github.com/stufinite/gluttony)
 2. 怠惰：進行中
 3. 色欲：進行中
@@ -36,7 +37,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Run
 
-1. 下載測試用的[資料庫](https://drive.google.com/open?id=0B19mg1oUrRQ3ODI5d1dTSWgwYTg)進去（裏面有預設好的測資），放到time2eat的資料夾底下，然後把名子改成db.sqlite3（覆蓋舊的資料庫）。
+1. 下載測試用的[資料庫](https://drive.google.com/open?id=0B19mg1oUrRQ3R0FWN3NEWjNYVzg)進去（裏面有預設好的測資），放到time2eat的資料夾底下，然後把名子改成db.sqlite3（覆蓋舊的資料庫）。
 2. Execute : `python manage.py runserver`. If it work fine on [here] , then it's done. Congratulations~~
 
 ### Break down into end to end tests
