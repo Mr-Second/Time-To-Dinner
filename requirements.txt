@@ -3,3 +3,5 @@ requests==2.11.1
 -e git://github.com/Stufinite/userper.git@20e8161313fb7b247f55ee6c9e4b3764740b1f98#egg=userper
 django-cors-headers==1.2.2
 gluttonyTw
+pillow
+pytz
