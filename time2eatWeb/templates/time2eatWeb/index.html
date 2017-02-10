@@ -2,7 +2,8 @@
 {% block title %}Time2Eat{% endblock %} 
 
 {% block content %}
-    {% for res in res %} 
-        {% include 'time2eatWeb/res_profile.html' %} 
+    {% for r in res %} 
+        <h1>{{r.ResName}}</h1>
+        <img src="{{r.avatar.url}}">
     {% endfor %}
 {% endblock %}
