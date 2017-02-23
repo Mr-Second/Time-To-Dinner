@@ -29,3 +29,7 @@ import gluttonyTw.urls
 urlpatterns += [
     url(r'^t2e/',include(gluttonyTw.urls,namespace="gluttonyTw") ),
 ]
+
+urlpatterns += [
+    url(r'^sloth/',include('sloth.urls',namespace="sloth") ),
+]
