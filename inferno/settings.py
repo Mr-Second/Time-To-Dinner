@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 ] + [
     'gluttonyTw',
     'time2eatWeb',
-    'sloth'
+    # 'sloth'
 ]
 
 MIDDLEWARE = [

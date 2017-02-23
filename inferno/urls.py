@@ -31,5 +31,5 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    url(r'^sloth/',include('sloth.urls',namespace="sloth") ),
+    # url(r'^sloth/',include('sloth.urls',namespace="sloth") ),
 ]
