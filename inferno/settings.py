@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+] + [
     'gluttonyTw',
-    'time2eatWeb'
+    'time2eatWeb',
+    'sloth'
 ]
 
 MIDDLEWARE = [
