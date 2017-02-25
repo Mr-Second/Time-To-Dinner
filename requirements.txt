@@ -5,3 +5,4 @@ django-cors-headers==1.2.2
 gluttonyTw
 pillow
 pytz
+slothTw

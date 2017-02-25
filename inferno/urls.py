@@ -27,9 +27,10 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 import gluttonyTw.urls
 urlpatterns += [
-    url(r'^t2e/',include(gluttonyTw.urls,namespace="gluttonyTw") ),
+    url(r'^t2e/',include(gluttonyTw.urls, namespace="gluttonyTw") ),
 ]
 
+import slothTw.urls
 urlpatterns += [
-    url(r'^sloth/',include('sloth.urls',namespace="sloth") ),
+    url(r'^sloth/',include(slothTw.urls, namespace="sloth") ),
 ]
