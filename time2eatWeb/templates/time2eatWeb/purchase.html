@@ -1,4 +1,229 @@
 {% extends "base.html" %} {% block title %}Time2Eat{% endblock %} {% block content%}
+
+    <div class="main">
+        <div id="shopInfo"> {% include 'time2eatWeb/res_profile.html' %}</div>
+         <div id="mealSelBox">
+                        {% csrf_token %}
+                        {% for i in res.dish_set.all %}
+                          <div>
+                           <!-- //這邊要加dish相關識別項-->
+                          <img class="dishimg" src={{i.image.url}} style="max-width: 200px;">
+                                 <!--這邊我想要餐點的ID-->
+                          <span id="{{i.id}}">{{i.DishName}}</span>
+                          {{i.price}}元/份&nbsp;共 
+                          <select id="mealnum" onchange="dishNumSelIndexChange('{{i.id}}','{{i.DishName}}',this.options[this.selectedIndex].value,{{i.price}});" style="height:">
+                                    <option value="0"></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                          </select>份
+                          </div>
+                        {% endfor %}
+         </div>
+         
+         <div id="mealSubmitBox">
+         <h1>總金額為<span id="totalmoney">0</span>元</h1>
+          <p>訂餐時段為<select id="period">
+            <option value=""></option>
+            <option value="晚餐">晚餐</option>
+            <option value="午餐">午餐</option>
+            </select></p>
+            <button id="btnsel" onclick="checkGroup()">尋找糾團</button>
+         
+    <div id="jom" class="join_order_modal">
+
+      <!-- Modal content -->
+       <div class="join_order_modal_content">
+        <div class="join_order_modal_header">
+         <span id="cljom" class="close" onclick="closeGroup()">&times;</span>
+           <h2>糾團訂單</h2>
+        </div>
+       <div class="join_order_modal_body">
+           <p>以下為{{ res.ResName }}的相關糾團</p>
+           <table id="order_group"></table>
+      </div>
+        <div class="join_order_modal_footer">
+          <h3>Modal Footer</h3>
+      </div>
+    </div>
+
+    </div>
+
+
+<br><br><br><br><br><br><br>
+         <button class="" id="submit" type="submit" >提交訂單</button>
+         </div>
+    </div>
+<style>
+/*copy from w3 樣式最後要改*/
+/* The Modal (background) */
+.join_order_modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.join_order_modal_content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.join_order_modal_header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.join_order_modal_body {padding: 2px 16px;}
+
+.join_order_modal_footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+
+</style>
+<script type="text/javascript">
+    function checkGroup(){
+      document.getElementById("jom").style.display="block";
+      $.ajax({
+                url: "/t2e/api/order/join_order_list",
+                data: {},
+                type: 'get',
+                async:true,
+                dataType:'text',
+                success:function(data)
+                {
+                 var v = JSON.parse(data);
+                 var tbdocument =document.getElementById("order_group");
+                 var thead =document.createElement("thead");
+                 //將要長colname先定義好
+                 var coltext ={selection:"選擇",createUser: "發起人",period: "時段",restaurant: "餐廳",order_id:"訂單編號"};
+                 for(var key in coltext){
+                    var th =document.createElement("th");
+                    var t=document.createTextNode(coltext[key]);
+                    th.appendChild(t);
+                    thead.appendChild(th); 
+                 }
+                 tbdocument.appendChild(thead);
+                 var tboay =document.createElement("tboby");
+                 //for(var i=0;i<data.length;i++){
+
+            //     }
+                },
+                error:
+                 function(xhr, ajaxOptions, thrownError){ 
+                    alert(xhr.status); 
+                    alert(thrownError); 
+                 }
+      });
+
+    }
+    function closeGroup(){
+      document.getElementById("jom").style.display="none";
+
+    }
+
+
+  //這global用來算錢 但後端要再算一次(永遠不要相信使用者丟國來的資料)
+  var price = 0;
+  var localDish =new Array();
+    function dishNumSelIndexChange(DishId,DishName,DishNum,DishPrice){
+        var totalmoney =parseInt(document.getElementById("totalmoney").innerHTML);
+        var oldDishNum = 0;
+        DishNum =parseInt(DishNum);
+        var IsInDish =false;
+           for(var i=0;i<localDish.length;i++){
+              if(localDish[i].Id===DishId) {
+                oldDishNum=localDish[i].Num;
+                localDish[i].Num=DishNum;
+                totalmoney+=(DishNum-oldDishNum)*DishPrice;
+                IsInDish =true;
+              }
+           }
+          if(!IsInDish){
+          localDish.push({Id:DishId,Name:DishName,Num:DishNum});
+          totalmoney+=(DishNum)*DishPrice;
+          }
+        document.getElementById("totalmoney").innerHTML=""+totalmoney;
+      }
+
+  $("#submit").click(function(){
+       $.ajax({
+                url: "",
+                data: {},
+                type: 'post',
+                async:false,
+                dataType:'text',
+                success:function(data)
+                {
+                  alert(data);
+               //   location.href("../check/...");
+                },
+                error:
+                 function(xhr, ajaxOptions, thrownError){ 
+                    alert(xhr.status); 
+                    alert(thrownError); 
+                 }
+      });
+  });
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+/*
 <div class="pusher">
     <p>
         <p>
@@ -30,9 +255,13 @@
                     <div class="ui segment">
                         <div class="ui divided items">
                             {% include 'time2eatWeb/res_profile.html' %}
-                        </div>
-                    </div>
-                    <div class="ui four column grid">
+                            <!-- <div class="content">
+                                    <div class="center">
+                                      <h3>台中市大里區中興路二段478號</h3>
+                                      <h3>營業時間:07:00–23:00    </h3>
+                                    </div>
+                                  </div>-->
+                                                  <div class="ui four column grid">
                       <!--form是我加的 method="post"指的是和計網教的一樣的東西，用post的方式把封包傳到伺服器端-->
                       <!--{% csrf_token  %}是驗證post資料的來源端不是攻擊-->
                       <form class="ui form" action="" method="post">
@@ -41,22 +270,25 @@
                         <div class="column">
                           <div class="ui special cards">
                             <div class="ui fluid card">
-                              <div class="blurring dimmable fluid image">
-                                <div class="ui dimmer">
-                                  <div class="content">
-                                    <div class="center">
-                                      <h3>台中市大里區中興路二段478號</h3>
-                                      <h3>營業時間:07:00–23:00    </h3>
-                                    </div>
-                                  </div>
-                                </div>
-                                <img src={{i.image.url}}>
+                            
+                                <!--因為圖片太大張所以我家了style之後刻版自己要記得拿掉-->
+                                <img src={{i.image.url}} style="max-width: 200px;">
+                                <!--之後再id下個識別項八-->
+                                <span > {{i.DishName}}</span> 
+                                <select id="mealnum" style="height:">
+                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
                               </div>
                               <div class="content">
                                 <div class="ui right floated primary button">
                                   訂購 {{i.price}} 元
                                 </div>
-                                <a class="header"><h1>{{i.DishName}}</h1></a>
+                                
                                 <!-- 我新增的數量選單  麻煩你修改樣式 -->
                                 <div class="ui selection dropdown">
                                   <input type="hidden" name={{i.DishName}}>
@@ -94,14 +326,19 @@
                     </div>
                 </div>
             </div>
-        </p>
-        <p>
-</div>
+
+
+
+                        </div>
+                    </div>
+*/
+</script>
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript">
 $('.ui.dropdown')
 .dropdown()
 ;
+
 </script>
 {% endblock %}

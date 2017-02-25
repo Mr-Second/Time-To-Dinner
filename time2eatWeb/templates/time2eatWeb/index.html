@@ -1,9 +1,124 @@
 {% extends "base.html" %} 
 {% block title %}Time2Eat{% endblock %} 
+ {% block javascript %} 
+ 	<script type="text/javascript">
+ 	  /*
+ 	  var UrlRouteAjax = function (Url, Case, ArgumentData,funcSuccess,funcFaild) {//async must be false
+        	//取得目前URL的OBJ
+        	var urlobj = (location.hash != "") ? JSON.parse(decodeURI(location.hash.slice(1))) : {};
+        	//丟進ArgumentData內
+        	for (var obj in urlobj) { ArgumentData[obj] = urlobj[obj]; }
+        	
+        	 $.ajax({
+                url: Url,
+                data: ArgumentData,
+                type: Case,
+                dataType:'text',
+                success: funcSuccess,
+                error:funcFaild
+                // function(xhr, ajaxOptions, thrownError){ 
+                //    alert(xhr.status); 
+                //    alert(thrownError); 
+                // }
+            });
+    	}
 
+      var ObjConvertToJsonUrl=function (obj) {
+      	 var str = JSON.stringify(obj);
+       	 str = encodeURI(str);
+         return str;
+    	}
+
+ 		window.onhashchange=function(){
+ 			UrlRouteAjax('../t2e/api/restaurant/list','get',{},function(data){
+ 			 	alert(data);
+ 			    var dataArray =	JSON.parse(data);
+ 			    //如果懶惰可以用innerHtml 稍微慢一些些 不過只做一次因該還好 
+ 			   	var strDocument ="";
+ 			    for(var row in dataArray){
+ 			    	strDocument+='<div class="shopInfoBox">'+
+    							'<div class="shopBoxHeader">'+
+    	   						'<p class="shopTitle">'+dataArray[row].ResName+'<a>'+dataArray[row].ResLike+'</a>(我是用Jquery長出來的)</p>'+
+    	   						'</div>'+
+    	   						'<div class="shopBoxBody">'+
+           						'<img class="shopImg" src="'+dataArray[row].avatar+'">'+
+           					'<p>Score : '+dataArray[row].score+'</p>'+
+          				 	'</div>'+
+          					'<div class="shopBoxFooter">'+
+           					'<p style="text-align:right;">'+
+           					'<a>詳細資訊&nbsp;&nbsp;&nbsp;</a>'+
+           					'<p></div></div>';
+			    }
+			    document.getElementById("InfoArea").innerHTML+=strDocument;
+
+ 			}, 
+ 			function(xhr, ajaxOptions, thrownError){ 
+                   alert(xhr.status); 
+                   alert(thrownError); 
+          	});
+
+ 		};
+ 		window.addEventListener('load',function(){
+ 			//set default info
+ 			var obj ={start:1,gap:15};
+ 			location.hash =ObjConvertToJsonUrl(obj);
+ 			//測試方法用
+ 			//UrlRouteAjax('../t2e/api/restaurant/list','get',{start:1,gap:15},function(data){
+ 			//	alert(data);
+ 			//}, 
+ 			//function(xhr, ajaxOptions, thrownError){ 
+            //       alert(xhr.status); 
+            //       alert(thrownError); 
+          	//});
+ 		},false);
+ 		*/
+ 	</script>
+ {% endblock %}
 {% block content %}
-    {% for r in res %} 
-        <h1>{{r.ResName}}</h1>
-        <img src="{{r.avatar.url}}">
-    {% endfor %}
+	<style>
+		.shopInfoBox{
+			border-radius: 8px;
+			box-shadow: rgba(0,0,0,0.6) 2px 3px;
+			background-color:#FACE6B;
+			width:50%;
+		}
+		.shopImg{
+			max-height: 100px;
+
+		}
+		.shopTitle{
+			font-size: 22px;
+			text-align: center; 
+
+		}
+		.shopBoxHeader{
+
+
+		}
+		.shopBoxBody{
+			padding: 5px 20px 5px 20px;
+
+		}
+		.shopBoxFooter{
+
+		}
+	</style>
+	<div id="InfoArea">
+    	{% for r in res %} 
+    	<div class="shopInfoBox">
+    		<div class="shopBoxHeader">
+    	   <p class="shopTitle">{{r.ResName}}</p>
+    	   </div>
+    	   <div class="shopBoxBody">
+           		<img class="shopImg" src="{{r.avatar.url}}">
+           		<p>Here IS SOME TEXT</p>
+           </div>
+           <div class="shopBoxFooter">
+           <p style="text-align:right;">
+           		<a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;&nbsp;&nbsp;</a>
+           		<p>
+           </div>
+    	</div>
+    	{% endfor %}
+    </div>
 {% endblock %}
