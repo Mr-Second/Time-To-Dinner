@@ -31,7 +31,7 @@
                 <h1>{{ res.ResName }}</h1>
                 <button onclick="window.history.back();">上一頁</button>
                 <button onclick="location.href='../purchase?res_id={{res.id}}'">訂餐</button>
-                <img class="ui fluid image" src="{{ res.avatar.url }}">
+                <img class="ui image" src="{{ res.avatar.url }}">
                 <h5>Test1</h5>
                 <br>地址：{{ res.address }}
                 <br>電話： {% for i in res.phone_set.all %} {% if forloop.first %} {{i.phoneNum}} {% else %} -Or- {{i.phoneNum}} {% endif %} {% endfor %}
@@ -42,18 +42,18 @@
                 <span style="font-weight:bold;">舒適的環境：</span>
                 <br> {{res.envText}}
                 <br>
-                <img class="ui fluid image" src="{{ res.environment.url }}">
+                <img class="ui image" src="{{ res.environment.url }}">
                 <br>
                 <span style="font-weight:bold;">料理特色：</span>
                 <br> {{res.featureText}}
                 <br>
-                <img class="ui fluid image" src="{{ res.feature.url }}">
+                <img class="ui image" src="{{ res.feature.url }}">
                 <br>
             </div>
             <div class="ui segment">
                 <h1>菜單</h1>
                 {% for i in res.menu_set.all %}
-                  <img class="ui fluid image" src={{i.image.url}}>
+                  <img class="ui image" src={{i.image.url}}>
                   <br>
                 {% endfor %}
             </div>

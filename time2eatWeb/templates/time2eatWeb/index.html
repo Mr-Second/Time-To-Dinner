@@ -1,6 +1,6 @@
-{% extends "base.html" %} 
-{% block title %}Time2Eat{% endblock %} 
- {% block javascript %} 
+{% extends "base.html" %}
+{% block title %}Time2Eat{% endblock %}
+ {% block javascript %}
  	<script type="text/javascript">
  	  /*
  	  var UrlRouteAjax = function (Url, Case, ArgumentData,funcSuccess,funcFaild) {//async must be false
@@ -8,7 +8,7 @@
         	var urlobj = (location.hash != "") ? JSON.parse(decodeURI(location.hash.slice(1))) : {};
         	//丟進ArgumentData內
         	for (var obj in urlobj) { ArgumentData[obj] = urlobj[obj]; }
-        	
+
         	 $.ajax({
                 url: Url,
                 data: ArgumentData,
@@ -16,9 +16,9 @@
                 dataType:'text',
                 success: funcSuccess,
                 error:funcFaild
-                // function(xhr, ajaxOptions, thrownError){ 
-                //    alert(xhr.status); 
-                //    alert(thrownError); 
+                // function(xhr, ajaxOptions, thrownError){
+                //    alert(xhr.status);
+                //    alert(thrownError);
                 // }
             });
     	}
@@ -33,7 +33,7 @@
  			UrlRouteAjax('../t2e/api/restaurant/list','get',{},function(data){
  			 	alert(data);
  			    var dataArray =	JSON.parse(data);
- 			    //如果懶惰可以用innerHtml 稍微慢一些些 不過只做一次因該還好 
+ 			    //如果懶惰可以用innerHtml 稍微慢一些些 不過只做一次因該還好
  			   	var strDocument ="";
  			    for(var row in dataArray){
  			    	strDocument+='<div class="shopInfoBox">'+
@@ -51,10 +51,10 @@
 			    }
 			    document.getElementById("InfoArea").innerHTML+=strDocument;
 
- 			}, 
- 			function(xhr, ajaxOptions, thrownError){ 
-                   alert(xhr.status); 
-                   alert(thrownError); 
+ 			},
+ 			function(xhr, ajaxOptions, thrownError){
+                   alert(xhr.status);
+                   alert(thrownError);
           	});
 
  		};
@@ -65,10 +65,10 @@
  			//測試方法用
  			//UrlRouteAjax('../t2e/api/restaurant/list','get',{start:1,gap:15},function(data){
  			//	alert(data);
- 			//}, 
- 			//function(xhr, ajaxOptions, thrownError){ 
-            //       alert(xhr.status); 
-            //       alert(thrownError); 
+ 			//},
+ 			//function(xhr, ajaxOptions, thrownError){
+            //       alert(xhr.status);
+            //       alert(thrownError);
           	//});
  		},false);
  		*/
@@ -76,49 +76,95 @@
  {% endblock %}
 {% block content %}
 	<style>
+  #InfoArea{
+      margin: 0 210px;
+    }
+    /*餐廳左側nav*/
+    ul {
+      list-style-type: none;
+      margin: 5px;
+      padding: 0;
+      width: 15%;
+      height: 100%;
+      float: left;
+      background: #DEDEDE;
+      font-size: 14.5px;
+    }
+
+    li a {
+      display: block;
+      color: #4180B2;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+
+li a:hover {
+    color: #F25F5C;
+}
+
 		.shopInfoBox{
-			border-radius: 8px;
-			box-shadow: rgba(0,0,0,0.6) 2px 3px;
-			background-color:#FACE6B;
-			width:50%;
+			margin: 0 0 1% 16%;
 		}
-		.shopImg{
-			max-height: 100px;
+		
+		.thumbnail{
+      width: 80%;
+      padding: 5px;
+      margin: 5px;
+      overflow: auto;
+      background-color: #DEDEDE;
+      }
+      .thumbnail img{
+        max-width: 300px;
+        float: left;
+        border-radius: 5px;
+        margin-right: 20px;
+      }
+      
 
-		}
-		.shopTitle{
-			font-size: 22px;
-			text-align: center; 
-
-		}
-		.shopBoxHeader{
-
-
-		}
-		.shopBoxBody{
-			padding: 5px 20px 5px 20px;
-
-		}
-		.shopBoxFooter{
-
-		}
+      .thumbnail a{
+        position: relative;
+        text-decoration: none;
+        color: #4180B2;
+      }
+      .shopBoxBody{
+        padding: 20px;
+      }
+      .shopTitle{
+      font-weight: 700;
+      font-size: 18px;
+    }
 	</style>
-	<div id="InfoArea">
-    	{% for r in res %} 
+  <div id="InfoArea">
+      {% for r in res %}
+      <ul class="nav">
+        <li><a class="nav-link" href="#">飯類</a></li>
+        <li><a class="nav-link" href="#">麵類</a></li>
+        <li><a class="nav-link" href="#">速食</a></li>
+        <li><a class="nav-link" href="#">早午餐</a></li>
+        <li><a class="nav-link" href="#">素食</a></li>
+      </ul>
     	<div class="shopInfoBox">
-    		<div class="shopBoxHeader">
-    	   <p class="shopTitle">{{r.ResName}}</p>
-    	   </div>
-    	   <div class="shopBoxBody">
-           		<img class="shopImg" src="{{r.avatar.url}}">
-           		<p>Here IS SOME TEXT</p>
-           </div>
-           <div class="shopBoxFooter">
-           <p style="text-align:right;">
-           		<a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;&nbsp;&nbsp;</a>
-           		<p>
-           </div>
+        <div class="thumbnail">
+          <img class="shopImg" src="{{r.avatar.url}}">
+          <div class="shopBoxBody">
+            <span class="shopTitle">{{r.ResName}}</span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt qui quam voluptatibus dicta tenetur distinctio error praesentium, perspiciatis sunt eos cumque cum dolor, quis dolorum corporis! Aliquam delectus ea soluta?</p>
+            <a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;</a>
+          </div>
+            
+        </div>
     	</div>
+      <div class="shopInfoBox">
+        <div class="thumbnail">
+          <img class="shopImg" src="{{r.avatar.url}}">
+          <div class="shopBoxBody">
+            <span class="shopTitle">{{r.ResName}}</span>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt qui quam voluptatibus dicta tenetur distinctio error praesentium, perspiciatis sunt eos cumque cum dolor, quis dolorum corporis! Aliquam delectus ea soluta?</p>
+            <a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;</a>
+          </div>
+          
+        </div>
+      </div>
     	{% endfor %}
     </div>
 {% endblock %}
