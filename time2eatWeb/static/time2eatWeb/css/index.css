@@ -1,0 +1,57 @@
+#InfoArea{
+  margin: 0 210px;
+}
+/*餐廳左側nav*/
+ul {
+  list-style-type: none;
+  margin: 5px;
+  padding: 0;
+  width: 15%;
+  height: 100%;
+  float: left;
+  background: #DEDEDE;
+  font-size: 14.5px;
+}
+
+li a {
+  display: block;
+  color: #4180B2;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+color: #F25F5C;
+}
+
+.shopInfoBox{
+  margin: 0 0 1% 16%;
+}
+
+.thumbnail{
+  width: 80%;
+  padding: 5px;
+  margin: 5px;
+  overflow: auto;
+  background-color: #DEDEDE;
+  }
+  .thumbnail img{
+    max-width: 300px;
+    float: left;
+    border-radius: 5px;
+    margin-right: 20px;
+  }
+  
+
+  .thumbnail a{
+    position: relative;
+    text-decoration: none;
+    color: #4180B2;
+  }
+  .shopBoxBody{
+    padding: 20px;
+  }
+  .shopTitle{
+  font-weight: 700;
+  font-size: 18px;
+}
