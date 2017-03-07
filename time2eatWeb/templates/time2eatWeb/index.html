@@ -135,7 +135,6 @@ li a:hover {
     }
 	</style>
   <div id="InfoArea">
-      {% for r in res %}
       <ul class="nav">
         <li><a class="nav-link" href="#">飯類</a></li>
         <li><a class="nav-link" href="#">麵類</a></li>
@@ -143,28 +142,19 @@ li a:hover {
         <li><a class="nav-link" href="#">早午餐</a></li>
         <li><a class="nav-link" href="#">素食</a></li>
       </ul>
-    	<div class="shopInfoBox">
-        <div class="thumbnail">
-          <img class="shopImg" src="{{r.avatar.url}}">
-          <div class="shopBoxBody">
-            <span class="shopTitle">{{r.ResName}}</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt qui quam voluptatibus dicta tenetur distinctio error praesentium, perspiciatis sunt eos cumque cum dolor, quis dolorum corporis! Aliquam delectus ea soluta?</p>
-            <a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;</a>
+      
+      {% for r in res %}
+      	<div class="shopInfoBox">
+          <div class="thumbnail">
+            <img class="shopImg" src="{{r.avatar.url}}">
+            <div class="shopBoxBody">
+              <span class="shopTitle">{{r.ResName}}</span>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt qui quam voluptatibus dicta tenetur distinctio error praesentium, perspiciatis sunt eos cumque cum dolor, quis dolorum corporis! Aliquam delectus ea soluta?</p>
+              <a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;</a>
+            </div>
+              
           </div>
-            
-        </div>
-    	</div>
-      <div class="shopInfoBox">
-        <div class="thumbnail">
-          <img class="shopImg" src="{{r.avatar.url}}">
-          <div class="shopBoxBody">
-            <span class="shopTitle">{{r.ResName}}</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt qui quam voluptatibus dicta tenetur distinctio error praesentium, perspiciatis sunt eos cumque cum dolor, quis dolorum corporis! Aliquam delectus ea soluta?</p>
-            <a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;</a>
-          </div>
-          
-        </div>
-      </div>
+      	</div>
     	{% endfor %}
     </div>
 {% endblock %}

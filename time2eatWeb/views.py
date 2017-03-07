@@ -4,7 +4,7 @@ from djangoApiDec.djangoApiDec import queryString_required
 
 def index(request):
 	res = ResProf.objects.all()
-	print(res[0])
+	print(res)
 	print(res[0].avatar.url)
 	return render_to_response('time2eatWeb/index.html', locals())
 
