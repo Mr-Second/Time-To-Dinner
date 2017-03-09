@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Time2Eat{% endblock %}
  {% block javascript %}
  	<script type="text/javascript">
@@ -73,67 +74,10 @@
  		},false);
  		*/
  	</script>
+  {% block stylesheet %}
+<link rel='stylesheet' href='{% static "time2eatWeb/css/index.css" %}'> {% endblock %}
  {% endblock %}
 {% block content %}
-	<style>
-  #InfoArea{
-      margin: 0 210px;
-    }
-    /*餐廳左側nav*/
-    ul {
-      list-style-type: none;
-      margin: 5px;
-      padding: 0;
-      width: 15%;
-      height: 100%;
-      float: left;
-      background: #DEDEDE;
-      font-size: 14.5px;
-    }
-
-    li a {
-      display: block;
-      color: #4180B2;
-      padding: 8px 16px;
-      text-decoration: none;
-    }
-
-li a:hover {
-    color: #F25F5C;
-}
-
-		.shopInfoBox{
-			margin: 0 0 1% 16%;
-		}
-		
-		.thumbnail{
-      width: 80%;
-      padding: 5px;
-      margin: 5px;
-      overflow: auto;
-      background-color: #DEDEDE;
-      }
-      .thumbnail img{
-        max-width: 300px;
-        float: left;
-        border-radius: 5px;
-        margin-right: 20px;
-      }
-      
-
-      .thumbnail a{
-        position: relative;
-        text-decoration: none;
-        color: #4180B2;
-      }
-      .shopBoxBody{
-        padding: 20px;
-      }
-      .shopTitle{
-      font-weight: 700;
-      font-size: 18px;
-    }
-	</style>
   <div id="InfoArea">
       <ul class="nav">
         <li><a class="nav-link" href="#">飯類</a></li>
@@ -141,20 +85,17 @@ li a:hover {
         <li><a class="nav-link" href="#">速食</a></li>
         <li><a class="nav-link" href="#">早午餐</a></li>
         <li><a class="nav-link" href="#">素食</a></li>
-      </ul>
-      
-      {% for r in res %}
-      	<div class="shopInfoBox">
-          <div class="thumbnail">
-            <img class="shopImg" src="{{r.avatar.url}}">
+    </ul>
+    {% for r in res %}
+    <div class="shopInfoBox">
+        <div class="thumbnail">
+            <a href="./inside_resturant/?res_id={{r.id}}"><img class="shopImg" src="{{r.avatar.url}}"></a>
             <div class="shopBoxBody">
-              <span class="shopTitle">{{r.ResName}}</span>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt qui quam voluptatibus dicta tenetur distinctio error praesentium, perspiciatis sunt eos cumque cum dolor, quis dolorum corporis! Aliquam delectus ea soluta?</p>
-              <a href="./inside_resturant/?res_id={{r.id}}">詳細資訊&nbsp;</a>
+                <span class="shopTitle">{{r.ResName}}</span>
+                <p>笢一秏梤蛨綅乜嫟蕤圠，啵屮恔笘靬煰亍鋮丮阞。焨妽邔膫煘諨伝一棜眯珗匊忉俀亍，塯愝丌炘奅滍沀戉屮姏蜙扂毌侞。</p>
             </div>
-              
-          </div>
-      	</div>
-    	{% endfor %}
+        </div>
     </div>
+    {% endfor %}
+</div>
 {% endblock %}

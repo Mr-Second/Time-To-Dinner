@@ -42,27 +42,40 @@ footer a {
   font-size: 14px;
 
 }
+/*切換頁面欄*/
+.nav_bar{
 
-/*餐廳左側nav*/
-
-ul {
-    list-style-type: none;
-    margin: 5px;
-    padding: 0;
-    width: 15%;
-    height: 100%;
-    float: left;
-    background: #DEDEDE;
-    font-size: 14.5px;
+}
+.nav_pills{
+  list-style-type: none;
+  margin: 5px;
+  padding: 10px;
+  font-size: 14.5px;
+  text-align: center;
 }
 
-li a {
-    display: block;
-    color: #4180B2;
-    padding: 8px 16px;
-    text-decoration: none;
+.nav_pills li{
+  display:inline;
+  border: solid #4180B2 1px;
+  border-radius: 5px;
+  padding: .5em 1em;
 }
 
-li a:hover {
-    color: #F25F5C;
+.nav_pills li:hover{
+  background-color: #4180B2;
 }
+
+.nav_pills li:hover a{
+
+  color: #ffffff;
+}
+
+.nav_pills a{
+  color: #4180B2;
+  background-color: transparent;
+  text-decoration: none;
+  border-radius: .25rem;
+  
+}
+
+

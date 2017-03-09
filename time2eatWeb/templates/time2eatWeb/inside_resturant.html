@@ -4,32 +4,10 @@
     <div class="ui centered grid container">
         <div class="column">
             <div class="ui sticky">
-                <div style="clear:both" class="ui teal menu">
-                    <a class="active item">
-                        <i class="home icon"></i> Home
-                    </a>
-                    <a class="item">
-                        <i class="info icon"></i> About
-                    </a>
-                    <a class="item">
-                        <i class="book icon"></i> Read
-                    </a>
-                    <a class="item">
-                        <i class="edit icon"></i> Write
-                    </a>
-                    <div class="ui right menu">
-                        <a class="item" id="logIn">
-                            <i class="user icon"></i> Log In
-                        </a>
-                        <a class="item" href="signup">
-                            <i class="signup icon"></i> Sign Up
-                        </a>
-                    </div>
-                </div>
+                
             </div>
             <div class="ui segment">
                 <h1>{{ res.ResName }}</h1>
-                <button onclick="window.history.back();">上一頁</button>
                 <button onclick="location.href='../purchase?res_id={{res.id}}'">訂餐</button>
                 <img class="ui image" src="{{ res.avatar.url }}">
                 <h5>Test1</h5>
@@ -80,6 +58,7 @@
                             <i class="icon edit"></i>發佈
                         </div>
                     </form>
+
                     <div class="comment">
                         <a class="avatar">
                             <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
@@ -97,59 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
-                        </a>
-                        <div class="content">
-                            <a class="author">Elliot Fu</a>
-                            <div class="metadata">
-                                <span class="date">Yesterday at 12:30AM</span>
-                            </div>
-                            <div class="text">
-                                <p>This has been very useful for my research. Thanks as well!</p>
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
-                            </div>
-                        </div>
-                        <div class="comments">
-                            <div class="comment">
-                                <a class="avatar">
-                                    <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
-                                </a>
-                                <div class="content">
-                                    <a class="author">Jenny Hess</a>
-                                    <div class="metadata">
-                                        <span class="date">Just now</span>
-                                    </div>
-                                    <div class="text">
-                                        Elliot you are always so right :)
-                                    </div>
-                                    <div class="actions">
-                                        <a class="reply">Reply</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
-                        </a>
-                        <div class="content">
-                            <a class="author">Joe Henderson</a>
-                            <div class="metadata">
-                                <span class="date">5 days ago</span>
-                            </div>
-                            <div class="text">
-                                Dude, this is awesome. Thanks so much
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

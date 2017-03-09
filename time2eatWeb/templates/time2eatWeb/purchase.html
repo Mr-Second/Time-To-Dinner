@@ -24,14 +24,43 @@
          </div>
          
          <div id="mealSubmitBox">
-         <h1>總金額為<span id="totalmoney">0</span>元</h1>
-          <p>訂餐時段為<select id="period">
-            <option value=""></option>
-            <option value="晚餐">晚餐</option>
-            <option value="午餐">午餐</option>
-            </select></p>
-            <button id="btnsel" onclick="checkGroup()">尋找糾團</button>
-         
+         <button id="btnsel" onclick="checkGroup()">尋找糾團</button>
+ 
+    <p>以下為訂餐相關訊</p>
+    <!--這端css是方便我看-->
+    <style type="text/css">
+      .tbchk th{
+        min-width: 100px;
+        padding: 2px 5px;
+        }
+      .tbchk{
+        text-align: center;
+      }
+    </style>
+
+    <table  class="tbchk">
+      <thead>
+        <tr>
+        <th>餐點名稱</th>
+        <th>單價</th>
+        <th>份數</th>
+        <th>合計</th>
+        </tr>
+      </thead>
+      <tbody id="chkVal">
+      </tbody>
+    <tfoot><tr><td colspan="4">總金額為<span id="totalmoney">0</span>元，所參予的糾團編號為<span id="joinGroup"></span>
+    </td></tr></tfoot>
+    </table>
+<br><br><br><br>
+    <button class="" id="submit" type="submit" >提交訂單</button>
+         </div>
+    </div>
+
+
+
+
+    <!--這是跳group的相關model-->    
     <div id="jom" class="join_order_modal">
 
       <!-- Modal content -->
@@ -42,19 +71,17 @@
         </div>
        <div class="join_order_modal_body">
            <p>以下為{{ res.ResName }}的相關糾團</p>
+            <p>訂餐時段為<select id="period">
+            <option value=""></option>
+            <option value="晚餐">晚餐</option>
+            <option value="午餐">午餐</option>
+            </select></p>
            <table id="order_group"></table>
       </div>
         <div class="join_order_modal_footer">
-          <h3>Modal Footer</h3>
+          <button onclick="groupOnSel()">確定</button><button onclick="closeGroup()">取消</button>
       </div>
     </div>
-
-    </div>
-
-
-<br><br><br><br><br><br><br>
-         <button class="" id="submit" type="submit" >提交訂單</button>
-         </div>
     </div>
 <style>
 /*copy from w3 樣式最後要改*/
@@ -130,7 +157,46 @@
 
 
 </style>
+<!--modal結束-->
+
+{% endblock %}
+
+
+
+
+{% block javascript %}
+<!--以下為用到的script-->
 <script type="text/javascript">
+    function groupOnSel(){
+      var chkval =getSelectValue('chkGroup');
+      if(chkval['num']===0){alert("您上尚未選擇資料喔!");}
+      else if (chkval['num']>1){alert("您一次只能選擇一筆資料喔!");}
+      else{
+        //將群組代號寫到相關欄位
+        document.getElementById("joinGroup").innerHTML =chkval['chk0'];
+        //關閉群組
+        closeGroup();
+      }
+
+    }
+
+
+    function getSelectValue(itemname){
+      var sel = document.getElementsByName(itemname);
+      var dictionary ={num:0};
+      var count =0;
+      for(var i=0;i<sel.length;i++){
+        if(sel[i].checked===true){
+          count++;
+          dictionary['chk'+i]=sel[i].value;
+        }
+      }
+      dictionary['num']=count;
+      return dictionary;
+    }
+
+
+    //check group Modal open
     function checkGroup(){
       document.getElementById("jom").style.display="block";
       $.ajax({
@@ -143,20 +209,46 @@
                 {
                  var v = JSON.parse(data);
                  var tbdocument =document.getElementById("order_group");
-                 var thead =document.createElement("thead");
-                 //將要長colname先定義好
+                 //將要長colname先定義好(這裡的名子可以用來接css)
                  var coltext ={selection:"選擇",createUser: "發起人",period: "時段",restaurant: "餐廳",order_id:"訂單編號"};
+                 //為了增加彈性先寫出pk欄位方便使用(作為識別項)
+                 var primaryKey ="order_id";
+                 //新增子結點
+                 var thead =document.createElement("thead");
+                 var tbody =document.createElement("tbody");
+                 //長頭
                  for(var key in coltext){
                     var th =document.createElement("th");
+                    //我先幫你下好class 就是上面的key 這樣到時在接css 就不會找不到
+                     th.setAttribute("class", key);
                     var t=document.createTextNode(coltext[key]);
                     th.appendChild(t);
                     thead.appendChild(th); 
                  }
+                 thead.appendChild(document.createElement("tr"));
                  tbdocument.appendChild(thead);
-                 var tboay =document.createElement("tboby");
-                 //for(var i=0;i<data.length;i++){
+                 
+                 for(var i=0;i<v.length;i++){
+                    var tr =document.createElement("tr");
+                    for(var key in coltext){
 
-            //     }
+                        var td =document.createElement("td");
+                        var t =null;
+                        if(key ==="selection"){
+                          t= document.createElement("input");
+                          t.setAttribute("type", "checkbox");
+                          t.setAttribute("name", "chkGroup");
+                          t.value =v[i][primaryKey];
+                        }
+                        else{
+                          t=document.createTextNode(v[i][key]);
+                        }
+                        td.appendChild(t);
+                        tr.appendChild(td);
+                    }
+                    tbody.appendChild(tr);
+                 }
+                 tbdocument.appendChild(tbody);
                 },
                 error:
                  function(xhr, ajaxOptions, thrownError){ 
@@ -166,21 +258,28 @@
       });
 
     }
+    //關閉group modal事件
     function closeGroup(){
       document.getElementById("jom").style.display="none";
-
+      //用爛招青表
+      document.getElementById("order_group").innerHTML="";
     }
 
 
   //這global用來算錢 但後端要再算一次(永遠不要相信使用者丟國來的資料)
-  var price = 0;
   var localDish =new Array();
-    function dishNumSelIndexChange(DishId,DishName,DishNum,DishPrice){
+  //當份數做切換時對應事件
+  function dishNumSelIndexChange(DishId,DishName,DishNum,DishPrice){
+        //取得寵金額
         var totalmoney =parseInt(document.getElementById("totalmoney").innerHTML);
+        //舊的份數
         var oldDishNum = 0;
+        //新的份數轉int
         DishNum =parseInt(DishNum);
+        //判斷是否有在原本列表中
         var IsInDish =false;
-           for(var i=0;i<localDish.length;i++){
+        //列表走訪
+        for(var i=0;i<localDish.length;i++){
               if(localDish[i].Id===DishId) {
                 oldDishNum=localDish[i].Num;
                 localDish[i].Num=DishNum;
@@ -188,13 +287,42 @@
                 IsInDish =true;
               }
            }
-          if(!IsInDish){
-          localDish.push({Id:DishId,Name:DishName,Num:DishNum});
+        //如果沒在列表中
+        if(!IsInDish){
+          //就把他加進去
+          localDish.push({Id:DishId,Price:DishPrice,Name:DishName,Num:DishNum});
+          //金額直接相加
           totalmoney+=(DishNum)*DishPrice;
           }
+       //修改確認欄位
+       //取得dom
+       var tbodyDocument = document.getElementById("chkVal");
+       var node =document.getElementById("Dish"+DishId);
+       //新增
+       //長表用
+       var dishInfo ={name:DishName,price:DishPrice,num:DishNum,totalprice:(DishPrice*DishNum)};
+       //確認下方是否有之前的欄位 有先刪除舊的
+       if(node!==null){
+          //remove dish
+          tbodyDocument.removeChild(node);
+       }
+       //長出新的
+       if(DishNum!==0)//
+       {
+          var tr =document.createElement("tr");
+          tr.setAttribute("id", "Dish"+DishId);
+          for(var key in dishInfo){
+             var td =document.createElement("td");
+             var t =document.createTextNode(dishInfo[key]);
+             td.appendChild(t);
+             tr.appendChild(td);
+          } 
+        tbodyDocument.appendChild(tr);
+        }
+        //更新總金額
         document.getElementById("totalmoney").innerHTML=""+totalmoney;
       }
-
+  //送出按鈕確認
   $("#submit").click(function(){
        $.ajax({
                 url: "",
@@ -215,13 +343,8 @@
       });
   });
 </script>
-
-
-
-
-
-
-
+{% endblock %}
+<!--註解舊方法可以拿來參考-->
 <script type="text/javascript">
 /*
 <div class="pusher">
@@ -331,14 +454,8 @@
 
                         </div>
                     </div>
-*/
-</script>
-{% endblock %}
-{% block javascript %}
-<script type="text/javascript">
 $('.ui.dropdown')
 .dropdown()
 ;
-
+*/
 </script>
-{% endblock %}
