@@ -40,12 +40,10 @@
 }
 
   .thumbnail img{
-
     max-width: 300px;
     float: left;
     border-radius: 5px;
     margin-right: 20px;
-
 }
 
 .thumbnail a {
@@ -62,5 +60,3 @@
     font-weight: 700;
     font-size: 18px;
 }
-
-
