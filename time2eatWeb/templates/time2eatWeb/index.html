@@ -1,86 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}Time2Eat{% endblock %}
+
 {% block stylesheet %}
     <link rel='stylesheet' href='{% static "time2eatWeb/css/index.css" %}'>
 {% endblock %}
 
- {% block javascript %}
- 	<script type="text/javascript">
- 	  /*
- 	  var UrlRouteAjax = function (Url, Case, ArgumentData,funcSuccess,funcFaild) {//async must be false
-        	//取得目前URL的OBJ
-        	var urlobj = (location.hash != "") ? JSON.parse(decodeURI(location.hash.slice(1))) : {};
-        	//丟進ArgumentData內
-        	for (var obj in urlobj) { ArgumentData[obj] = urlobj[obj]; }
-
-        	 $.ajax({
-                url: Url,
-                data: ArgumentData,
-                type: Case,
-                dataType:'text',
-                success: funcSuccess,
-                error:funcFaild
-                // function(xhr, ajaxOptions, thrownError){
-                //    alert(xhr.status);
-                //    alert(thrownError);
-                // }
-            });
-    	}
-
-      var ObjConvertToJsonUrl=function (obj) {
-      	 var str = JSON.stringify(obj);
-       	 str = encodeURI(str);
-         return str;
-    	}
-
- 		window.onhashchange=function(){
- 			UrlRouteAjax('../t2e/api/restaurant/list','get',{},function(data){
- 			 	alert(data);
- 			    var dataArray =	JSON.parse(data);
- 			    //如果懶惰可以用innerHtml 稍微慢一些些 不過只做一次因該還好
- 			   	var strDocument ="";
- 			    for(var row in dataArray){
- 			    	strDocument+='<div class="shopInfoBox">'+
-    							'<div class="shopBoxHeader">'+
-    	   						'<p class="shopTitle">'+dataArray[row].ResName+'<a>'+dataArray[row].ResLike+'</a>(我是用Jquery長出來的)</p>'+
-    	   						'</div>'+
-    	   						'<div class="shopBoxBody">'+
-           						'<img class="shopImg" src="'+dataArray[row].avatar+'">'+
-           					'<p>Score : '+dataArray[row].score+'</p>'+
-          				 	'</div>'+
-          					'<div class="shopBoxFooter">'+
-           					'<p style="text-align:right;">'+
-           					'<a>詳細資訊&nbsp;&nbsp;&nbsp;</a>'+
-           					'<p></div></div>';
-			    }
-			    document.getElementById("InfoArea").innerHTML+=strDocument;
-
- 			},
- 			function(xhr, ajaxOptions, thrownError){
-                   alert(xhr.status);
-                   alert(thrownError);
-          	});
-
- 		};
- 		window.addEventListener('load',function(){
- 			//set default info
- 			var obj ={start:1,gap:15};
- 			location.hash =ObjConvertToJsonUrl(obj);
- 			//測試方法用
- 			//UrlRouteAjax('../t2e/api/restaurant/list','get',{start:1,gap:15},function(data){
- 			//	alert(data);
- 			//},
- 			//function(xhr, ajaxOptions, thrownError){
-            //       alert(xhr.status);
-            //       alert(thrownError);
-          	//});
- 		},false);
- 		*/
- 	</script>
-  {% block stylesheet %}
-<link rel='stylesheet' href='{% static "time2eatWeb/css/index.css" %}'> {% endblock %}
- {% endblock %}
 {% block content %}
   <div id="InfoArea">
       <ul class="nav">
@@ -90,6 +16,7 @@
         <li><a class="nav-link" href="#">早午餐</a></li>
         <li><a class="nav-link" href="#">素食</a></li>
     </ul>
+
     {% for r in res %}
     <div class="shopInfoBox">
         <div class="thumbnail">
@@ -101,5 +28,6 @@
         </div>
     </div>
     {% endfor %}
+    
 </div>
 {% endblock %}
