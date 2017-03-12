@@ -21,10 +21,15 @@
     <div class="shopInfoBox">
         <div class="thumbnail">
             <a href="./inside_resturant/?res_id={{r.id}}"><img class="shopImg" src="{{r.avatar.url}}"></a>
-            <div class="shopBoxBody">
-                <span class="shopTitle">{{r.ResName}}</span>
-                <p>笢一秏梤蛨綅乜嫟蕤圠，啵屮恔笘靬煰亍鋮丮阞。焨妽邔膫煘諨伝一棜眯珗匊忉俀亍，塯愝丌炘奅滍沀戉屮姏蜙扂毌侞。</p>
-            </div>
+                <div class="shopBoxBody">
+                    {% if r.isjoin %}
+                        <h1>join people</h1>
+                        <h1>join number</h1>
+                    {% else %}
+                        <span class="shopTitle">{{r.ResName}}</span>
+                        <p>笢一秏梤蛨綅乜嫟蕤圠，啵屮恔笘靬煰亍鋮丮阞。焨妽邔膫煘諨伝一棜眯珗匊忉俀亍，塯愝丌炘奅滍沀戉屮姏蜙扂毌侞。</p>
+                    {% endif %}
+                </div>
         </div>
     </div>
     {% endfor %}
