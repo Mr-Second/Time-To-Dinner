@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% load static %}
 
 {% block title %}Time2Eat{% endblock %}
@@ -23,11 +24,14 @@
             <a href="./inside_resturant/?res_id={{r.id}}"><img class="shopImg" src="{{r.avatar.url}}"></a>
             <div class="shopBoxBody">
                 <span class="shopTitle">{{r.ResName}}</span>
-                <p>笢一秏梤蛨綅乜嫟蕤圠，啵屮恔笘靬煰亍鋮丮阞。焨妽邔膫煘諨伝一棜眯珗匊忉俀亍，塯愝丌炘奅滍沀戉屮姏蜙扂毌侞。</p>
+                <p>{{r.Type}}</p>
+                <h4>最後預約時間:{{ r.last_reserv }}</h4>
+                <h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><small>{{r.ResLike}}</small>　<i class="fa fa-star" aria-hidden="true"></i>{{ r.score}}</h3>
+                
             </div>
         </div>
     </div>
     {% endfor %}
-    
+
 </div>
 {% endblock %}

@@ -55,7 +55,9 @@
 .shopBoxBody {
     padding: 20px;
 }
-
+.shopBoxBody .like{
+    margin: 0px;
+}
 .shopTitle {
     font-weight: 700;
     font-size: 18px;
