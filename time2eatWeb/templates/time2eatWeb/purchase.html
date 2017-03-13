@@ -20,7 +20,7 @@
                                  <!--這邊我想要餐點的ID-->
                           <span id="{{i.id}}">{{i.DishName}}</span>
                           {{i.price}}元/份&nbsp;共 
-                          <select id="mealnum" onchange="dishNumSelIndexChange('{{i.id}}','{{i.DishName}}',this.options[this.selectedIndex].value,{{i.price}});" style="height:">
+                          <select id="mealnum" onchange="dishNumSelIndexChange('{{i.id}}','{{i.DishName}}',this.options[this.selectedIndex].value,{{i.price}});" >
                                     <option value="0"></option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -201,7 +201,6 @@
     }
 
 
-  //這global用來算錢 但後端要再算一次(永遠不要相信使用者丟國來的資料)
   var localDish =new Array();
   //當份數做切換時對應事件
   function dishNumSelIndexChange(DishId,DishName,DishNum,DishPrice){
@@ -259,23 +258,17 @@
       }
   //送出按鈕確認
   $("#submit").click(function(){
-       $.ajax({
-                url: "",
-                data: {},
                 type: 'post',
                 async:false,
                 dataType:'text',
                 success:function(data)
                 {
-                  alert(data);
-               //   location.href("../check/...");
                 },
                 error:
                  function(xhr, ajaxOptions, thrownError){ 
                     alert(xhr.status); 
                     alert(thrownError); 
                  }
-      });
   });
 </script>
 {% endblock %}
