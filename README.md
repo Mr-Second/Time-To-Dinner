@@ -42,7 +42,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Break down into end to end tests
 
-目前還沒寫測試...
+1. （optional）建立自己的`fixtures`測試資料：  
+  ```
+  python manage.py dumpdata --format=json --indent=4 gluttonyTw.Type gluttonyTw.ResProf gluttonyTw.Menu gluttonyTw.Date gluttonyTw.Phone gluttonyTw.Dish gluttonyTw.EatUser gluttonyTw.Comment gluttonyTw.FavorType gluttonyTw.FavorDish gluttonyTw.ResFavorDish gluttonyTw.Order gluttonyTw.UserOrder gluttonyTw.SmallOrder > all.json
+  ```
+2. 使用內建`fixtures`去測試：
+`python3 manage.py test --settings=inferno.settings_test`
 
 ### And coding style tests
 
