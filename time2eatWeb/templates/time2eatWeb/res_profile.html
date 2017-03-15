@@ -1,3 +1,9 @@
+{% load static %}
+
+{% block stylesheet %}
+    <link rel='stylesheet' href='{% static "time2eatWeb/css/profile.css" %}'>
+{% endblock %}
+
 <div class="item">
     <!-- pass res_id int {{res.id}} this position, then django render that page with specific restaurant -->
     <!--
@@ -12,10 +18,10 @@
     <div class="content">
         <h3>{{ res.ResName }}</h3>
         <div class="meta">
-            <p class="cinema">{{ res.address }}</p>
+            <p class="cinema">地址：{{ res.address }}</p>
         </div>
         <div class="description">
-            <p>最後預約時間:{{ res.last_reserv }}</p>
+            <p>最後預約時間：{{ res.last_reserv }}</p>
         </div>
         <div class="extra">
             <div class="ui labeled button" tabindex="0">

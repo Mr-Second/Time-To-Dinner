@@ -1,32 +1,36 @@
 .container{
-	width: 700px;
-	margin: 0 370px;
+	width: 1000px;
+	margin: 0 auto;
 	padding: 10px;
+	background: #DEDEDE;
 }
 .container img{
 	max-width: 500px;
+	padding: 5px;
 	border: 1px #999999 solid;
 	border-radius: 3px;
 	background-color: #ffffff;
-	padding: 5px;
+}
+#shopInfo{
+	width: 600px;
+	display: inline-block;
 }
 .shopDetail{
 	margin: 20px 0 0 0;
 }
-.shopDetail a{
-	text-decoration: none;
-	color: #4180B2;
+.order{
+	display: inline-block;
 }
-.shopDetail a:hover{
+.order .orderBtn{
+	padding: 10px 20px;
+	border-radius: 5px;
+	background: #4180B2;
+	text-decoration: none;
+	color: #ffffff;
+}
+.order .orderBtn:hover{
 	color: #F25F5C;
 }
 .comment{
 	width: 500px;
-}
-.avatar{
-	float: left;
-	margin-right: 10px;
-}
-.actions{
-	float: right;
 }

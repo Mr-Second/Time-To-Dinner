@@ -12,17 +12,10 @@
 <body>
     <header class='stufinite-header'>
         <div class="stufinite-inner">
-        <div class='stufinite-header-title'>
-            <span>{% block app_name %}{% endblock %}</span>
-            <img src="" alt="LOGO">
-        </div>
-        
-        <div class='stufinite-header-search'>
-            <input id='search-form' type='text' placeholder='輸入課程名稱、代碼、教師名稱、餐廳名稱或進行關鍵字搜尋'>
-        </div>
-        <input class="search-btn" type="button" value="送出"></input>
-        <i class="fa fa-bars fa-2x" aria-hidden="true" tabindex="0" onclick="return true"></i>
-        <div class="menu">
+            <div class='stufinite-header-title'>
+                <span>{% block app_name %}{% endblock %}</span>
+                <img src="" alt="LOGO">
+            </div>
             <div class="nav_bar">
                 <ul class="nav_pills">
                     <li><a href="">課表</a></li>
@@ -30,11 +23,14 @@
                     <li><a href="">吃飯</a></li>
                 </ul>
             </div>
+            <div class='stufinite-header-search'>
+                <input id='search-form' type='text' placeholder='輸入課程名稱、代碼、教師名稱、餐廳名稱或進行關鍵字搜尋'>
+            </div>
+            <input class="search-btn" type="button" value="送出"></input>
             <div class='stufinite-header-item'>
                 <a href="https://login.campass.com.tw/accounts/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i>{{ user.username }} </a>
                 <a href="http://login.campass.com.tw/accounts/logout" class='stufinite-btn'>Logout</a>
             </div>
-        </div>
         </div>
     </header>
     {% block content %} {% endblock %}
