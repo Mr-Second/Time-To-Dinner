@@ -1,11 +1,21 @@
 from django.shortcuts import render_to_response, render
 from gluttonyTw.models import ResProf
+from gluttonyTw.models import Order
 from djangoApiDec.djangoApiDec import queryString_required
 
 def index(request):
-	res = ResProf.objects.all()
+	res =''
+	isChkGroup=''
+	print('chkgroup' in request.GET and request.GET['chkgroup']=='T')
+	if 'chkgroup' in request.GET and request.GET['chkgroup']=='T':
+		isChkGroup =True
+		res =Order.objects.all()
+	else:
+		isChkGroup =False
+		res = ResProf.objects.all()
+
 	print(res)
-	print(res[0].avatar.url)
+	print(isChkGroup)
 	return render_to_response('time2eatWeb/index.html', locals())
 
 def inside_resturant(request):

@@ -17,20 +17,37 @@
         <li><a class="nav-link" href="#">早午餐</a></li>
         <li><a class="nav-link" href="#">素食</a></li>
     </ul>
-
-    {% for r in res %}
-    <div class="shopInfoBox">
-        <div class="thumbnail">
-            <a href="./inside_resturant/?res_id={{r.id}}"><img class="shopImg" src="{{r.avatar.url}}"></a>
-            <div class="shopBoxBody">
-                <span class="shopTitle">{{r.ResName}}</span>
-                <p>{{r.Type}}</p>
-                <h4>最後預約時間:{{ r.last_reserv }}</h4>
-                <h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><small>{{r.ResLike}}</small>　<i class="fa fa-star" aria-hidden="true"></i>{{ r.score}}</h3>
+    {% if isChkGroup  %}
+         {% for r in res %}
+        <div class="shopInfoBox">
+            <div class="thumbnail">
+                <a href="./inside_resturant/?res_id={{r.id}}"><img class="shopImg" src="{{r.avatar.url}}"></a>
+                <div class="shopBoxBody">
+                    <span class="shopTitle">{{r.restaurant}}</span>
+                    <p>{{r.Type}}</p>
+                    <h4>訂單開始時間:{{ r.create }}</h4>
+                    <h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><small>{{r.period}}</small>　<i class="fa fa-star" aria-hidden="true"></i>{{ r.score}}</h3>
+                </div>
             </div>
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        {% for r in res %}
+        <div class="shopInfoBox">
+            <div class="thumbnail">
+                <a href="./inside_resturant/?res_id={{r.id}}"><img class="shopImg" src="{{r.avatar.url}}"></a>
+                <div class="shopBoxBody">
+                    <span class="shopTitle">{{r.ResName}}</span>
+                    <p>{{r.Type}}</p>
+                    <h4>最後預約時間:{{ r.last_reserv }}</h4>
+                    <h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><small>{{r.ResLike}}</small>　<i class="fa fa-star" aria-hidden="true"></i>{{ r.score}}</h3>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+ 
 
 </div>
 {% endblock %}
