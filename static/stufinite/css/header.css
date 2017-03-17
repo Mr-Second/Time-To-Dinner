@@ -24,6 +24,7 @@
 
 .nav_bar{
   display: inline-block;
+  margin: 0 10px;
 }
 .nav_pills{
   list-style-type: none;
@@ -55,8 +56,7 @@
 
 .stufinite-header-search {
   display: inline-block;
-  margin:0 0 0 60px;
-  width: 615px;
+  width: 500px;
   vertical-align: middle;
   text-align: center;
 }
@@ -90,40 +90,10 @@
 
 /*其他*/
 
-.fa-bars{
-  vertical-align: middle;
-  color: #fff;
-  margin: 0 0 0 5px;
-  padding: 0px;
-  cursor: pointer;
-}
-.fa-bars:hover{
-  color: #F25F5C;
-}
-
-.menu{
-  width: 800px;
-  height: 100%;
-  margin: 0 0 10px 150px;
-  visibility: hidden;
-  /* CSS3淡出淡入效果,2秒 */
-  opacity: 0;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s , translate(0,100px);
-
-}
-
-.fa-bars:focus ~ .menu{
-  visibility: visible;
-  opacity: 1;
-  -webkit-transition: opacity 0.2s;
-  transition: opacity 0.2s , translate(0,100px);
-}
-
 .stufinite-header-item{
   display: inline-block;
-  float: right;
-  margin: 0px;
+  vertical-align: middle;
+  margin-left: 10px;
 }
 
 .stufinite-header-item a{

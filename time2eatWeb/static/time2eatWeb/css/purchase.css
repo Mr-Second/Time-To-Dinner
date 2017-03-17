@@ -1,5 +1,30 @@
-
-
+.main{
+  width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  background: #DEDEDE;
+}
+#shopInfo img{
+  padding: 5px;
+  border: 1px #999999 solid;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+.dishInfo img{
+  max-width: 300px;
+  padding: 5px;
+  border: 1px #999999 solid;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+.order{
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #4180B2;
+  text-decoration: none;
+  color: #ffffff;
+}
 .perchase-side{
   float:left;
   width:15%;
