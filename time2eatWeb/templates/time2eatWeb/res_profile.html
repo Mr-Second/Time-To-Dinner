@@ -1,30 +1,31 @@
+{% load static %}
+
+{% block stylesheet %}
+    <link rel='stylesheet' href='{% static "time2eatWeb/css/profile.css" %}'>
+{% endblock %}
+
 <div class="item">
     <!-- pass res_id int {{res.id}} this position, then django render that page with specific restaurant -->
+    <!--
     <a class="image" href="/time2eatWeb/inside_resturant/?res_id={{res.id}}">
+    -->
         <!-- res.avatar是餐廳物件的照片欄位，有url這個attribute會顯示相對位置 -->
         <!-- res.avatar is imagefield of ResProf Object, which has url attribute that will be rendered into relative path -->
         <img src="{{ res.avatar.url }}">
+    <!--    
     </a>
+    -->
     <div class="content">
-        <a class="header" href="/time2eatWeb/inside_resturant/?res_id={{res.id}}">{{ res.ResName }}</a>
+        <h3>{{ res.ResName }}</h3>
         <div class="meta">
-            <span class="cinema">{{ res.address }}</span>
+            <p class="cinema">地址：{{ res.address }}</p>
         </div>
         <div class="description">
-            <p>最後預約時間:{{ res.last_reserv }}</p>
+            <p>最後預約時間：{{ res.last_reserv }}</p>
         </div>
         <div class="extra">
             <div class="ui labeled button" tabindex="0">
-                <div class="ui button">
-                    <i class="heart icon"></i> Like
-                </div>
-                <a class="ui basic label">{{ res.ResLike}}</a>
-            </div>
-            <div class="ui labeled button" tabindex="0">
-                <div class="ui button">
-                    <i class="heart icon"></i> 評分
-                </div>
-                <a class="ui basic label">{{ res.score}}</a>
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>{{ res.ResLike}}　<i class="fa fa-star" aria-hidden="true"></i>{{ res.score}}
             </div>
         </div>
     </div>

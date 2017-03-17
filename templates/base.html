@@ -11,26 +11,28 @@
 
 <body>
     <header class='stufinite-header'>
-        <div class='stufinite-header-title'>
-            <span>{% block app_name %}{% endblock %}</span>
-        </div>
-        <div class='stufinite-header-search'>
-            <input id='search-form' type='text' placeholder='輸入課程名稱、代碼、教師名稱、餐廳名稱或進行關鍵字搜尋'>
-        </div>
-        <div class='stufinite-header-item'>
-            <span class='stufinite-header-user-info'><a href="https://login.campass.com.tw/accounts/profile">{{ user.username }} 使用者設定</a></span>
-            <a href="http://login.campass.com.tw/accounts/logout">
-                <button class='stufinite-btn'>Logout</button>
-            </a>
+        <div class="stufinite-inner">
+            <div class='stufinite-header-title'>
+                <span>{% block app_name %}{% endblock %}</span>
+                <img src="" alt="LOGO">
+            </div>
+            <div class="nav_bar">
+                <ul class="nav_pills">
+                    <li><a href="">課表</a></li>
+                    <li><a href="">課程心得</a></li>
+                    <li><a href="">吃飯</a></li>
+                </ul>
+            </div>
+            <div class='stufinite-header-search'>
+                <input id='search-form' type='text' placeholder='輸入課程名稱、代碼、教師名稱、餐廳名稱或進行關鍵字搜尋'>
+            </div>
+            <input class="search-btn" type="button" value="送出"></input>
+            <div class='stufinite-header-item'>
+                <a href="https://login.campass.com.tw/accounts/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i>{{ user.username }} </a>
+                <a href="http://login.campass.com.tw/accounts/logout" class='stufinite-btn'>Logout</a>
+            </div>
         </div>
     </header>
-    <div class="nav_bar">
-        <ul class="nav_pills">
-            <li><a href="">課表</a></li>
-            <li><a href="">課程心得</a></li>
-            <li><a href="">吃飯</a></li>
-        </ul>
-    </div>
     {% block content %} {% endblock %}
     <footer>
         <span>Copyright © 2016 All rights reserved.</span>
