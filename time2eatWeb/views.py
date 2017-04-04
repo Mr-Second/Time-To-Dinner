@@ -2,6 +2,8 @@ from django.shortcuts import render_to_response, render
 from gluttonyTw.models import ResProf
 from gluttonyTw.models import Order
 from djangoApiDec.djangoApiDec import queryString_required
+from django.urls import reverse
+import requests
 
 def index(request):
     if 'chkgroup' in request.GET and request.GET['chkgroup']=='T':
@@ -29,3 +31,13 @@ def purchase(request):
     res = ResProf.objects.get(id=request.GET['res_id'])
     EatU, upperuser = get_user(request)
     return render(request, 'time2eatWeb/purchase.html', locals())
+
+@queryString_required(['res_id'])
+def boss(request):
+    protocol = 'http'
+    urlPattern = reverse('gluttonyTw:rest_api')
+    apiURL = request.get_host() + urlPattern
+    # queryString = "res_id={}&".format(urllib.parse.quote(str(request.GET['res_id'])))
+    jsonText = requests.get('{}://'.format(protocol) + apiURL, {'res_id':str(request.GET['res_id'])}).json()
+    print(jsonText)
+    return render(request, 'time2eatWeb/boss.html', locals())

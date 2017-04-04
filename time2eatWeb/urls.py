@@ -7,4 +7,5 @@ urlpatterns = [
   url(r'^inside_resturant/$', views.inside_resturant, name='inside_resturant'),
   url(r'^purchase/$', views.purchase, name='purchase'),
   url(r'^check/$', views.check, name='check'),
+  url(r'^boss/$', views.boss, name='boss'),
 ]

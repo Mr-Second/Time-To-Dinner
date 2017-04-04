@@ -1,0 +1,30 @@
+{% extends "base.html" %} 
+
+{% block title %}Time2Eat{% endblock %} 
+
+{% block content%}
+料理類型：
+{% for i in jsonText.Type %}
+  {{ i }}
+{% endfor %}
+<br>
+Score:{{jsonText.Score}}分
+<br>
+
+Date:{{jsonText.Date}}這一天的訂單
+<br>
+
+訂單:
+{% for i in jsonText.OrderList %}
+  {{i}}
+{% endfor %}
+
+<br>
+ResName:{{jsonText.ResName}}
+
+<br>
+ResAddress:{{jsonText.ResAddress}}
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
