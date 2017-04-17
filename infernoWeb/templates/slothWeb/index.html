@@ -1,0 +1,25 @@
+{% extends "infernoWeb/index.html" %}
+
+{% block navbar %}
+	<ul class="nav">
+		<li><a class="nav-link" href="#">必修</a></li>
+		<li><a class="nav-link" href="#">選修</a></li>
+		<li><a class="nav-link" href="#">通識</a></li>
+		<li><a class="nav-link" href="#">其他</a></li>
+	</ul>
+{% endblock %}
+
+{% block shopInfoBox %}
+	{% for c in clist %}
+		<div class="shopInfoBox">
+			<div class="thumbnail">
+				<a href="{{網址}}"><img class="shopImg" src="{{c.avatar.url}}"></a>
+				<div class="shopBoxBody">
+					<span class="shopTitle">{{c.name}}</span>
+					<p>學校：{{c.school}} 老師：{{c.teacher}}</p>
+					<h3><i class="fa fa-star" aria-hidden="true"></i>{{c.feedback_amount}}人參與評分</h3>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

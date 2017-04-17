@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block stylesheet %}
+    <link rel='stylesheet' href='{% static "infernoWeb/css/index.css" %}'>
+{% endblock %}
+{% block content %}
+    <div id="InfoArea">
+        {# example #}
+        {% block navbar %}
+            <ul class="nav">
+                <li><a class="nav-link" href="#">navbar選項</a></li>
+            </ul>
+        {% endblock %}
+        
+        {# example #}
+        {% block shopInfoBox %}
+            {% for s in something %}
+                <div class="shopInfoBox">
+                    <div class="thumbnail">
+                        <a href="{{網址}}"><img class="shopImg" src="{{網址}}"></a>
+                        <div class="shopBoxBody">
+                            <span class="shopTitle">{{名稱}}</span>
+                            <p>{{型態}}</p>
+                            <h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><small>{{按讚數量}}</small>　<i class="fa fa-star" aria-hidden="true"></i>{{評分}}</h3>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+    </div>
+{% endblock %}
