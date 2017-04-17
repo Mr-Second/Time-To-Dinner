@@ -35,4 +35,9 @@ def purchase(request):
 @queryString_required(['res_id'])
 def boss(request):
     res_id = request.GET['res_id']
+
+    protocol = 'http'
+    urlPattern = reverse('gluttonyTw:rest_api')
+    apiURL = request.get_host() + urlPattern
+    jsonText = requests.get('{}://'.format(protocol) + apiURL, {'res_id':str(request.GET['res_id'])}).json()
     return render(request, 'time2eatWeb/boss.html', locals())
