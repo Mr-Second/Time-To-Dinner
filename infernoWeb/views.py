@@ -15,22 +15,22 @@ def index(request):
         res = ResProf.objects.all()
 
     jsval = 11111 # just demo to sonson
-    return render_to_response('time2eatWeb/index.html', locals())
+    return render_to_response('infernoWeb/index.html', locals())
 
 def inside_resturant(request):
     if 'res_id' in request.GET and request.GET['res_id']!='':
         res = ResProf.objects.get(id=request.GET['res_id'])
-    return render_to_response('time2eatWeb/inside_resturant.html',locals())
+    return render_to_response('infernoWeb/inside_resturant.html',locals())
 
 def check(request):
-    return render_to_response('time2eatWeb/check.html',locals())
+    return render_to_response('infernoWeb/check.html',locals())
 
 @queryString_required(['res_id'])
 def purchase(request):
     from gluttonyTw.view.get_user import get_user
     res = ResProf.objects.get(id=request.GET['res_id'])
     EatU, upperuser = get_user(request)
-    return render(request, 'time2eatWeb/purchase.html', locals())
+    return render(request, 'infernoWeb/purchase.html', locals())
 
 @queryString_required(['res_id'])
 def boss(request):
@@ -40,4 +40,4 @@ def boss(request):
     urlPattern = reverse('gluttonyTw:rest_api')
     apiURL = request.get_host() + urlPattern
     jsonText = requests.get('{}://'.format(protocol) + apiURL, {'res_id':str(request.GET['res_id'])}).json()
-    return render(request, 'time2eatWeb/boss.html', locals())
+    return render(request, 'infernoWeb/boss.html', locals())

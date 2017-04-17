@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
 from django.conf.urls import url
-from time2eatWeb import views
+from infernoWeb import views
 urlpatterns = [
   url(r'^$',views.index, name='index'),#這樣做似乎是對應到,首頁
   url(r'^inside_resturant/$', views.inside_resturant, name='inside_resturant'),

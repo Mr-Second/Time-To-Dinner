@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ] + [
     'gluttonyTw',
-    'time2eatWeb',
+    'infernoWeb',
     'slothTw'
 ]
 

@@ -20,7 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-	url(r'^time2eatWeb/',include('time2eatWeb.urls',namespace="time2eatWeb") ),
+	url(r'^infernoWeb/',include('infernoWeb.urls',namespace="infernoWeb") ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

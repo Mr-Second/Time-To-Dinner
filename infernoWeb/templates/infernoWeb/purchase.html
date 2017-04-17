@@ -5,13 +5,13 @@
 {% block title %}Time2Eat{% endblock %}
 
 {% block stylesheet %}
-<link rel='stylesheet' href='{% static "time2eatWeb/css/purchase.css" %}'> 
+<link rel='stylesheet' href='{% static "infernoWeb/css/purchase.css" %}'> 
 {% endblock %}
 
 {% block content%}
 
 <div class="main">
-    <div id="shopInfo"> {% include 'time2eatWeb/res_profile.html' %}</div>
+    <div id="shopInfo"> {% include 'infernoWeb/res_profile.html' %}</div>
     <div id="mealSelBox">
         {% csrf_token %}
         {% for i in res.dish_set.all %}

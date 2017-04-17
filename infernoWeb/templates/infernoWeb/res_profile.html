@@ -1,13 +1,13 @@
 {% load static %}
 
 {% block stylesheet %}
-    <link rel='stylesheet' href='{% static "time2eatWeb/css/profile.css" %}'>
+    <link rel='stylesheet' href='{% static "infernoWeb/css/profile.css" %}'>
 {% endblock %}
 
 <div class="item">
     <!-- pass res_id int {{res.id}} this position, then django render that page with specific restaurant -->
     <!--
-    <a class="image" href="/time2eatWeb/inside_resturant/?res_id={{res.id}}">
+    <a class="image" href="/infernoWeb/inside_resturant/?res_id={{res.id}}">
     -->
         <!-- res.avatar是餐廳物件的照片欄位，有url這個attribute會顯示相對位置 -->
         <!-- res.avatar is imagefield of ResProf Object, which has url attribute that will be rendered into relative path -->
