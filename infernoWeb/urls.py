@@ -11,6 +11,7 @@ urlpatterns = [
   url(r'^boss/$', gluttony.boss, name='boss'),
 ] + [
   # 課程心得的部份
-  url(r'^sloth$',sloth.index, name='sloth')
+  url(r'^sloth$',sloth.index, name='sloth'),
+  url(r'^sloth/inside$',sloth.inside, name='sloth')
 ]
 

@@ -3,5 +3,11 @@ from djangoApiDec.djangoApiDec import queryString_required
 from slothTw.models import Course
 
 def index(request):
-    clist = Course.objects.filter(name='倫理學與當代議題')
+    clist = Course.objects.all()
     return render_to_response('slothWeb/index.html', locals())
+
+@queryString_required(['id'])
+def inside(request):
+    id = request.GET['id']
+    c= Course.objects.get(id=id)
+    return render_to_response('slothWeb/inside.html', locals())
