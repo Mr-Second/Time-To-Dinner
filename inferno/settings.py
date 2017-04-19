@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ] + [
+    'djangobower',
     'gluttonyTw',
     'infernoWeb',
     'slothTw'
@@ -49,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -147,4 +148,16 @@ CORS_ORIGIN_REGEX_WHITELIST = (
 )  # TODO Use HTTPS
 CORS_ALLOW_METHODS = (
     'GET',
+)
+
+# django-bower allow django use bower to manage front-end library.
+BOWER_COMPONENTS_ROOT = BASE_DIR
+STATICFILES_DIRS.append(BOWER_COMPONENTS_ROOT)
+STATICFILES_FINDERS = (
+    'djangobower.finders.BowerFinder',
+)
+
+BOWER_INSTALLED_APPS = (
+    'd3',
+    'radar-chart-d3',
 )

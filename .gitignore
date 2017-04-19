@@ -4,6 +4,7 @@ uwsgi.deploy.ini
 db.sqlite3
 gluttonyTw
 slothTw
+bower_components/
 
 # virtualenv
 venv
