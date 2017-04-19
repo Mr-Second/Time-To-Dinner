@@ -15,7 +15,8 @@
 			<div class="thumbnail">
 				<a href="/infernoWeb/sloth/inside?id={{c.id}}"><img class="shopImg" src="{{c.avatar.url}}"></a>
 				<div class="shopBoxBody">
-					<span class="shopTitle">{{c.name}}</span>
+					<span class="shopTitle">{{c.name}}</span> 
+					<span style="color:red">{{c.ctype}}</span>{# 課程的類型 #}
 					<p>學校：{{c.school}} 老師：{{c.teacher}}</p>
 					<h3><i class="fa fa-star" aria-hidden="true"></i>{{c.feedback_amount}}人參與評分</h3>
 				</div>

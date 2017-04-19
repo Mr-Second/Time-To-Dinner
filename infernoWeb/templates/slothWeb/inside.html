@@ -3,3 +3,18 @@
 {% block profile %}
     {% include 'infernoWeb/profile.html' %}
 {% endblock %}
+
+{% block comments %}
+    {# 列出所有使用者的留言 #}
+    {% for i in comments %}
+        <div class="customer">
+            <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
+        </div>
+        <div class="cusInfo">
+            <b>{{i.author}}</b>　<i>{{i.create}}</i>
+            <div class="text">
+                <p>{{i.raw}}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
