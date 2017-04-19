@@ -37,8 +37,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Run
 
-1. 下載測試用的[資料庫](https://drive.google.com/open?id=0B19mg1oUrRQ3R0FWN3NEWjNYVzg)進去（裏面有預設好的測資），放到 `inferno` 的資料夾底下，然後把名子改成db.sqlite3（覆蓋舊的資料庫）。
-2. Execute : `python manage.py runserver`. If it work fine on [here](http://127.0.0.1) , then it's done. Congratulations~~
+1. 下載測試用的[資料庫](https://drive.google.com/open?id=0B19mg1oUrRQ3WlVBU1pjd0pUNHc)進去（裏面有預設好的測資），放到 `inferno` 的資料夾底下，然後把名子改成db.sqlite3（覆蓋舊的資料庫）。
+2. 使用`bower`下載前端需要的套件：`python manage.py bower install`
+3. 啟動頁面 : `python manage.py runserver`. If it work fine on [here](http://127.0.0.1) , then it's done. Congratulations~~
 
 ### Break down into end to end tests
 
