@@ -154,8 +154,11 @@ CORS_ALLOW_METHODS = (
 BOWER_COMPONENTS_ROOT = BASE_DIR
 STATICFILES_DIRS.append(BOWER_COMPONENTS_ROOT)
 STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'djangobower.finders.BowerFinder',
 )
+
 
 BOWER_INSTALLED_APPS = (
     'd3',
