@@ -38,6 +38,7 @@
                 <p>職務類別：{{ j.職務類別 }}</p>
                 <p>工作時間：{{ j.工作時間 }}</p>
                 <p>工作說明：{{ j.工作說明 }}</p>
+                <p>資料來源：{{j.fromWitchWeb}}</p>
             </div>
             <div class="extra">
                 <div class="ui labeled button" tabindex="0">
@@ -51,7 +52,7 @@
 {% endblock %}
 {% block comments %}
     {# 列出所有使用者的留言 #}
-    {% for i in comments %}
+    {% for i in j.comment_set.all %}
         <div class="customer">
             <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
         </div>
@@ -98,6 +99,4 @@
     d3.selectAll(".axis text").style("font-size","25px")
     d3.select('polygon.radar-chart-serie1').style('visibility','hidden');
     </script>
-{% endblock %}
-{% block shopDetail %}
 {% endblock %}

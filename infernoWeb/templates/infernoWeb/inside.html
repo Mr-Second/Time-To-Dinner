@@ -37,10 +37,11 @@
             <div class="comment">
                 <h3>評論</h3>
                 <div>
-                    <form class="ui reply form">
+                    <form class="ui reply form" action="" method="post">
+                        {% csrf_token %}
                         <div class="field">
-                            <textarea placeholder="新增公開留言"></textarea>
-                            <button><i class="fa fa-reply" aria-hidden="true"></i></button>
+                            <textarea placeholder="新增公開留言" name="comments"></textarea>
+                            <input type="submit" name="">
                         </div>
                     </form>
                     <div class="comment">
@@ -63,6 +64,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
-{% block javasript %}
 {% endblock %}
