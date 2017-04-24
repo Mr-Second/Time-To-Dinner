@@ -34,3 +34,8 @@ import slothTw.urls
 urlpatterns += [
     url(r'^sloth/',include(slothTw.urls, namespace="sloth") ),
 ]
+
+import arrogant.urls
+urlpatterns += [
+    url(r'^arrogant/',include(arrogant.urls, namespace="arrogant") ),
+]
