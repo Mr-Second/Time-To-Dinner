@@ -164,4 +164,5 @@ STATICFILES_FINDERS = (
 BOWER_INSTALLED_APPS = (
     'd3',
     'radar-chart-d3',
+    'jquery'
 )
