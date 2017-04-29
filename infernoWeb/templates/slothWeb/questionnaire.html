@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load static %}
+{% block stylesheet %}
+	<link rel="stylesheet" href="{% static "bower_components/semantic/dist/semantic.css" %}">
+{% endblock %}
+{% block content%}
+	<div class="ui massive star rating" data-rating="3" data-max-rating="5"></div>
+	<form class="ui form">
+	  <div class="field">
+	    <label>First Name</label>
+	    <input type="text" name="first-name" placeholder="First Name">
+	  </div>
+	  <div class="field">
+	    <label>Last Name</label>
+	    <input type="text" name="last-name" placeholder="Last Name">
+	  </div>
+	  <div class="field">
+	    <div class="ui checkbox">
+	      <input type="checkbox" tabindex="0" class="hidden">
+	      <label>I agree to the Terms and Conditions</label>
+	    </div>
+	  </div>
+	  <button class="ui button" type="submit">Submit</button>
+	</form>
+	<form action="" method="post">
+		{% csrf_token %}
+		<div class="form-group">
+			<h3>自由度:</h3>
+			<label>點不點名:</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_check_present_TrueFalse" id="" value="0">是
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_check_present_TrueFalse" id="" value="4">否
+			</label>
+			<label>點名扣分:</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_punish_present_TrueFalse" id="" value="0">每堂都點
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_punish_present_TrueFalse" id="" value="1">常常
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_punish_present_TrueFalse" id="" value="2">普通
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_punish_present_TrueFalse" id="" value="3">很少
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_punish_present_TrueFalse" id="" value="4">幾乎不會
+			</label>
+		</div>
+		<div class="form-group">
+			<h3>深度:</h3>
+			<label>這堂課您覺得可以實際學習到豐富的知識嗎? （加引導）</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_learn" id="" value="0">幾乎學不到
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_learn" id="" value="1">學到很少
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_learn" id="" value="2">普通
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_learn" id="" value="3">學到很多
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="feedback_learn" id="" value="4">學到非常多
+			</label>
+			<div class="form-group">
+				<h3>我的分數:</h3>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_gpa" id="" value="0"> 49分以下
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_gpa" id="" value="1">50 - 59 分
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_gpa" id="" value="2">60 - 69 分
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_gpa" id="" value="3">70 - 79 分
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_gpa" id="" value="4">80 - 100分
+				</label>
+			</div>
+			<div class="form-group">
+				<h3>輕鬆度:</h3>
+				<label>主問題(70)</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_easy" id="" value="0">極不輕鬆
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_easy" id="" value="1">不輕鬆
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_easy" id="" value="2">普通
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_easy" id="" value="3">輕鬆
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_easy" id="" value="4">很輕鬆
+				</label>
+				<label>作業量（報告）</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_loading" id="" value="0">很多
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_loading" id="" value="1">多
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_loading" id="" value="2">普通
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_loading" id="" value="3">少
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_loading" id="" value="4">極少
+				</label>
+				<label>考試多不多</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_amount" id="" value="0">很多
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_amount" id="" value="1">多
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_amount" id="" value="2">普通
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_amount" id="" value="3">少
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_amount" id="" value="4">極少
+				</label>
+				<label>考試難不難</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_hard" id="" value="0">極難
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_hard" id="" value="1">難
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_hard" id="" value="2">普通
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_hard" id="" value="3">簡單
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_test_hard" id="" value="4">極簡單
+				</label>
+			</div>
+			<div class="form-group">
+				<h3>上課氛圍:</h3>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_atmosphere" id="" value="0">死氣沉沉,都在滑手機
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_atmosphere" id="" value="1">沒什麼人回應老師
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_atmosphere" id="" value="2">普通
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_atmosphere" id="" value="3">  幾乎都有人會主動回答
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="feedback_atmosphere" id="" value="4"> 大家搶著回答跟老師互動
+				</label>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-default" style="width:100px; height:40px;">Submit</button>
+	</form>
+{% endblock %}
+{% block javascript %}
+	<script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
+	<script src={% static "bower_components/semantic/dist/semantic.js" %}></script>
+	<script type="text/javascript">
+	$( document ).ready(function() {
+		$('.rating').rating('setting', 'clearable', true);		
+	});
+	</script>
+{% endblock %}
