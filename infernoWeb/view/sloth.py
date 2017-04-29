@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response, render
 from djangoApiDec.djangoApiDec import queryString_required
 from slothTw.models import Course, Comment
+import datetime
 
 def index(request):
     clist = Course.objects.all()
@@ -10,5 +11,7 @@ def index(request):
 def inside(request):
     id = request.GET['id']
     c = Course.objects.get(id=id)
+    if request.method == 'POST' and request.POST:
+    	Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'])
     comments = Comment.objects.filter(course=c)
-    return render_to_response('slothWeb/inside.html', locals())
+    return render(request, 'slothWeb/inside.html', locals())
