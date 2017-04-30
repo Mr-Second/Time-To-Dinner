@@ -4,6 +4,7 @@
     <link rel='stylesheet' href='{% static "infernoWeb/css/inside.css" %}'>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
+    <link rel="stylesheet" href="{% static "bower_components/semantic/dist/semantic.css" %}">
     <style>
     .radar-chart .area {
     fill-opacity: 0.7;
@@ -45,7 +46,9 @@
             <div class="chart-container"></div>
         </div>
     </div>
-    <div class="order"><a href="{{urlPattern}}" class="orderBtn">參與評比該課程</a></div>
+
+    {% include "slothWeb/inclu.html" %}
+    <div class="order"><button class="orderBtn">參與評比該課程</button></div>
 {% endblock %}
 {% block comments %}
     {# 列出所有使用者的留言 #}
@@ -57,6 +60,14 @@
             <b>{{i.author}}</b>　<i>{{i.create}}</i>
             <div class="text">
                 <p>{{i.raw}}</p>
+                <div class="ui labeled button" tabindex="0">
+                  <div class="ui red button">
+                    <i class="heart icon"></i> Like
+                  </div>
+                  <a class="ui basic red left pointing label">
+                    1,048
+                  </a>
+                </div>
             </div>
         </div>
     {% endfor %}
@@ -65,7 +76,33 @@
     <script src={% static "bower_components/d3/d3.min.js" %}></script>
     <script src={% static "bower_components/radar-chart-d3/src/radar-chart.min.js" %}></script>
     <script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
+    <script src={% static "bower_components/semantic/dist/semantic.js" %}></script>
+
     <script>
+    $( document ).ready(function() {
+        $('.rating').rating('setting', 'clearable', true);
+        $('.orderBtn').click(function(){
+            $('.modal')
+              .modal('show')
+            ;            
+        })
+        $('#questionnaire').click(function() { // catch the form's submit event
+            value = $('.ui.rating')
+              .rating('get rating')
+            ;
+            console.log(value)
+            $.ajax({ // create an AJAX call...
+                data: $(this).serialize(), // get the form data
+                type: 'POST',
+                url: $(this).attr('action'), // the file to call
+                success: function(response) { // on success..
+                    $('#DIV_CONTAINING_FORM').html(response);
+                }
+            });
+            return false;
+       });
+    });
+
     function getArticleList(){
         id = location.search.split('id=')[1]
         return new Promise(function(resolve, reject){
@@ -109,5 +146,6 @@
       d3.select('polygon.radar-chart-serie1').style('visibility','hidden');
     }
     run();
+
     </script>
 {% endblock %}
