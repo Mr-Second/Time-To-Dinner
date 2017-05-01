@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, render, redirect
 from djangoApiDec.djangoApiDec import queryString_required
 from slothTw.models import Course, Comment
 import datetime, json
@@ -24,6 +24,7 @@ def inside(request):
             Course.objects.update_or_create(id=id, defaults=modelDict)
         else:
             Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'])
+        return redirect(request.get_full_path())
     comments = Comment.objects.filter(course=c)
     return render(request, 'slothWeb/inside.html', locals())
 
