@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    {% include "slothWeb/inclu.html" %}
+    {% include "slothWeb/questionnaire.html" %}
     <div class="order"><button class="orderBtn">參與評比該課程</button></div>
 {% endblock %}
 {% block comments %}
@@ -79,6 +79,29 @@
     <script src={% static "bower_components/semantic/dist/semantic.js" %}></script>
 
     <script>
+    /*************************************************************************/
+    // 給django做post的時候用來取得csrftoken的函式
+    function getCookie(name) {
+            //name should be 'csrftoken', as an argument to be sent into getCookie()
+           var cookieValue = null;
+           if (document.cookie && document.cookie != '') {
+               var cookies = document.cookie.split(';');
+               for (var i = 0; i < cookies.length; i++) {
+                   var cookie = jQuery.trim(cookies[i]);
+                   // Does this cookie string begin with the name we want?
+                   if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                       cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                       break;
+                   }
+               }
+           }
+           return cookieValue;
+    }
+    function getcrsftoken(){
+        return getCookie('csrftoken');//呼叫getCookie函數來取得csfttoken
+    }
+    /*************************************************************************/
+
     $( document ).ready(function() {
         $('.rating').rating('setting', 'clearable', true);
         $('.orderBtn').click(function(){
@@ -86,20 +109,25 @@
               .modal('show')
             ;            
         })
-        $('#questionnaire').click(function() { // catch the form's submit event
-            value = $('.ui.rating')
-              .rating('get rating')
-            ;
-            console.log(value)
-            $.ajax({ // create an AJAX call...
-                data: $(this).serialize(), // get the form data
-                type: 'POST',
-                url: $(this).attr('action'), // the file to call
-                success: function(response) { // on success..
-                    $('#DIV_CONTAINING_FORM').html(response);
-                }
-            });
-            return false;
+        $('#questionnaire').click(function() {
+            // 取得semantic-ui的星星評分的value
+            let value = $('.ui.rating')
+              .rating('get rating').map(Number);
+            let postdata = {
+                'csrfmiddlewaretoken':getCookie('csrftoken'),
+                'rating':JSON.stringify(value),
+            }
+            // pathname + search 就等於url pattern + querystring            
+            $.post( window.location.pathname + window.location.search, postdata)
+            .done(function() {
+                console.log('success');
+            })
+            .fail(function() {
+                console.log('Error')
+            })
+            .always(function() {
+                console.log( "finished" );
+            });               
        });
     });
 
