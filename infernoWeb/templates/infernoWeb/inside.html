@@ -2,6 +2,9 @@
 {% load static %}
 {% block stylesheet %}
     <link rel='stylesheet' href='{% static "infernoWeb/css/inside.css" %}'>
+    <link rel="stylesheet" href='{% static "bower_components/toastr/toastr.min.css" %}'>
+    {% block insideStyleSheet %}
+    {% endblock %}
 {% endblock %}
 {% block content%}
     <div class="container">
@@ -41,7 +44,7 @@
                         {% csrf_token %}
                         <div class="field">
                             <textarea placeholder="新增公開留言" name="comments"></textarea>
-                            <input type="submit" name="">
+                            <input type="submit" name="" onclick="toastr.success('留言成功!')">
                         </div>
                     </form>
                     <div class="comment">
@@ -64,4 +67,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascript %}
+    <script src={% static "bower_components/toastr/toastr.min.js" %}></script>
+    {% block insideJavascript %}
+    {% endblock %}
 {% endblock %}

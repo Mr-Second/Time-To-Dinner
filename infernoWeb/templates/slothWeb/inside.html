@@ -1,10 +1,9 @@
 {% extends "infernoWeb/inside.html" %}
 {% load static %}
-{% block stylesheet %}
-    <link rel='stylesheet' href='{% static "infernoWeb/css/inside.css" %}'>
+{% block insideStyleSheet %}
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
-    <link rel="stylesheet" href="{% static "bower_components/semantic/dist/semantic.css" %}">
+    <link rel="stylesheet" href={% static "bower_components/semantic/dist/semantic.min.css" %}>
     <style>
     .radar-chart .area {
     fill-opacity: 0.7;
@@ -72,11 +71,10 @@
         </div>
     {% endfor %}
 {% endblock %}
-{% block javascript %}
+{% block insideJavascript %}
     <script src={% static "bower_components/d3/d3.min.js" %}></script>
     <script src={% static "bower_components/radar-chart-d3/src/radar-chart.min.js" %}></script>
-    <script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
-    <script src={% static "bower_components/semantic/dist/semantic.js" %}></script>
+    <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
 
     <script>
     /*************************************************************************/
@@ -103,12 +101,63 @@
     /*************************************************************************/
 
     $( document ).ready(function() {
+        /************************畫雷達圖***************************/
+        async function run(){
+          function getArticleList(){
+              id = location.search.split('id=')[1]
+              return new Promise(function(resolve, reject){
+                  $.getJSON( "/sloth/get/cvalue?id="+id, function( j ) {
+                  }).done(result => {
+                      resolve(result);
+                  });
+              });
+          }
+          var result = await getArticleList();
+          data = [
+            {
+                axes: [
+                {axis: "自由", value: result['feedback_freedom']},
+                {axis: "知識性", value: result['feedback_knowledgeable']},
+                {axis: "氛圍", value: result['feedback_FU']},
+                {axis: "成績", value: result['feedback_GPA']},
+                {axis: "簡單", value: result['feedback_easy']}
+                ]
+            },
+            {
+                axes: [
+                {axis: "自由", value: 5},
+                {axis: "知識性", value: 5},
+                {axis: "氛圍", value: 5},
+                {axis: "成績", value: 5},
+                {axis: "簡單", value: 5}
+                ]
+            } 
+          ]
+
+          $('.chart-container').empty();
+          var chart = RadarChart.chart();
+          var svg = d3.select('.chart-container').append('svg')
+            .attr('width', 600)
+            .attr('height', 600); 
+
+          // draw one
+          svg = svg.append('g').classed('focus', 3).datum(data)
+          svg.call(chart)
+          d3.selectAll(".axis text").style("font-size","25px")
+          d3.select('polygon.radar-chart-serie1').style('visibility','hidden');
+        }
+        run();
+        /************************畫雷達圖***************************/
+
+        // semantic-ui activation function
         $('.rating').rating('setting', 'clearable', true);
         $('.orderBtn').click(function(){
             $('.modal')
               .modal('show')
             ;            
         })
+
+        // 提交心得表單
         $('#questionnaire').click(function() {
             // 取得semantic-ui的星星評分的value
             let value = $('.ui.rating')
@@ -120,60 +169,17 @@
             // pathname + search 就等於url pattern + querystring            
             $.post( window.location.pathname + window.location.search, postdata)
             .done(function() {
-                console.log('success');
+                toastr.success('問卷提交成功')
+                run();
             })
             .fail(function() {
-                console.log('Error')
+                toastr.error('問卷提交失敗')
             })
             .always(function() {
                 console.log( "finished" );
             });               
        });
     });
-
-    function getArticleList(){
-        id = location.search.split('id=')[1]
-        return new Promise(function(resolve, reject){
-            $.getJSON( "/sloth/get/cvalue?id="+id, function( j ) {
-            }).done(result => {
-                resolve(result);
-            });
-        });
-    }
-    async function run(){
-      var result = await getArticleList();
-      data = [
-        {
-            axes: [
-            {axis: "自由", value: result['feedback_freedom']},
-            {axis: "知識性", value: result['feedback_knowledgeable']},
-            {axis: "氛圍", value: result['feedback_FU']},
-            {axis: "成績", value: result['feedback_GPA']},
-            {axis: "簡單", value: result['feedback_easy']}
-            ]
-        },
-        {
-            axes: [
-            {axis: "自由", value: 5},
-            {axis: "知識性", value: 5},
-            {axis: "氛圍", value: 5},
-            {axis: "成績", value: 5},
-            {axis: "簡單", value: 5}
-            ]
-        } 
-      ]
-      var chart = RadarChart.chart();
-      var svg = d3.select('.chart-container').append('svg')
-        .attr('width', 600)
-        .attr('height', 600); 
-
-      // draw one
-      svg = svg.append('g').classed('focus', 3).datum(data)
-      svg.call(chart)
-      d3.selectAll(".axis text").style("font-size","25px")
-      d3.select('polygon.radar-chart-serie1').style('visibility','hidden');
-    }
-    run();
 
     </script>
 {% endblock %}
