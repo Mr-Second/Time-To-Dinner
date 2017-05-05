@@ -6,6 +6,7 @@
         <title>{% block title %}{% endblock %}</title>
         <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' integrity='sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1' crossorigin='anonymous'>
         <link rel='stylesheet' href='{% static "stufinite/css/stufinite.css" %}'> 
+        <link rel="stylesheet" href={% static "bower_components/semantic/dist/semantic.min.css" %}>
         {% block stylesheet %} {% endblock %}
     </head>
     <body>
@@ -39,6 +40,7 @@
         </footer>
 
         <script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
+        <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
         {% block javascript %}
         {% endblock %}
     </body>

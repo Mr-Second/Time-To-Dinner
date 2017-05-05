@@ -1,15 +1,11 @@
 {% extends "infernoWeb/index.html" %}
 {% load static %}
-{% block stylesheet %}
-	<link rel="stylesheet" href={% static "bower_components/semantic/dist/semantic.min.css" %}>
-	<link rel='stylesheet' href='{% static "infernoWeb/css/index.css" %}'>
-{% endblock %}
 {% block navbar %}
 	<ul class="nav">
-		<li><a class="nav-link" href="#">必修</a></li>
-		<li><a class="nav-link" href="#">選修</a></li>
-		<li><a class="nav-link" href="#">通識</a></li>
-		<li><a class="nav-link" href="#">其他</a></li>
+		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=通識">通識</a></li>
+		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=必修">必修</a></li>
+		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=選修">選修</a></li>
+		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=其他">其他</a></li>
 	</ul>
 {% endblock %}
 {% block shopInfoBox %}
@@ -18,17 +14,18 @@
 	</div>
 {% endblock %}
 {% block javascript %}
-	<script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
 	<script>
 	$( document ).ready(function() {
 		$.getJSON('/sloth/get/clist' + window.location.search, function(json){
 			first = json.shift()
 			length = first['TotalPage']
 			school = first['school']
+			ctype = first['ctype']
+
 			let page = [...Array(length)].map((_,i) => i+1);
 			for(let i of page){
 				let item = $(`<a class="item">${i}</a>`)
-				item.attr('href', `/infernoWeb/sloth?school=${school}&start=${i}`)
+				item.attr('href', `/infernoWeb/sloth?school=${school}&start=${i}&ctype=${ctype}`)
 				$('.borderless.menu').append(item)
 			}
 

@@ -3,8 +3,10 @@ from djangoApiDec.djangoApiDec import queryString_required
 from slothTw.models import Course, Comment
 import datetime, json
 
+@queryString_required(['school'])
 def index(request):
     clist = Course.objects.all()
+    school = request.GET['school']
     return render_to_response('slothWeb/index.html', locals())
 
 @queryString_required(['id'])
