@@ -1,20 +1,27 @@
 {% extends "base.html" %}
 {% load static %}
 {% block stylesheet %}
+
     <link rel='stylesheet' href='{% static "infernoWeb/css/index.css" %}'>
+
 {% endblock %}
 {% block content %}
+
     <div id="InfoArea">
         {# example #}
         {% block navbar %}
+
             <ul class="nav">
                 <li><a class="nav-link" href="#">navbar選項</a></li>
             </ul>
+
         {% endblock %}
-        
+
         {# example #}
         {% block shopInfoBox %}
+            <div class="content">
             {% for s in something %}
+
                 <div class="shopInfoBox">
                     <div class="thumbnail">
                         <a href="{{網址}}"><img class="shopImg" src="{{網址}}"></a>
@@ -25,7 +32,12 @@
                         </div>
                     </div>
                 </div>
+
             {% endfor %}
+            </div>
         {% endblock %}
+
+        
     </div>
+
 {% endblock %}

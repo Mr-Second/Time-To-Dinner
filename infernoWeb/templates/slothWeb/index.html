@@ -1,19 +1,24 @@
 {% extends "infernoWeb/index.html" %}
 {% load static %}
 {% block navbar %}
+
 	<ul class="nav">
 		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=通識">通識</a></li>
 		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=必修">必修</a></li>
 		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=選修">選修</a></li>
 		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=其他">其他</a></li>
 	</ul>
+
 {% endblock %}
 {% block shopInfoBox %}
+
 	<div id="courseList"></div>
 	<div class="ui borderless menu">
 	</div>
+
 {% endblock %}
 {% block javascript %}
+
 	<script>
 	$( document ).ready(function() {
 		$.getJSON('/sloth/get/clist' + window.location.search, function(json){
@@ -58,4 +63,22 @@
 		})
 	})
 	</script>
+	
+{% endblock %}
+{% block shopInfoBox %}
+	{% for c in clist %}
+
+		<div class="shopInfoBox">
+			<div class="thumbnail">
+				<a href="/infernoWeb/sloth/inside?id={{c.id}}"><img class="shopImg" src="{{c.avatar.url}}"></a>
+				<div class="shopBoxBody">
+					<span class="shopTitle">{{c.name}}</span> 
+					<span style="color:red">{{c.ctype}}</span>{# 課程的類型 #}
+					<p>學校：{{c.school}} 老師：{{c.teacher}}</p>
+					<h3><i class="fa fa-star" aria-hidden="true"></i>{{c.feedback_amount}}人參與評分</h3>
+				</div>
+			</div>
+		</div>
+		
+	{% endfor %}
 {% endblock %}

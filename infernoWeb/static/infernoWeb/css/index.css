@@ -26,6 +26,10 @@
 .nav li a:hover {
     color: #F25F5C;
 }
+ /*右側內容*/
+.content{
+    margin:0 0 0 15%;
+}
 
 .shopInfoBox {
     margin: 10px 0 10px 10px;
