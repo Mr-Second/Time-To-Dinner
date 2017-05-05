@@ -121,20 +121,22 @@
                 {axis: "成績", value: result['feedback_GPA']},
                 {axis: "簡單", value: result['feedback_easy']}
                 ]
-            },
-            {
-                axes: [
-                {axis: "自由", value: 5},
-                {axis: "知識性", value: 5},
-                {axis: "氛圍", value: 5},
-                {axis: "成績", value: 5},
-                {axis: "簡單", value: 5}
-                ]
-            } 
+            }
           ]
 
           $('.chart-container').empty();
           var chart = RadarChart.chart();
+          chart.config({
+            containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
+            w: 600,
+            h: 600,
+            factor: 0.95,
+            factorLegend: 1,
+            levels: 5,
+            maxValue: 5,
+            minValue: 0,
+          });
+
           var svg = d3.select('.chart-container').append('svg')
             .attr('width', 600)
             .attr('height', 600); 
@@ -143,7 +145,6 @@
           svg = svg.append('g').classed('focus', 3).datum(data)
           svg.call(chart)
           d3.selectAll(".axis text").style("font-size","25px")
-          d3.select('polygon.radar-chart-serie1').style('visibility','hidden');
         }
         run();
         /************************畫雷達圖***************************/

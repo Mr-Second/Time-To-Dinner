@@ -17,6 +17,3 @@ def inside(request):
         Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'])
         return redirect(request.get_full_path())
     return render(request, 'slothWeb/inside.html', locals())
-
-def question(request):
-    return render_to_response('slothWeb/questionnaire.html', locals())

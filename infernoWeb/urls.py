@@ -14,7 +14,6 @@ urlpatterns = [
   # 課程心得的部份
   url(r'^sloth$',sloth.index, name='sloth'),
   url(r'^sloth/inside$',sloth.inside, name='slothInside'),
-  url(r'^sloth/question$',sloth.question, name='slothquestion')
 ] + [
   # 求職網的部份
   url(r'^arrogant$',arrogant.index, name='arrogant'),
