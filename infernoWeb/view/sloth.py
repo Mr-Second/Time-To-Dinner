@@ -17,3 +17,8 @@ def inside(request):
         Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'])
         return redirect(request.get_full_path())
     return render(request, 'slothWeb/inside.html', locals())
+
+@queryString_required(['school', 'name', 'teacher'])
+def search(request):
+    school = request.GET['school']
+    return render(request, 'slothWeb/search.html', locals())
