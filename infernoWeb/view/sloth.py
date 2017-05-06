@@ -7,6 +7,7 @@ import datetime, json
 def index(request):
     clist = Course.objects.all()
     school = request.GET['school']
+    urlpattern = '/infernoWeb/sloth/search'
     return render_to_response('slothWeb/index.html', locals())
 
 @queryString_required(['id'])
@@ -16,9 +17,12 @@ def inside(request):
     if request.method == 'POST' and request.POST:
         Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'])
         return redirect(request.get_full_path())
+    school = c.school
+    urlpattern = '/infernoWeb/sloth/search'
     return render(request, 'slothWeb/inside.html', locals())
 
 @queryString_required(['school', 'name', 'teacher'])
 def search(request):
     school = request.GET['school']
+    urlpattern = '/infernoWeb/sloth/search'
     return render(request, 'slothWeb/search.html', locals())

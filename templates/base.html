@@ -41,6 +41,22 @@
 
         <script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
         <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.search-btn').click(function(){
+                    $('#courseList').empty()
+                    urlpattern = "{{urlpattern|escapejs}}"
+                    school = "{{school|escapejs}}"
+                    queryString = {
+                        '/infernoWeb/sloth/search':['teacher', 'name'],
+                        '/infernoWeb/arrogant/search':[]
+                    }
+                    keyword = $('#search-form').val();
+                    qrystr = queryString[urlpattern].map((i) => i+`=${keyword}&`).toString().replace(',', '')
+                    window.location.href = `${urlpattern}?school=${school}&${qrystr}`
+                })            
+            })
+        </script>
         {% block javascript %}
         {% endblock %}
     </body>
