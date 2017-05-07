@@ -13,11 +13,13 @@
 }
 
 /*LOGO位置*/
-.stufinite-header-title {
+.stufinite-header-logo {
   display: inline-block;
-  color: #F7F7F7;
   vertical-align: middle;
-  font-size: 32px;
+}
+
+.stufinite-header-logo img{
+  width: 128px;
 }
 
 /*切換頁面欄*/
@@ -81,11 +83,6 @@
 .search-btn:hover{
   color: #F25F5C;
   border: solid #F25F5C 1px;
-}
-
-.search-btn
-{
-  display: inline-block;
 }
 
 /*其他*/

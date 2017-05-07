@@ -27,12 +27,8 @@
     color: #F25F5C;
 }
  /*右側內容*/
-.content{
-    margin:0 0 0 15%;
-}
-
 .shopInfoBox {
-    margin: 10px 0 10px 10px;
+    margin: 10px 0 10px 16%;
     width: 80%;
 }
 
@@ -43,7 +39,7 @@
 }
 
   .thumbnail img{
-    max-width: 300px;
+    max-width: 100px;
     float: left;
     border-radius: 5px;
     margin-right: 20px;
