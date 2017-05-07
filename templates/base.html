@@ -13,7 +13,7 @@
         <header class='stufinite-header'>
             <div class="stufinite-inner">
                 <div class='stufinite-header-logo'>
-                    <img src="../static/stufinite/img/logo.svg" alt="LOGO">
+                    <img src='{% static "stufinite/img/logo.svg" %}' alt="LOGO">
                 </div>
                 <div class="nav_bar">
                     <ul class="nav_pills">
@@ -26,7 +26,7 @@
                 </div>
                 <input class="search-btn" type="button" value="送出"></input>
                 <div class='stufinite-header-item'>
-                    <a href="https://login.campass.com.tw/accounts/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i>{{ user.username }} </a>
+                    <a href="https://login.campass.com.tw/accounts/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i> {{ user.username }} </a>
                     <a href="http://login.campass.com.tw/accounts/logout" class='stufinite-btn'>Logout</a>
                 </div>
             </div>

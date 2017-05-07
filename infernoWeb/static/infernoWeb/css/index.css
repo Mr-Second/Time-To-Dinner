@@ -2,12 +2,14 @@
     margin: 0 auto;
     width: 1000px;
 }
-
+#courseList{
+    margin: 10px 0 10px 16%;
+}
 /*餐廳左側nav*/
 
 .nav {
     list-style-type: none;
-    margin: 0px 10px 10px 0px;
+    margin: 0 10px 10px 0;
     padding: 0;
     width: 15%;
     height: 100%;
@@ -28,7 +30,7 @@
 }
  /*右側內容*/
 .shopInfoBox {
-    margin: 10px 0 10px 16%;
+    margin-bottom:10px;
     width: 80%;
 }
 
@@ -54,8 +56,8 @@
 .shopBoxBody {
     padding: 20px;
 }
-.shopBoxBody .like{
-    margin: 0px;
+.shopBoxBody h3{
+    font-size: 14px;
 }
 .shopTitle {
     font-weight: 700;

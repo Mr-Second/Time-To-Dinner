@@ -32,7 +32,7 @@
 				  </div>
 				`)
 				School_teacher = $.parseHTML(`<p class="teacher">學校：${i['fields']['school']} 老師：${i['fields']['teacher']}</p>`)
-				tmp = $.parseHTML('<h3><i class="fa fa-star" aria-hidden="true"></i>' + i['fields']['feedback_amount']+'人參與評分' + '</h3>')
+				tmp = $.parseHTML('<h3><i class="fa fa-heart" aria-hidden="true"></i>' + i['fields']['feedback_amount']+'人參與評分' + '</h3>')
 				result
 				  .find('a.avatar').attr('href', '/infernoWeb/sloth/inside?id='+i['pk']).end()
 				  .find('a.title').attr('href', '/infernoWeb/sloth/inside?id='+i['pk']).end()
