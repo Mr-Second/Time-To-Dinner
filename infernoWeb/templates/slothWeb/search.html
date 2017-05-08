@@ -10,7 +10,6 @@
 {% endblock %}
 {% block shopInfoBox %}
 	<div id="courseList">
-		搜尋結果：
 	</div>
 {% endblock %}
 {% block javascript %}
@@ -43,6 +42,9 @@
 				  .find('#feedback_amount').html(tmp).end()
 				$('#courseList').append(result)			
 			}
+
+			let querystring = (new URL(location)).searchParams;
+			$('#search-form').val(querystring.get('name'))
 		})
 	})
 	</script>
