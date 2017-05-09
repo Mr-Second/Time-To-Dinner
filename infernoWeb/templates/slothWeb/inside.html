@@ -30,14 +30,10 @@
     </div>
     {# 載入課程問卷 #}
     {% include "slothWeb/questionnaire.html" %}
-    <div class="order">
-      <button class="orderBtn">參與評比該課程</button>
-    </div>
+    
 {% endblock %}
 {% block comments %}
-    <div id='comments'>
       {# 列出所有使用者的留言 #}
-    </div>
 {% endblock %}
 {% block insideJavascript %}
     <script src={% static "bower_components/d3/d3.min.js" %}></script>
@@ -69,26 +65,22 @@
     $( document ).ready(function() {
         $.getJSON('/sloth/get/cvalue' + window.location.search, function(json){
             let result = $(`
-              <div class="class-item">
-                  <img id='avatar' src="">
-                  <div class="content">
-                      <h3 id='name'></h3>
-                      <div class="meta">
-                          <p class="cinema" id='teacher'>老師：</p>
-                      </div>
-                      <div class="description">
-                          <p id='ctype'>課程類型：</p>
-                          <p id='book'>上課用書：</p>
-                          <p id='syllabus'>課程大綱：</p>
-                      </div>
-                      <div class="extra">
-                          <div class="ui labeled button" tabindex="0">
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <div id='feedback_amount'></div>人參與評分
-                          </div>
-                      </div>
-                      <div class="chart-container"></div>
-                  </div>
+              <div class="courses-img">
+                <img id='avatar' src="">
+              </div>
+                <div class="description">
+                  <h3 id='name'></h3>
+                  <p class="cinema" >老師：<span id='teacher'></span></p>
+                  <p>課程類型：<span id='ctype'></span></p>
+                  <p>上課用書：<span id='book'></span></p>
+                  <p id='syllabus'>課程大綱：</p>
+                  <p>
+                    <i class="fa fa-heart" aria-hidden="true"></i><span id='feedback_amount'></span>人參與評分
+                  </p>
+                </div>
+              <div class="chart-container"></div>
+              <div class="order">
+                <button class="orderBtn">參與評比該課程</button>
               </div>
             `)
             result
@@ -129,9 +121,9 @@
           var chart = RadarChart.chart();
           chart.config({
             containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
-            w: 600,
-            h: 600,
-            factor: 0.95,
+            w: 300,
+            h: 300,
+            factor: 0.7,
             factorLegend: 1,
             levels: 5,
             maxValue: 5,
@@ -139,13 +131,13 @@
           });
 
           var svg = d3.select('.chart-container').append('svg')
-            .attr('width', 600)
-            .attr('height', 600); 
+            .attr('width', 300)
+            .attr('height', 300); 
 
           // draw one
           svg = svg.append('g').classed('focus', 3).datum(data)
           svg.call(chart)
-          d3.selectAll(".axis text").style("font-size","25px")
+          d3.selectAll(".axis text").style("font-size","16px")
         }
         run();
         /************************畫雷達圖***************************/
@@ -186,21 +178,22 @@
           for (let j of json){
             let result = $(
             `
-            <div class="customer">
+            <div class="comments-item">
+              <div class="customer">
                 <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
-            </div>
-            <div class="cusInfo">
+              </div>
+              <div class="cusInfo">
                 <b>管理員</b>　<i class='create'></i>
                 <div class="text">
-                    <p class='raw'></p>
-                    <div class="ui labeled button" tabindex="0">
-                      <div class="ui red button">
-                        <i class="heart icon"></i> Like
-                      </div>
-                      <a class="ui basic red left pointing label">
-                      </a>
+                  <p class='raw'></p>
+                  <div class="ui labeled button" tabindex="0">
+                    <div class="ui mini red button">
+                      <i class="heart icon"></i> Like
                     </div>
+                    <a class="ui basic red left pointing label"></a>
+                  </div>
                 </div>
+              </div>
             </div>
             `
             );

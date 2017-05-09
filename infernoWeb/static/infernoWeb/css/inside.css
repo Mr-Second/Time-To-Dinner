@@ -2,29 +2,35 @@
 .container{
 	width: 1000px;
 	margin: 0 auto;
-	padding: 10px;
+	padding: 30px;
 	background: #DEDEDE;
 }
-.container img{
-	max-width: 500px;
-	padding: 5px;
-	border: 1px #999999 solid;
-	border-radius: 3px;
-	background-color: #ffffff;
-}
 #shopInfo{
-	width: 600px;
-	display: inline-block;
+	display:  
+}
+#profile{
+	display: inline-flex;
+}
+.courses-img{
+	margin-right: 30px;
+}
+.description{
+	margin-right: 30px;
+}
+.chart-container{
+	margin-right: 30px;
+}
+.order{
+	margin-top: 250px;
 }
 .shopDetail{
 	margin: 20px 0 0 0;
 }
-.order{
-	display: inline-block;
-}
+
 .order .orderBtn{
 	padding: 10px 20px;
 	border-radius: 5px;
+	border-color: transparent;
 	background: #4180B2;
 	text-decoration: none;
 	color: #ffffff;
@@ -34,4 +40,22 @@
 }
 .comment{
 	width: 500px;
+}
+#comments{
+	margin-bottom: 30px;
+}
+.comments-item{
+	margin-bottom: 30px;
+}
+.comment .orderBtn{
+	padding: 10px 20px;
+	border-radius: 5px;
+	margin-top:30px; 
+	border-color: transparent;
+	background: #4180B2;
+	text-decoration: none;
+	color: #ffffff;
+}
+.comment .orderBtn:hover{
+	color: #F25F5C;
 }

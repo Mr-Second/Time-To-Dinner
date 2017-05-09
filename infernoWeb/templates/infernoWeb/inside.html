@@ -21,20 +21,19 @@
             </div>
             <div class="comment">
                 <h3>評論</h3>
-                <div>
-                    <form class="ui reply form" action="" method="post">
-                        {% csrf_token %}
-                        <div class="field">
-                            <textarea placeholder="新增公開留言" name="comments"></textarea>
-                            <input type="submit" name="" onclick="toastr.success('留言成功!')">
-                        </div>
-                    </form>
-                    <div class="comment">
-                        {% block comments %}
-                            {# 列出所有使用者的留言 #}
-                        {% endblock %}
-                    </div>
+                <div id="comments">
+                    {% block comments %}
+                        {# 列出所有使用者的留言 #}
+                    {% endblock %}
                 </div>
+                <form class="ui reply form" action="" method="post">
+                    {% csrf_token %}
+                    <div class="field">
+                        <textarea placeholder="新增公開留言" name="comments"></textarea>
+                        <input class="orderBtn" type="submit" name="" onclick="toastr.success('留言成功!')">
+                    </div>
+                </form>
+                
             </div>
         </div>
     </div>
