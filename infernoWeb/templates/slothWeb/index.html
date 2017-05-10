@@ -28,10 +28,10 @@
 			school = first['school']
 			ctype = first['ctype']
 
-			let page = [...Array(length)].map((_,i) => i+1);
+			let page = [...Array(length)].map((_,i) => i);
 			for(let i of page){
-				let item = $(`<a class="item">${i}</a>`)
-				item.attr('href', `/infernoWeb/sloth?school=${school}&start=${i}&ctype=${ctype}`)
+				let item = $(`<a class="item">${i+1}</a>`)
+				item.attr('href', `/infernoWeb/sloth?school=${school}&start=${i*10+1}&ctype=${ctype}`)
 				$('.borderless.menu').append(item)
 			}
 
