@@ -46,6 +46,7 @@
 }
 .comments-item{
 	margin-bottom: 30px;
+	display: inline-flex;
 }
 .comment .orderBtn{
 	padding: 10px 20px;
