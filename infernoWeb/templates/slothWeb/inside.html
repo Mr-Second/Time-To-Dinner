@@ -203,18 +203,36 @@
               .find('a.pointing.label').text(j['fields']['like'])
               .bind('click', (e) => {
                 let target = $(e.target);
-                console.log(target)
-                $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1})
-                .done(function() {
-                  tmp = target.find('a.pointing.label').text()
-                  target.find('a.pointing.label').text(tmp + 1)
-                })
-                .fail(function() {
-                  toastr.error('按讚失敗')
-                })
-                .always(function() {
-                  console.log( "like finished" );
-                });   
+                if(target.attr('already')=='True'){
+                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1})
+                  .done(function() {
+                    tmp = target.text()
+                    target.text(Number(tmp) + -1)
+                    target.attr('already', 'False')
+                    target.attr('class', 'ui basic red left pointing label')
+                  })
+                  .fail(function() {
+                    toastr.error('按讚失敗')
+                  })
+                  .always(function() {
+                    console.log( "cancel finished" );
+                  });        
+                }
+                else{
+                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1})
+                  .done(function() {
+                    tmp = target.text()
+                    target.text(Number(tmp) + 1)
+                    target.attr('already', 'True')
+                    target.attr('class', 'ui grey left pointing label')
+                  })
+                  .fail(function() {
+                    toastr.error('按讚失敗')
+                  })
+                  .always(function() {
+                    console.log( "finished" );
+                  });                     
+                }
               }).end()
             $('#comments').append(result)
           }
