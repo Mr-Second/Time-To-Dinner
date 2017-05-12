@@ -70,10 +70,12 @@
               </div>
                 <div class="description">
                   <h3 id='name'></h3>
-                  <p class="cinema" >老師：<span id='teacher'></span></p>
-                  <p>課程類型：<span id='ctype'></span></p>
-                  <p>上課用書：<span id='book'></span></p>
-                  <p id='syllabus'>課程大綱：</p>
+                  <p class="cinema">
+                    老師：<span id='teacher'></span><br>
+                    課程類型：<span id='ctype'></span><br>
+                    上課教材：<span id='book'></span><br>
+                    課程大綱：<span id='syllabus'></span>
+                  </p>
                   <p>
                     <i class="fa fa-heart" aria-hidden="true"></i><span id='feedback_amount'></span>人參與評分
                   </p>
@@ -121,8 +123,8 @@
           var chart = RadarChart.chart();
           chart.config({
             containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
-            w: 300,
-            h: 300,
+            w: 200,
+            h: 200,
             factor: 0.7,
             factorLegend: 1,
             levels: 5,
@@ -131,13 +133,13 @@
           });
 
           var svg = d3.select('.chart-container').append('svg')
-            .attr('width', 300)
-            .attr('height', 300); 
+            .attr('width', 200)
+            .attr('height', 200); 
 
           // draw one
           svg = svg.append('g').classed('focus', 3).datum(data)
           svg.call(chart)
-          d3.selectAll(".axis text").style("font-size","16px")
+          d3.selectAll(".axis text").style("font-size","14px")
         }
         run();
         /************************畫雷達圖***************************/
@@ -183,7 +185,7 @@
                 <img src='{% static "../media/student.png" %}'>
               </div>
               <div class="cusInfo">
-                <b>管理員</b>　<i class='create'></i>
+                <b>同學</b>　<i class='create'></i>
                 <div class="text">
                   <p class='raw'></p>
                   <div class="ui labeled button" tabindex="0">

@@ -1,6 +1,6 @@
 
 .container{
-	width: 1000px;
+	width: 800px;
 	margin: 0 auto;
 	padding: 30px;
 	background: #DEDEDE;
@@ -21,7 +21,7 @@
 	margin-right: 30px;
 }
 .order{
-	margin-top: 250px;
+	margin-top: 150px;
 }
 .shopDetail{
 	margin: 20px 0 0 0;
