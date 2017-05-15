@@ -82,7 +82,7 @@
                 </div>
               <div class="chart-container"></div>
               <div class="order">
-                <button class="orderBtn">參與評比該課程</button>
+                <button class="orderBtn" id="goquestion">參與評比該課程</button>
               </div>
             `)
             result
@@ -94,6 +94,14 @@
               .find('#syllabus').text(json['syllabus']).end()
               .find('#feedback_amount').text(json['feedback_amount']).end()
             $('#profile').append(result)
+        }).done(function(result){
+          // semantic-ui activation function
+          $('.rating').rating('setting', 'clearable', true);
+          $('#goquestion').click(function(){
+              $('.modal')
+                .modal('show')
+              ;            
+          })
         })
         /************************畫雷達圖***************************/
         async function run(){
@@ -143,38 +151,6 @@
         }
         run();
         /************************畫雷達圖***************************/
-
-        // semantic-ui activation function
-        $('.rating').rating('setting', 'clearable', true);
-        $('.orderBtn').click(function(){
-            $('.modal')
-              .modal('show')
-            ;            
-        })
-
-        // 提交心得表單
-        $('#questionnaire').click(function() {
-            // 取得semantic-ui的星星評分的value
-            let value = $('.ui.rating')
-              .rating('get rating').map(Number);
-            let postdata = {
-                'csrfmiddlewaretoken':getCookie('csrftoken'),
-                'rating':JSON.stringify(value),
-            }
-            // pathname + search 就等於url pattern + querystring            
-            $.post( '/sloth/get/questionnaire' + window.location.search, postdata)
-            .done(function() {
-                toastr.success('問卷提交成功')
-                run();
-            })
-            .fail(function() {
-                toastr.error('問卷提交失敗')
-            })
-            .always(function() {
-                console.log( "finished" );
-            });               
-        });
-
         // query留言api，自動生成出留言
         $.getJSON('/sloth/get/comment' + window.location.search + '&start=1', function(json){
           for (let j of json){
@@ -239,6 +215,30 @@
             $('#comments').append(result)
           }
         })
+
+        // 提交心得表單
+        $('#questionnaire').click(function() {
+            // 取得semantic-ui的星星評分的value
+            let value = $('.ui.rating')
+              .rating('get rating').map(Number);
+            let postdata = {
+                'csrfmiddlewaretoken':getCookie('csrftoken'),
+                'rating':JSON.stringify(value),
+            }
+            // pathname + search 就等於url pattern + querystring            
+            $.post( '/sloth/get/questionnaire' + window.location.search, postdata)
+            .done(function() {
+                toastr.success('問卷提交成功')
+                run();
+            })
+            .fail(function() {
+                toastr.error('問卷提交失敗')
+            })
+            .always(function() {
+                console.log( "finished" );
+            });               
+        });
+
     });
 
     </script>
