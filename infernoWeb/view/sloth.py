@@ -14,7 +14,7 @@ def index(request):
 def inside(request):
     id = request.GET['id']
     c = Course.objects.get(id=id)
-    if request.method == 'POST' and request.POST:
+    if request.method == 'POST' and request.POST['comments']:
         Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'])
         return redirect(request.get_full_path())
     school = c.school
