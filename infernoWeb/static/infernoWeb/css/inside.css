@@ -5,10 +5,8 @@
 	padding: 30px;
 	background: #DEDEDE;
 }
-#shopInfo{
-	display:  
-}
 #profile{
+	margin: 0 200px;
 	display: inline-flex;
 }
 .courses-img{
@@ -17,17 +15,23 @@
 .description{
 	margin-right: 30px;
 }
-.chart-container{
-	margin-right: 30px;
+.fade{
+	border: 0; 
+	height: 2px; 
+	margin: 50px 0;
+background-image: -webkit-linear-gradient(left, transparent, #4180B2, transparent);
+background-image: -o-linear-gradient(left, transparent, #4180B2, transparent);
+background-image: linear-gradient(to right, transparent, #4180B2, transparent);
 }
-.order{
-	margin-top: 150px;
+.chart-container{
+	margin-left: 100px;
+	margin-right: 30px;
+	display: inline-flex;
 }
 .shopDetail{
 	margin: 20px 0 0 0;
 }
-
-.order .orderBtn{
+.orderBtn{
 	padding: 10px 20px;
 	border-radius: 5px;
 	border-color: transparent;
@@ -35,7 +39,7 @@
 	text-decoration: none;
 	color: #ffffff;
 }
-.order .orderBtn:hover{
+.orderBtn:hover{
 	color: #F25F5C;
 }
 .comment{
