@@ -29,11 +29,15 @@
       {# 課程的詳細資訊 #}
     </div>
     <hr class="fade">
-    <div class="chart-container"></div>
-    <button class="orderBtn" id="goquestion">參與評比該課程</button>
+    
     {# 載入課程問卷 #}
     {% include "slothWeb/questionnaire.html" %}
     
+{% endblock %}
+{% block shopDetail %}
+
+  <button class="orderBtn" id="goquestion">參與評比該課程</button>
+  
 {% endblock %}
 {% block comments %}
       {# 列出所有使用者的留言 #}
@@ -69,10 +73,10 @@
         $.getJSON('/sloth/get/cvalue' + window.location.search, function(json){
             let result = $(`
               <div class="courses-img">
-                <img id='avatar' src="">
+                
               </div>
               <div class="description">
-                <h3 id='name'></h3>
+                <h2 id='name'></h2>
                 <p class="cinema">
                   老師：<span id='teacher'></span><br>
                   課程類型：<span id='ctype'></span><br>
@@ -83,6 +87,7 @@
                   <i class="fa fa-heart" aria-hidden="true"></i><span id='feedback_amount'></span>人參與評分
                 </p>
               </div>
+              <div class="chart-container"></div>
             `)
             result
               .find('#avatar').attr('src', json['avatar']).end()
@@ -130,8 +135,8 @@
           var chart = RadarChart.chart();
           chart.config({
             containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
-            w: 250,
-            h: 250,
+            w: 200,
+            h: 200,
             factor: 0.9,
             factorLegend: 1,
             levels: 5,
@@ -140,8 +145,8 @@
           });
 
           var svg = d3.select('.chart-container').append('svg')
-            .attr('width', 250)
-            .attr('height', 250); 
+            .attr('width', 200)
+            .attr('height', 200); 
 
           // draw one
           svg = svg.append('g').classed('focus', 3).datum(data)
@@ -164,7 +169,7 @@
                 <div class="text">
                   <p class='raw'></p>
                   <div class="ui labeled button" tabindex="0">
-                    <div class="ui mini red button">
+                    <div class="mini ui red button">
                       <i class="heart icon"></i> Like
                     </div>
                     <a class="ui basic red left pointing label"></a>
