@@ -21,7 +21,7 @@ def inside(request):
     urlpattern = '/infernoWeb/sloth/search'
     return render(request, 'slothWeb/inside.html', locals())
 
-@queryString_required(['school', 'name', 'teacher'])
+@queryString_required(['school', 'keyword'])
 def search(request):
     school = request.GET['school']
     urlpattern = '/infernoWeb/sloth/search'

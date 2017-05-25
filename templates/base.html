@@ -23,7 +23,7 @@
                     </ul>
                 </div>
                 <div class='stufinite-header-search'>
-                    <input id='search-form' type='text' placeholder='輸入課程名稱、代碼、教師名稱、餐廳名稱或進行關鍵字搜尋'>
+                    <input id='search-form' type='text' placeholder='輸入課程名稱、教師、職缺或公司名稱進行搜尋'>
                 </div>
                 <input class="search-btn" type="button" value="送出"></input>
                 <div class='stufinite-header-item'>
@@ -42,28 +42,22 @@
         <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                window.queryString = {
-                    '/infernoWeb/sloth/search':['teacher', 'name'],
-                    '/infernoWeb/arrogant/search':[]
-                }
-                $('.search-btn').click(function(){
+                function search(){
                     $('#courseList').empty()
                     urlpattern = "{{urlpattern|escapejs}}"
                     school = "{{school|escapejs}}"
                     
                     keyword = $('#search-form').val();
-                    qrystr = queryString[urlpattern].map((i) => i+`=${keyword}&`).toString().replace(',', '')
+                    qrystr = `keyword=${keyword}`
                     window.location.href = `${urlpattern}?school=${school}&${qrystr}`
+                }
+                $('.search-btn').click(function(){
+                    search()
                 })
 
                 $("#search-form").keyup(function(event){
                     if(event.keyCode == 13 || event.which == 13){
-                        $('#courseList').empty()
-                        urlpattern = "{{urlpattern|escapejs}}"
-                        school = "{{school|escapejs}}"
-                        keyword = $('#search-form').val();
-                        qrystr = queryString[urlpattern].map((i) => i+`=${keyword}&`).toString().replace(',', '')
-                        window.location.href = `${urlpattern}?school=${school}&${qrystr}`
+                        search()
                     }
                 });
             })
