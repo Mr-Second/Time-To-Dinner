@@ -16,6 +16,19 @@
 	<script>
 	$( document ).ready(function() {
 		$.getJSON('/sloth/get/search' + window.location.search, function(json){
+			if (json.length == 0){
+				let result = $(`
+				  <div class="shopInfoBox">
+					<div class="thumbnail">
+						<div class="shopBoxBody">
+							<span class="shopTitle">抱歉 沒有查到任何東西喔</span>
+						</div>
+					</div>
+				  </div>
+				`)
+				$('#courseList').append(result)
+			}
+
 			for(let i of json){
 				let result = $(`
 				  <div class="shopInfoBox">
@@ -40,7 +53,7 @@
 				  .find('span.type').text(i['fields']['ctype']).end()
 				  .find('#School_teacher').html(School_teacher).end()
 				  .find('#feedback_amount').html(tmp).end()
-				$('#courseList').append(result)			
+				$('#courseList').append(result)
 			}
 
 			let querystring = (new URL(location)).searchParams;

@@ -17,8 +17,9 @@
                 </div>
                 <div class="nav_bar">
                     <ul class="nav_pills">
-                        <li><a href="">課表</a></li>
-                        <li><a href="">課程心得</a></li>
+                        <li><a href="https://login.campass.com.tw/accounts/login/">課表</a></li>
+                        <li><a href="/infernoWeb/sloth?school=nchu&start=1">課程心得</a></li>
+                        <li><a href="">職缺專區</a></li>
                     </ul>
                 </div>
                 <div class='stufinite-header-search'>
@@ -41,18 +42,30 @@
         <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
         <script type="text/javascript">
             $(document).ready(function(){
+                window.queryString = {
+                    '/infernoWeb/sloth/search':['teacher', 'name'],
+                    '/infernoWeb/arrogant/search':[]
+                }
                 $('.search-btn').click(function(){
                     $('#courseList').empty()
                     urlpattern = "{{urlpattern|escapejs}}"
                     school = "{{school|escapejs}}"
-                    queryString = {
-                        '/infernoWeb/sloth/search':['teacher', 'name'],
-                        '/infernoWeb/arrogant/search':[]
-                    }
+                    
                     keyword = $('#search-form').val();
                     qrystr = queryString[urlpattern].map((i) => i+`=${keyword}&`).toString().replace(',', '')
                     window.location.href = `${urlpattern}?school=${school}&${qrystr}`
-                })            
+                })
+
+                $("#search-form").keyup(function(event){
+                    if(event.keyCode == 13 || event.which == 13){
+                        $('#courseList').empty()
+                        urlpattern = "{{urlpattern|escapejs}}"
+                        school = "{{school|escapejs}}"
+                        keyword = $('#search-form').val();
+                        qrystr = queryString[urlpattern].map((i) => i+`=${keyword}&`).toString().replace(',', '')
+                        window.location.href = `${urlpattern}?school=${school}&${qrystr}`
+                    }
+                });
             })
         </script>
         {% block javascript %}
