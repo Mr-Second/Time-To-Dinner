@@ -1,14 +1,19 @@
 {% extends "base.html" %}
+
 {% load static %}
+
 {% block stylesheet %}
 
     <link rel='stylesheet' href='{% static "infernoWeb/css/index.css" %}'>
 
 {% endblock %}
+
 {% block content %}
 
     <div id="InfoArea">
+
         {# example #}
+
         {% block navbar %}
 
             <ul class="nav">
@@ -18,7 +23,9 @@
         {% endblock %}
 
         {# example #}
+
         {% block shopInfoBox %}
+
             {% for s in something %}
 
                 <div class="shopInfoBox">
@@ -33,9 +40,9 @@
                 </div>
 
             {% endfor %}
+
         {% endblock %}
 
-        
     </div>
 
 {% endblock %}

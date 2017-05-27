@@ -28,11 +28,12 @@
                 <input class="search-btn" type="button" value="送出"></input>
                 <div class='stufinite-header-item'>
                     <a href="https://login.campass.com.tw/accounts/profile"><i class="fa fa-user fa-2x" aria-hidden="true"></i> {{ user.username }} </a>
-                    <a href="http://login.campass.com.tw/accounts/logout" class='stufinite-btn'>Logout</a>
+                    <a href="http://login.campass.com.tw/accounts/logout" class='stufinite-btn'>登出</a>
                 </div>
             </div>
         </header>
-        {% block content %} {% endblock %}
+        {% block content %} 
+        {% endblock %}
         <footer>
             <span>Copyright © 2016 All rights reserved.</span>
             <a target="_blank" href="https://www.facebook.com/CoursePickingHelper/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
