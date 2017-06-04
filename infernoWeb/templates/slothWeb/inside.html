@@ -224,7 +224,8 @@
               .find('p.raw').text(j['fields']['raw']).end()
               .find('a.pointing.label').text(j['fields']['like']).end()
               .attr("emotion", j['fields']['emotion'])
-              .bind('click', (e) => {
+              
+            result.find('a').bind('click', (e) => {
                 let target = $(e.target);
                 if(window.loginTF==false){
                     toastr.error('請登入後再留言')
