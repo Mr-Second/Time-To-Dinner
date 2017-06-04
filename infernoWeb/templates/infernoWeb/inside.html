@@ -49,6 +49,24 @@
 {% block javascript %}
     <script src={% static "bower_components/toastr/toastr.min.js" %}></script>
     <script type="text/javascript">
+    let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
+    window.loginTF = false;
+    $.ajax({
+      url: loginUrl + '/fb/user',
+      dataType: 'json',
+      xhrFields: {
+        withCredentials: true
+      },
+      success: (res) => {
+        $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
+        loginTF = true;
+        console.log(res)
+      },
+      error: (res) => {
+        // User is not logged in
+        console.log('not loggin')
+      }
+    }); 
     function getcrsftoken(){
         // 給django做post的時候用來取得csrftoken的函式
         function getCookie(name) {
@@ -69,34 +87,39 @@
         }
         return getCookie('csrftoken');//呼叫getCookie函數來取得csfttoken
     }
+    
     $( document ).ready(function() {
         $('.ui.dropdown')
           .dropdown()
         ;
 
         $('#reply222').click(function(){
+            if(window.loginTF==false){
+                toastr.error('請登入後再留言')
+                return
+            }
             let emotion = $('#emotionDropdown').dropdown('get value')
             let comments = $('textarea').val()
             let payload = {'csrfmiddlewaretoken':getCookie('csrftoken'),'comments':comments, 'emotion':emotion}
             if (emotion==''){
                 toastr.error('請選擇情緒')
+                return
             }
             else if(comments.length<10){
                 toastr.error('留言需要至少10個字')
+                return
             }
-            else{
-                $.post(location.href, payload)
-                .done(function() {
-                   toastr.success('留言成功!');
-                   location.reload();
-                })
-                .fail(function() {
-                    toastr.error('留言失敗')
-                })
-                .always(function() {
-                    console.log( "reply finished" );
-                });                
-            }
+            $.post(location.href, payload)
+            .done(function() {
+               toastr.success('留言成功!');
+               location.reload();
+            })
+            .fail(function() {
+                toastr.error('留言失敗')
+            })
+            .always(function() {
+                console.log( "reply finished" );
+            });                
         })
     })
     </script>

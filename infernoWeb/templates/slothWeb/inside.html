@@ -138,6 +138,10 @@
           // semantic-ui activation function
           $('.rating').rating('setting', 'clearable', true);
           $('#goquestion').click(function(){
+              if(window.loginTF==false){
+                  toastr.error('請登入後再留言')
+                  return
+              }
               $('.modal')
                 .modal('show')
               ;            
@@ -222,6 +226,10 @@
               .attr("emotion", j['fields']['emotion'])
               .bind('click', (e) => {
                 let target = $(e.target);
+                if(window.loginTF==false){
+                    toastr.error('請登入後再留言')
+                    return
+                }
                 if(target.attr('already')=='True'){
                   $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1})
                   .done(function() {
@@ -234,7 +242,6 @@
                     toastr.error('按讚失敗')
                   })
                   .always(function() {
-                    console.log( "cancel finished" );
                   });        
                 }
                 else{
@@ -249,7 +256,6 @@
                     toastr.error('按讚失敗')
                   })
                   .always(function() {
-                    console.log( "finished" );
                   });                     
                 }
               }).end()
@@ -276,7 +282,6 @@
                 toastr.error('問卷提交失敗')
             })
             .always(function() {
-                console.log( "finished" );
             });               
         });
 
