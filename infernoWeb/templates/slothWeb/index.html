@@ -4,27 +4,24 @@
 
 {% block navbar %}
 
-	<ul class="nav">
-		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=通識">通識</a></li>
-		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=必修">必修</a></li>
-		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=選修">選修</a></li>
-		<li><a class="nav-link" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=其他">其他</a></li>
-	</ul>
+<div class="two wide column">
+	<div class="ui vertical menu">
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=通識">通識</a>
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=必修">必修</a>
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=選修">選修</a>
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=其他">其他</a>
+	</div>
+</div>
 
 {% endblock %}
 
 {% block shopInfoBox %}
 
-	<div id="courseList"></div>
-	<div class="ui grid">
-	    <div class="three wide column"></div>
-	    <div class="column">
-			<div class="ui pagination menu">
-			</div>	    	
-	    </div>
-	</div>
-
+	<div class="six wide column" id="courseList"></div>
+	
 {% endblock %}
+	
+	
 
 {% block javascript %}
 
@@ -65,26 +62,35 @@
 
 			for(let i of json){
 				let result = $(`
-				  <div class="shopInfoBox">
-					<div class="thumbnail">
-						<a href="" class='avatar'><img class="shopImg" src=""></a>
-						<div class="shopBoxBody">
-							<a href="" class='title'><span class="shopTitle"></span></a>
-							<span class="type" style="color:red"></span>{# 課程的類型 #}
-							<div id='School_teacher'></div>
-							<div id='feedback_amount'></div>
-						</div>
-					</div>
-				  </div>
+				<div class="ui cards">
+  					<div class="card">
+    					<div class="content">
+    						<a class="avatar" href="">
+      							<img class="right floated mini ui image" src="">
+      						</a>
+      						<a class="avatar" href="">
+      							<div class="header shopTitle"></div>
+      						</a>
+      						<div class="meta type">{# 課程的類型 #}</div>
+      						<div class="description" id='School_teacher'></div>
+    					</div>
+    					<div class="extra content">
+      						<span class="right floated">
+      							<i class="heart outline like icon"></i>
+      							<span id='feedback_amount'></span>
+    						</span>
+    					</div>	
+  					</div>
+  				</div>
 				`)
 				School_teacher = $.parseHTML(`<p class="teacher">學校：${i['fields']['school']} 老師：${i['fields']['teacher']}</p>`)
-				tmp = $.parseHTML('<h3><i class="fa fa-heart" aria-hidden="true"></i>' + i['fields']['feedback_amount']+'人參與評分' + '</h3>')
+				tmp = $.parseHTML(i['fields']['feedback_amount']+'人參與評分' + '</h3>')
 				result
 				  .find('a.avatar').attr('href', '/infernoWeb/sloth/inside?id='+i['pk']).end()
 				  .find('a.title').attr('href', '/infernoWeb/sloth/inside?id='+i['pk']).end()
 				  .find('img').attr('src', i['fields']['avatar']).end()
-				  .find('span.shopTitle').text(i['fields']['name']).end()
-				  .find('span.type').text(i['fields']['ctype']).end()
+				  .find('div.shopTitle').text(i['fields']['name']).end()
+				  .find('div.type').text(i['fields']['ctype']).end()
 				  .find('#School_teacher').html(School_teacher).end()
 				  .find('#feedback_amount').html(tmp).end()
 				$('#courseList').append(result)			

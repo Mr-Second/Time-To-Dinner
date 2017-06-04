@@ -4,20 +4,21 @@
 
 {% block stylesheet %}
 
-    <link rel='stylesheet' href='{% static "infernoWeb/css/index.css" %}'>
+<link rel='stylesheet' href='{% static "infernoWeb/css/index.css" %}'>
 
 {% endblock %}
 
 {% block content %}
 
-    <div id="InfoArea">
+    <div class="ui centered grid" id="InfoArea">
+        <div class="row">
 
         {# example #}
 
         {% block navbar %}
 
             <ul class="nav">
-                <li><a class="nav-link" href="#">navbar選項</a></li>
+                <li><a class="item" href="#">navbar選項</a></li>
             </ul>
 
         {% endblock %}
@@ -43,6 +44,15 @@
 
         {% endblock %}
 
+        </div>
+        <div class="row">
+        <div class="ui grid">
+            <div class="three wide column"></div>
+            <div class="column">
+                <div class="ui pagination menu"></div>          
+            </div>
+        </div>
+    </div>
     </div>
 
 {% endblock %}
