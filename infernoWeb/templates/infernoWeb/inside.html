@@ -26,13 +26,21 @@
                         {# 列出所有使用者的留言 #}
                     {% endblock %}
                 </div>
-                <form class="ui reply form" action="" method="post">
-                    {% csrf_token %}
+                <div class="ui reply form">
                     <div class="field">
                         <textarea placeholder="新增公開留言" name="comments"></textarea>
-                        <input class="orderBtn" type="submit" name="" onclick="toastr.success('留言成功!')">
+                        <button class="orderBtn" id="reply222">Submit</button> 
+                        <div class="ui floating dropdown button" id='emotionDropdown'>
+                          <div class="text"><i class="heart icon"></i>選擇情緒</div>
+                          <i class="dropdown icon"></i>
+                          <div class="menu">
+                            <a class="item" data-value='neutral'><i class="meh icon"></i>中立</a>
+                            <a class="item" data-value='neg'><i class="frown icon"></i>反面評論</a>
+                            <a class="item" data-value='pos'><i class="smile icon"></i>正面評論</a>
+                          </div>
+                        </div>
                     </div>
-                </form>
+                </div>
                 
             </div>
         </div>
@@ -40,6 +48,58 @@
 {% endblock %}
 {% block javascript %}
     <script src={% static "bower_components/toastr/toastr.min.js" %}></script>
+    <script type="text/javascript">
+    function getcrsftoken(){
+        // 給django做post的時候用來取得csrftoken的函式
+        function getCookie(name) {
+                //name should be 'csrftoken', as an argument to be sent into getCookie()
+               var cookieValue = null;
+               if (document.cookie && document.cookie != '') {
+                   var cookies = document.cookie.split(';');
+                   for (var i = 0; i < cookies.length; i++) {
+                       var cookie = jQuery.trim(cookies[i]);
+                       // Does this cookie string begin with the name we want?
+                       if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                           break;
+                       }
+                   }
+               }
+               return cookieValue;
+        }
+        return getCookie('csrftoken');//呼叫getCookie函數來取得csfttoken
+    }
+    $( document ).ready(function() {
+        $('.ui.dropdown')
+          .dropdown()
+        ;
+
+        $('#reply222').click(function(){
+            let emotion = $('#emotionDropdown').dropdown('get value')
+            let comments = $('textarea').val()
+            let payload = {'csrfmiddlewaretoken':getCookie('csrftoken'),'comments':comments, 'emotion':emotion}
+            if (emotion==''){
+                toastr.error('請選擇情緒')
+            }
+            else if(comments.length<10){
+                toastr.error('留言需要至少10個字')
+            }
+            else{
+                $.post(location.href, payload)
+                .done(function() {
+                   toastr.success('留言成功!');
+                   location.reload();
+                })
+                .fail(function() {
+                    toastr.error('留言失敗')
+                })
+                .always(function() {
+                    console.log( "reply finished" );
+                });                
+            }
+        })
+    })
+    </script>
     {% block insideJavascript %}
     {% endblock %}
 {% endblock %}
