@@ -15,7 +15,7 @@ def inside(request):
     id = request.GET['id']
     c = Course.objects.get(id=id)
     if request.method == 'POST' and request.POST['comments']:
-        Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'])
+        Comment.objects.create(course=c, create=datetime.datetime.now(), raw=request.POST['comments'], emotion=request.POST['emotion'])
         return redirect(request.get_full_path())
     school = c.school
     urlpattern = '/infernoWeb/sloth/search'

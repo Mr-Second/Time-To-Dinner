@@ -37,11 +37,14 @@
 {% block shopDetail %}
 
   <button class="orderBtn" id="goquestion">參與評比該課程</button>
-  
+  <div class="ui four item inverted stackable menu">
+    <a class="active blue item" emotion='all'>所有留言</a>
+    <a class="blue item" emotion='neutral'>中立評論</a>
+    <a class="blue item" emotion='pos'>正面評論</a>
+    <a class="blue item" emotion='neg'>反面評論</a>
+  </div>
 {% endblock %}
-{% block comments %}
-      {# 列出所有使用者的留言 #}
-{% endblock %}
+
 {% block insideJavascript %}
     <script src={% static "bower_components/d3/d3.min.js" %}></script>
     <script src={% static "bower_components/radar-chart-d3/src/radar-chart.min.js" %}></script>
@@ -67,9 +70,40 @@
     function getcrsftoken(){
         return getCookie('csrftoken');//呼叫getCookie函數來取得csfttoken
     }
+    function activeMenu() {
+
+      // selector cache
+      var $menuItem = $('.menu a.item')
+      function activate() {
+        $(this)
+        .addClass('active')
+        .closest('.ui.menu')
+        .find('.item')
+        .not($(this))
+        .removeClass('active');
+        for(let i of $('div.comments-item')){
+          if ($(this).attr('emotion')=='all'){
+            $(i).css('display', '')
+          }
+          else if ($(i).attr('emotion')==$(this).attr('emotion')){
+            $(i).css('display', '')
+          }
+          else{
+            $(i).css('display', 'none')
+          }
+        }
+      }
+
+      $menuItem
+        .on('click', activate)
+      ;
+
+    };
     /*************************************************************************/
 
     $( document ).ready(function() {
+        activeMenu();
+
         $.getJSON('/sloth/get/cvalue' + window.location.search, function(json){
             let result = $(`
               <div class="courses-img">
@@ -81,7 +115,8 @@
                   老師：<span id='teacher'></span><br>
                   課程類型：<span id='ctype'></span><br>
                   上課教材：<span id='book'></span><br>
-                  課程大綱：<span id='syllabus'></span>
+                  開課系所：<span id='dept'></span><br>
+                  評分方式：<span id='benchmark'></span>
                 </p>
                 <p>
                   <i class="fa fa-heart" aria-hidden="true"></i><span id='feedback_amount'></span>人參與評分
@@ -95,13 +130,18 @@
               .find('#teacher').text(json['teacher']).end()
               .find('#ctype').text(json['ctype']).end()
               .find('#book').text(json['book']).end()
-              .find('#syllabus').text(json['syllabus']).end()
+              .find('#dept').text(json['dept']).end()
+              .find('#benchmark').text(json['benchmark']).end()
               .find('#feedback_amount').text(json['feedback_amount']).end()
             $('#profile').append(result)
         }).done(function(result){
           // semantic-ui activation function
           $('.rating').rating('setting', 'clearable', true);
           $('#goquestion').click(function(){
+              if(window.loginTF==false){
+                  toastr.error('請登入後再留言')
+                  return
+              }
               $('.modal')
                 .modal('show')
               ;            
@@ -160,7 +200,7 @@
           for (let j of json){
             let result = $(
             `
-            <div class="comments-item">
+            <div class="comments-item" emotion="">
               <div class="customer">
                 <img src='{% static "../media/student.png" %}'>
               </div>
@@ -182,9 +222,15 @@
             result
               .find('i.create').text(j['fields']['create']).end()
               .find('p.raw').text(j['fields']['raw']).end()
-              .find('a.pointing.label').text(j['fields']['like'])
-              .bind('click', (e) => {
+              .find('a.pointing.label').text(j['fields']['like']).end()
+              .attr("emotion", j['fields']['emotion'])
+              
+            result.find('a').bind('click', (e) => {
                 let target = $(e.target);
+                if(window.loginTF==false){
+                    toastr.error('請登入後再留言')
+                    return
+                }
                 if(target.attr('already')=='True'){
                   $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1})
                   .done(function() {
@@ -197,7 +243,6 @@
                     toastr.error('按讚失敗')
                   })
                   .always(function() {
-                    console.log( "cancel finished" );
                   });        
                 }
                 else{
@@ -212,7 +257,6 @@
                     toastr.error('按讚失敗')
                   })
                   .always(function() {
-                    console.log( "finished" );
                   });                     
                 }
               }).end()
@@ -239,7 +283,6 @@
                 toastr.error('問卷提交失敗')
             })
             .always(function() {
-                console.log( "finished" );
             });               
         });
 
