@@ -33,16 +33,16 @@
 			var start = (querystring.get('start')-1)/10+1
 			let end = start + 11 < length ? start + 11 : length
 
-			$('.pagination.menu').append($(`<a class="item" id='turnleft'><i class="angle left icon"></i></a>`))
+			$('.borderless.menu').append($(`<a class="item" id='turnleft'><i class="angle left icon"></i></a>`))
 			for(var i=start-1;i<end;i++){
 				let item = $(`<a class="item">${i+1}</a>`)
 				if(i+1==start){
 					item.attr("class", "item active")
 				}
 				item.attr('href', `/infernoWeb/sloth?school=${school}&start=${i*10+1}&ctype=${ctype}`)
-				$('.pagination.menu').append(item)					
+				$('.borderless.menu').append(item)					
 			}
-			$('.pagination.menu').append($(`<a class="item" id='turnright'><i class="angle right icon"></i></a>`))
+			$('.borderless.menu').append($(`<a class="item" id='turnright'><i class="angle right icon"></i></a>`))
 
 			$('#turnleft').click(function(){
 				window.location.href = `/infernoWeb/sloth?school=${school}&start=${parseInt(startID)-10}&ctype=${ctype}`
@@ -75,7 +75,7 @@
     					</div>
     					<div class="extra content">
       						<span class="right floated">
-      							<i class="heart outline like icon"></i>
+      							<i class="ui red heart outline like icon"></i>
       							<span id='feedback_amount'></span>
     						</span>
     					</div>	
@@ -83,7 +83,7 @@
   				</div>
 				`)
 				School_teacher = $.parseHTML(`<p class="teacher">學校：${i['fields']['school']} 老師：${i['fields']['teacher']}</p>`)
-				tmp = $.parseHTML(i['fields']['feedback_amount']+'人參與評分' + '</h3>')
+				tmp = $.parseHTML(i['fields']['feedback_amount']+'人參與評分')
 				result
 				  .find('a.avatar').attr('href', '/infernoWeb/sloth/inside?id='+i['pk']).end()
 				  .find('a.title').attr('href', '/infernoWeb/sloth/inside?id='+i['pk']).end()
