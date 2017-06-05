@@ -1,65 +1,18 @@
-#InfoArea {
-    margin: 0 auto;
-    width: 1000px;
+.ui.cards>.card{
+    width: 100%;
 }
-#courseList{
-    margin: 10px 0 10px 16%;
-}
-/*餐廳左側nav*/
-
-.nav {
-    list-style-type: none;
-    margin: 0 10px 10px 0;
-    padding: 0;
-    width: 15%;
-    height: 100%;
-    float: left;
-    background: #DEDEDE;
-    font-size: 14.5px;
-}
-
-.nav li a {
-    display: block;
-    color: #4180B2;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-.nav li a:hover {
-    color: #F25F5C;
-}
- /*右側內容*/
-.shopInfoBox {
-    margin-bottom:10px;
-    width: 80%;
-}
-
-.thumbnail {
-    padding: 5px;
-    overflow: auto;
-    background-color: #DEDEDE;
-}
-
-  .thumbnail img{
-    max-width: 100px;
-    float: left;
-    border-radius: 5px;
-    margin-right: 20px;
-}
-
-.thumbnail a {
-    position: relative;
-    text-decoration: none;
-    color: #4180B2;
-}
-
-.shopBoxBody {
-    padding: 20px;
-}
-.shopBoxBody h3{
-    font-size: 14px;
-}
-.shopTitle {
+a{
     font-weight: 700;
-    font-size: 18px;
+    color: #000;
+}
+.ui.cards>.card .avatar img{
+    width: 50px;
+    height: 50px;
+    border-radius: 0px;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1439px){
+    .row.two{
+        left: 0;
+    } 
 }
