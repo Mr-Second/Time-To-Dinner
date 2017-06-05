@@ -5,11 +5,3 @@
 @import url('sidebar.css');
 @import url('searchbar.css');
 */
-
-body{
-	background-color: lightblue;
-}
-
-@media screen and (min-width: 1024px) and (max-width: 1439px){
-    
-}

@@ -12,7 +12,4 @@ a{
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1439px){
-    .row.two{
-        left: 0;
-    } 
 }
