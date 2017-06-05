@@ -67,9 +67,6 @@
            }
            return cookieValue;
     }
-    function getcrsftoken(){
-        return getCookie('csrftoken');//呼叫getCookie函數來取得csfttoken
-    }
     function activeMenu() {
 
       // selector cache
@@ -223,6 +220,7 @@
               .find('i.create').text(j['fields']['create']).end()
               .find('p.raw').text(j['fields']['raw']).end()
               .find('a.pointing.label').text(j['fields']['like']).end()
+              .find('b').text(j['fields']['author'][0]).end()
               .attr("emotion", j['fields']['emotion'])
               
             result.find('a').bind('click', (e) => {

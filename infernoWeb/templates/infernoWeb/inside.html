@@ -49,45 +49,6 @@
 {% block javascript %}
     <script src={% static "bower_components/toastr/toastr.min.js" %}></script>
     <script type="text/javascript">
-    let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
-    window.loginTF = false;
-    $.ajax({
-      url: loginUrl + '/fb/user',
-      dataType: 'json',
-      xhrFields: {
-        withCredentials: true
-      },
-      success: (res) => {
-        $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
-        loginTF = true;
-        console.log(res)
-      },
-      error: (res) => {
-        // User is not logged in
-        console.log('not loggin')
-      }
-    }); 
-    function getcrsftoken(){
-        // 給django做post的時候用來取得csrftoken的函式
-        function getCookie(name) {
-                //name should be 'csrftoken', as an argument to be sent into getCookie()
-               var cookieValue = null;
-               if (document.cookie && document.cookie != '') {
-                   var cookies = document.cookie.split(';');
-                   for (var i = 0; i < cookies.length; i++) {
-                       var cookie = jQuery.trim(cookies[i]);
-                       // Does this cookie string begin with the name we want?
-                       if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                           break;
-                       }
-                   }
-               }
-               return cookieValue;
-        }
-        return getCookie('csrftoken');//呼叫getCookie函數來取得csfttoken
-    }
-    
     $( document ).ready(function() {
         $('.ui.dropdown')
           .dropdown()

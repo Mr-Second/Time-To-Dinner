@@ -58,7 +58,6 @@
 		$.getJSON('/sloth/get/clist' + window.location.search, function(json){
 			first = json.shift()
 			length = first['TotalPage']
-			console.log(length)
 			school = first['school']
 			ctype = first['ctype']
 			pagination(school, ctype, length)

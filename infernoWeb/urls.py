@@ -15,6 +15,7 @@ urlpatterns = [
   url(r'^sloth$',sloth.index, name='sloth'),
   url(r'^sloth/inside$',sloth.inside, name='slothInside'),
   url(r'^sloth/search$',sloth.search, name='slothSearch'),
+  url(r'^sloth/createUser$',sloth.createUser, name='slothcreateUser'),
 ] + [
   # 求職網的部份
   url(r'^arrogant$',arrogant.index, name='arrogant'),

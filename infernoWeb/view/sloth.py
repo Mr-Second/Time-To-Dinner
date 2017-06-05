@@ -1,6 +1,8 @@
 from django.shortcuts import render_to_response, render, redirect
+from django.http import JsonResponse, Http404
 from djangoApiDec.djangoApiDec import queryString_required
 from slothTw.models import Course, Comment
+from infernoWeb.models import User
 import datetime, json
 
 @queryString_required(['school'])
@@ -26,3 +28,9 @@ def search(request):
     school = request.GET['school']
     urlpattern = '/infernoWeb/sloth/search'
     return render(request, 'slothWeb/search.html', locals())
+
+def createUser(request):
+    if request.POST['id']:
+        User.objects.update_or_create(facebookid=request.POST['id'], major=request.POST['profile[major]'], career=request.POST['profile[career]'], grade=request.POST['profile[grade]'], school=request.POST['profile[school]'], )
+        return JsonResponse({"createUser":'success'})
+    raise Http404("createUser error")
