@@ -14,3 +14,7 @@ a{
 #kind{
 	margin-bottom: 20px;
 }
+
+.ui.menu:last-child{
+	margin-bottom: 10px;
+}
