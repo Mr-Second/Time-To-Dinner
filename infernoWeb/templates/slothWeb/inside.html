@@ -135,8 +135,8 @@
           // semantic-ui activation function
           $('.rating').rating('setting', 'clearable', true);
           $('#goquestion').click(function(){
-              if(window.loginTF==false){
-                  toastr.error('請登入後再留言')
+              if(getCookie('facebookid')==null){
+                  toastr.error('請登入後再參與評分')
                   return
               }
               $('.modal')
@@ -222,15 +222,22 @@
               .find('a.pointing.label').text(j['fields']['like']).end()
               .find('b').text(j['fields']['author'][0]).end()
               .attr("emotion", j['fields']['emotion'])
+
+            for(let i of j['fields']['likesfromuser']){
+              if (getCookie('facebookid') == i) {
+                result.find('a').attr('already', 'True')
+                result.find('a').attr('class', 'ui grey left pointing label')
+              }              
+            }
               
             result.find('a').bind('click', (e) => {
                 let target = $(e.target);
-                if(window.loginTF==false){
-                    toastr.error('請登入後再留言')
+                if(getCookie('facebookid')==null){
+                    toastr.error('請登入後再按讚')
                     return
                 }
                 if(target.attr('already')=='True'){
-                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1})
+                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1,'facebookid':getCookie('facebookid')})
                   .done(function() {
                     tmp = target.text()
                     target.text(Number(tmp) + -1)
@@ -240,11 +247,9 @@
                   .fail(function() {
                     toastr.error('按讚失敗')
                   })
-                  .always(function() {
-                  });        
                 }
                 else{
-                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1})
+                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1,'facebookid':getCookie('facebookid')})
                   .done(function() {
                     tmp = target.text()
                     target.text(Number(tmp) + 1)
@@ -254,8 +259,6 @@
                   .fail(function() {
                     toastr.error('按讚失敗')
                   })
-                  .always(function() {
-                  });                     
                 }
               }).end()
             $('#comments').append(result)

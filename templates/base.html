@@ -57,33 +57,30 @@
                    }
                    return cookieValue;
             }
+            (function main() {
+              let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
+              $.ajax({
+                url: loginUrl + '/fb/user',
+                dataType: 'json',
+                xhrFields: {
+                  withCredentials: true
+                },
+                success: (res) => {
+                  $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
+                  $.post('/infernoWeb/sloth/createUser', Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}))
+                  .done(function(response) {
+                    document.cookie = `facebookid=${res['id']}`;
+                  })
+                  .fail(function(response) {
+                  })
+                },
+                error: (res) => {
+                  // User is not logged in
+                  console.log('not loggin')
+                }
+              }); 
+            })();
             $(document).ready(function(){
-                (function main() {
-                  let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
-                  window.loginTF = false;
-                  $.ajax({
-                    url: loginUrl + '/fb/user',
-                    dataType: 'json',
-                    xhrFields: {
-                      withCredentials: true
-                    },
-                    success: (res) => {
-                      $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
-                      loginTF = true;
-                      $.post('/infernoWeb/sloth/createUser', Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}))
-                      .done(function(response) {
-                         console.log(response)
-                      })
-                      .fail(function(response) {
-                         console.log(response)
-                      })
-                    },
-                    error: (res) => {
-                      // User is not logged in
-                      console.log('not loggin')
-                    }
-                  }); 
-                })();
                 function search(){
                     $('#courseList').empty()
                     urlpattern = "{{urlpattern|escapejs}}"
