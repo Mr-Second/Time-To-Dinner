@@ -1,40 +1,41 @@
 {% load static %}
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <meta charset='utf-8' />
-        <title>{% block title %}{% endblock %}</title>
-        <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' integrity='sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1' crossorigin='anonymous'>
-        <link rel='stylesheet' href='{% static "stufinite/css/stufinite.css" %}'> 
-        <link rel="stylesheet" href={% static "bower_components/semantic/dist/semantic.min.css" %}>
-        {% block stylesheet %} {% endblock %}
-    </head>
-    <body>
-        <header class='stufinite-header'>
-            <div class="stufinite-inner">
-                <div class='stufinite-header-logo'>
-                    <img src='{% static "stufinite/img/logo.svg" %}' alt="LOGO">
-                </div>
-                <div class="nav_bar">
-                    <ul class="nav_pills">
-                        <li><a href="https://login.campass.com.tw/accounts/login/">課表</a></li>
-                        <li><a href="/infernoWeb/sloth?school=nchu&start=1">課程心得</a></li>
-                        <li><a href="">職缺專區</a></li>
-                    </ul>
-                </div>
-                <div class='stufinite-header-search'>
-                    <input id='search-form' type='text' placeholder='輸入課程名稱、教師、職缺或公司名稱進行搜尋'>
-                </div>
-                <input class="search-btn" type="button" value="送出"></input>
-                <div class='stufinite-header-item'>
-                    <a id='fb-login-btn' href="https://www.facebook.com/v2.9/dialog/oauth?client_id= 199021993947051&redirect_uri=http://test.localhost.login.campass.com.tw:8080/fb?redirect_service=www"><i class="fa fa-facebook-square" aria-hidden="true"></i> Login</a>
-                </div>
-            </div>
-        </header>
-        {% block content %} 
-        {% endblock %}
-        <footer>
-            <span>Copyright © 2016 All rights reserved.</span>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' integrity='sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1' crossorigin='anonymous'>
+    <link rel="stylesheet" href={% static "bower_components/semantic/dist/semantic.min.css" %}>
+    <link rel='stylesheet' href='{% static "stufinite/css/stufinite.css" %}'> 
+    {% block stylesheet %} {% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+	<header class="ui blue inverted stackable container menu">
+        <div class="item">
+            <img src='{% static "stufinite/img/logo.svg" %}' alt="LOGO">
+        </div>
+		<a href="https://login.campass.com.tw/accounts/login/" class="item">課表</a>
+		<a href="/infernoWeb/sloth?school=nchu&start=1" class="item">心得</a>
+		<a href="" class="item">職缺</a>
+		<div class="ui category search item" id="search">
+			<div class="ui transparent icon input">
+				<input class="prompt" id='search-form' type="text" placeholder="輸入課程名稱、教師、職缺或公司名稱進行搜尋" >
+        		<i class="search link icon"></i>
+			</div>
+		</div>
+    <div class="right menu">
+      <a class="item" id='fb-login-btn' href="https://www.facebook.com/v2.9/dialog/oauth?client_id= 199021993947051&redirect_uri=http://test.localhost.login.campass.com.tw:8080/fb?redirect_service=www""><i class="fa fa-facebook-square" aria-hidden="true"></i>登出</a>
+    </div>
+	</header>
+
+	{% block content %} {% endblock %}
+
+	<footer class="ui blue inverted stackable container segment">
+		<span>Copyright © 2016 All rights reserved.</span>
             <a target="_blank" href="https://www.facebook.com/CoursePickingHelper/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
         </footer>
 

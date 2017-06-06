@@ -1,7 +1,6 @@
 {% extends "infernoWeb/inside.html" %}
 {% load static %}
 {% block insideStyleSheet %}
-    <link rel='stylesheet' href='{% static "infernoWeb/css/inside.css" %}'>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
     <style>
@@ -25,7 +24,7 @@
     </style>
 {% endblock %}
 {% block profile %}
-    <div id='profile'>
+    <div class="ui two column grid" id='profile'>
       {# 課程的詳細資訊 #}
     </div>
     <hr class="fade">
@@ -36,7 +35,7 @@
 {% endblock %}
 {% block shopDetail %}
 
-  <button class="orderBtn" id="goquestion">參與評比該課程</button>
+  <button class="ui primary button" id="goquestion">參與評比該課程</button>
   <div class="ui four item inverted stackable menu">
     <a class="active blue item" emotion='all'>所有留言</a>
     <a class="blue item" emotion='neutral'>中立評論</a>
@@ -103,11 +102,8 @@
 
         $.getJSON('/sloth/get/cvalue' + window.location.search, function(json){
             let result = $(`
-              <div class="courses-img">
-                
-              </div>
-              <div class="description">
-                <h2 id='name'></h2>
+              <div class="eight wide column">
+                <h3 class="ui header" id='name'></h3>
                 <p class="cinema">
                   老師：<span id='teacher'></span><br>
                   課程類型：<span id='ctype'></span><br>
@@ -116,10 +112,10 @@
                   評分方式：<span id='benchmark'></span>
                 </p>
                 <p>
-                  <i class="fa fa-heart" aria-hidden="true"></i><span id='feedback_amount'></span>人參與評分
+                  <i class="ui red heart outline like icon" aria-hidden="true"></i><span id='feedback_amount'></span>人參與評分
                 </p>
               </div>
-              <div class="chart-container"></div>
+              <div class="eight wide column" id="chart-container"></div>
             `)
             result
               .find('#avatar').attr('src', json['avatar']).end()
@@ -168,7 +164,7 @@
             }
           ]
 
-          $('.chart-container').empty();
+          $('#chart-container').empty();
           var chart = RadarChart.chart();
           chart.config({
             containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
@@ -181,7 +177,7 @@
             minValue: 0,
           });
 
-          var svg = d3.select('.chart-container').append('svg')
+          var svg = d3.select('#chart-container').append('svg')
             .attr('width', 200)
             .attr('height', 200); 
 

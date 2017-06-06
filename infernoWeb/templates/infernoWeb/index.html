@@ -17,9 +17,12 @@
 
         {% block navbar %}
 
-            <ul class="nav">
-                <li><a class="item" href="#">navbar選項</a></li>
-            </ul>
+        <div class="ui vertical menu" id="kind">
+            <a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=通識">通識</a>
+            <a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=必修">必修</a>
+            <a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=選修">選修</a>
+            <a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=其他">其他</a>
+        </div>
 
         {% endblock %}
 
@@ -29,14 +32,24 @@
 
             {% for s in something %}
 
-                <div class="shopInfoBox">
-                    <div class="thumbnail">
-                        <a href="{{網址}}"><img class="shopImg" src="{{網址}}"></a>
-                        <div class="shopBoxBody">
-                            <span class="shopTitle">{{名稱}}</span>
-                            <p>{{型態}}</p>
-                            <h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><small>{{按讚數量}}</small>　<i class="fa fa-star" aria-hidden="true"></i>{{評分}}</h3>
+                <div class="ui cards">
+                    <div class="card">
+                        <div class="content">
+                            <a class="avatar" href="">
+                                <img class="right floated mini ui image" src="">
+                            </a>
+                            <a class="avatar" href="">
+                                <div class="header shopTitle"></div>
+                            </a>
+                            <div class="meta type">{# 課程的類型 #}</div>
+                            <div class="description" id='School_teacher'></div>
                         </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                <i class="ui red heart outline like icon"></i>
+                                <span id='feedback_amount'></span>
+                            </span>
+                        </div>  
                     </div>
                 </div>
 

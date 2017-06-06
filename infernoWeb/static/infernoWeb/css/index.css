@@ -11,8 +11,10 @@ a{
     border-radius: 0px;
 }
 
-@media screen and (min-width: 1024px) and (max-width: 1439px){
-    .row.two{
-        left: 0;
-    } 
+#kind{
+	margin-bottom: 20px;
+}
+
+.ui.menu:last-child{
+	margin-bottom: 10px;
 }

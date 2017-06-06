@@ -1,25 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 {% block stylesheet %}
-    <link rel='stylesheet' href='{% static "infernoWeb/css/inside.css" %}'>
     <link rel="stylesheet" href='{% static "bower_components/toastr/toastr.min.css" %}'>
     {% block insideStyleSheet %}
     {% endblock %}
 {% endblock %}
 {% block content%}
-    <div class="container">
-        <div class="column">
-            <div class="shopInfo">
+    <div class="ui centered grid">
+            <div class="ten wide column">
                 {# 放該主題的大頭貼 基本介紹 以及雷達圖!!! #}
                 {% block profile %}
                 {% endblock %}
             </div>
-            <div class="shopDetail">
+            <div class="eight wide column">
                 {% block shopDetail %}
                     <h2>可以考慮要不要放一些文字敘述和照片充版面</h2>
                 {% endblock %}
             </div>
-            <div class="comment">
+            <div class="ten wide column">
                 <h2>評論</h2>
                 <div id="comments">
                     {% block comments %}
@@ -29,7 +27,7 @@
                 <div class="ui reply form">
                     <div class="field">
                         <textarea placeholder="新增公開留言" name="comments"></textarea>
-                        <button class="orderBtn" id="reply222">Submit</button> 
+                        <button class="ui primary button" id="reply222">送出</button> 
                         <div class="ui floating dropdown button" id='emotionDropdown'>
                           <div class="text"><i class="heart icon"></i>選擇情緒</div>
                           <i class="dropdown icon"></i>
@@ -41,9 +39,7 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
-        </div>
     </div>
 {% endblock %}
 {% block javascript %}
