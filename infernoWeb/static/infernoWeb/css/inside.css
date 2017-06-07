@@ -1,67 +1,7 @@
+@media screen and (max-width: 576px){
 
-.container{
-	width: 800px;
-	margin: 0 auto;
-	padding: 30px;
-}
-#profile{
-	margin: 0 100px;
-	display: inline-flex;
-}
-.courses-img{
-	margin-right: 30px;
-}
-.description{
-	margin-top: 20px;
-	margin-right: 40px;
-}
-.cinema{
-	font-size: 16px;
-}
-.fade{
-	border: 0; 
-	height: 2px; 
-	margin: 50px 0;
-background-image: -webkit-linear-gradient(left, transparent, #4180B2, transparent);
-background-image: -o-linear-gradient(left, transparent, #4180B2, transparent);
-background-image: linear-gradient(to right, transparent, #4180B2, transparent);
-}
-.chart-container{
-}
-.shopDetail{
-	margin: 0px 0 20px 100px;
-}
-.orderBtn{
-	padding: 10px 20px;
-	border-radius: 5px;
-	border-color: transparent;
-	background: #4180B2;
-	text-decoration: none;
-	color: #ffffff;
-}
-.orderBtn:hover{
-	color: #F25F5C;
-}
-.comment{
-	width: 500px;
-	margin: 0 100px;
-}
-#comments{
-	margin-bottom: 30px;
-}
-.comments-item{
-	margin-bottom: 30px;
-	display: inline-flex;
-}
-.comment .orderBtn{
-	padding: 10px 20px;
-	border-radius: 5px;
-	margin-top:30px; 
-	border-color: transparent;
-	background: #4180B2;
-	text-decoration: none;
-	color: #ffffff;
-}
-.comment .orderBtn:hover{
-	color: #F25F5C;
+	#profile {
+    	display: inline;
+	}
+
 }

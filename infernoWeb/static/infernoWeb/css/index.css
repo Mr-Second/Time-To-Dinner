@@ -18,3 +18,11 @@ a{
 .ui.menu:last-child{
 	margin-bottom: 10px;
 }
+
+@media screen and (max-width: 576px){
+
+	.media-left {
+    	display: inline;
+	}
+
+}

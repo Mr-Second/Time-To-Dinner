@@ -20,10 +20,10 @@
 		$.getJSON('/sloth/get/search' + window.location.search, function(json){
 			if (json.length == 0){
 				let result = $(`
-				  <div class="shopInfoBox">
-					<div class="thumbnail">
-						<div class="shopBoxBody">
-							<span class="shopTitle">抱歉 沒有查到任何東西喔</span>
+				  <div class="ui cards">
+					<div class="card">
+						<div class="content">
+							<div class="header shopTitle">抱歉 沒有查到任何東西喔</div>
 						</div>
 					</div>
 				  </div>
