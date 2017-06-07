@@ -193,36 +193,45 @@
           for (let j of json){
             let result = $(
             `
-            <div class="comments-item" emotion="">
-              <div class="customer">
-                <img src='{% static "../media/student.png" %}'>
-              </div>
-              <div class="cusInfo">
-                <b>同學</b>　<i class='create'></i>
-                <div class="text">
-                  <p class='raw'></p>
-                  <div class="ui labeled button" tabindex="0">
-                    <div class="mini ui red button">
-                      <i class="heart icon"></i> Like
+            <div class="ui comments" emotion="">
+              <div class="comment">
+                <a class="avatar">
+                  <img src='{% static "../media/student.png" %}'>
+                </a>
+                <div class="content">
+                  <b>同學</b><p class="author"></p>
+                    <div class="metadata">
+                      <div class="date"></div>
+                        <div class="rating">
+                          <i class="star icon"></i>情緒
+                        </div>
+                      </div>
+                    <div class="text">
+                      <p class='raw'></p>
                     </div>
-                    <a class="ui basic red left pointing label"></a>
+                    <div class="actions">
+                      <a class="like">
+                        <i class="ui red heart icon"></i>
+                        Like
+                        <span class="like"></span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             `
             );
             result
-              .find('i.create').text(j['fields']['create']).end()
+              .find('div.date').text(j['fields']['create']).end()
               .find('p.raw').text(j['fields']['raw']).end()
-              .find('a.pointing.label').text(j['fields']['like']).end()
+              .find('span.like').text(j['fields']['like']).end()
               .find('b').text(j['fields']['author'][0]).end()
               .attr("emotion", j['fields']['emotion'])
 
             for(let i of j['fields']['likesfromuser']){
               if (getCookie('facebookid') == i) {
                 result.find('a').attr('already', 'True')
-                result.find('a').attr('class', 'ui grey left pointing label')
+                result.find('a').attr('class', 'like')
               }              
             }
               
@@ -238,7 +247,7 @@
                     tmp = target.text()
                     target.text(Number(tmp) + -1)
                     target.attr('already', 'False')
-                    target.attr('class', 'ui basic red left pointing label')
+                    target.attr('class', 'like')
                   })
                   .fail(function() {
                     toastr.error('按讚失敗')
@@ -250,7 +259,7 @@
                     tmp = target.text()
                     target.text(Number(tmp) + 1)
                     target.attr('already', 'True')
-                    target.attr('class', 'ui grey left pointing label')
+                    target.attr('class', 'like')
                   })
                   .fail(function() {
                     toastr.error('按讚失敗')
