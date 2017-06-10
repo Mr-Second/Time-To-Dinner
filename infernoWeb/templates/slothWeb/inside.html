@@ -36,7 +36,7 @@
 {% block shopDetail %}
 
   <button class="ui primary button" id="goquestion">參與評比該課程</button>
-  <div class="ui four item inverted stackable menu">
+  <div class="ui four item inverted menu">
     <a class="active blue item" emotion='all'>所有留言</a>
     <a class="blue item" emotion='neutral'>中立評論</a>
     <a class="blue item" emotion='pos'>正面評論</a>
@@ -77,7 +77,7 @@
         .find('.item')
         .not($(this))
         .removeClass('active');
-        for(let i of $('div.comments-item')){
+        for(let i of $('div.comments')){
           if ($(this).attr('emotion')=='all'){
             $(i).css('display', '')
           }
@@ -237,6 +237,7 @@
               
             result.find('a').bind('click', (e) => {
                 let target = $(e.target);
+                console.log(target)
                 if(window.res==null){
                     toastr.error('請登入後再按讚')
                     return

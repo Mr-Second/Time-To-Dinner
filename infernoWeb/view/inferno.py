@@ -17,7 +17,6 @@ def user_verify(function):
         try:
             r = requests.get(
                 USERPOOL_URL + '/fb/user/verify/{}/{}'.format(request.POST['id'], request.POST['verify']))
-            print(r.text)
             if r.text == 'Ok':
                 return function(request, *args, **kwargs)
         except Exception as e:
