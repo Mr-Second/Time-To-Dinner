@@ -68,12 +68,7 @@
                 },
                 success: (res) => {
                   $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
-                  $.post('/infernoWeb/sloth/createUser', Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}))
-                  .done(function(response) {
-                    document.cookie = `facebookid=${res['id']}`;
-                  })
-                  .fail(function(response) {
-                  })
+                  window.res = res
                 },
                 error: (res) => {
                   // User is not logged in

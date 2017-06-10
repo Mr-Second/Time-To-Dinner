@@ -51,7 +51,7 @@
         ;
 
         $('#reply222').click(function(){
-            if(getCookie('facebookid')==null){
+            if(window.res==null){
                 toastr.error('請登入後再留言')
                 return
             }

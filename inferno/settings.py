@@ -168,3 +168,11 @@ BOWER_INSTALLED_APPS = (
     'semantic#2.2.10',
     'toastr#2.1.3'
 )
+
+# USERPOOL_URL config
+USERPOOL_URL = 'http://login.campass.com.tw'
+
+# Dev
+
+if DEBUG:
+    USERPOOL_URL = 'http://test.localhost.login.campass.com.tw:8080'

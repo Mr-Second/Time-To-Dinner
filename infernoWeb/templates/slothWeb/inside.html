@@ -131,7 +131,7 @@
           // semantic-ui activation function
           $('.rating').rating('setting', 'clearable', true);
           $('#goquestion').click(function(){
-              if(getCookie('facebookid')==null){
+              if(window.res==null){
                   toastr.error('請登入後再參與評分')
                   return
               }
@@ -220,7 +220,7 @@
               .attr("emotion", j['fields']['emotion'])
 
             for(let i of j['fields']['likesfromuser']){
-              if (getCookie('facebookid') == i) {
+              if (window.res['id'] == i) {
                 result.find('a').attr('already', 'True')
                 result.find('a').attr('class', 'ui grey left pointing label')
               }              
@@ -228,12 +228,13 @@
               
             result.find('a').bind('click', (e) => {
                 let target = $(e.target);
-                if(getCookie('facebookid')==null){
+                if(window.res==null){
                     toastr.error('請登入後再按讚')
                     return
                 }
+                var copy = Object.assign({}, res);
                 if(target.attr('already')=='True'){
-                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1,'facebookid':getCookie('facebookid')})
+                  $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1}))
                   .done(function() {
                     tmp = target.text()
                     target.text(Number(tmp) + -1)
@@ -241,11 +242,11 @@
                     target.attr('class', 'ui basic red left pointing label')
                   })
                   .fail(function() {
-                    toastr.error('按讚失敗')
+                    toastr.error('請檢查是否登入，或是重新整理頁面')
                   })
                 }
                 else{
-                  $.post( '/sloth/get/like?id='+j['pk'], {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1,'facebookid':getCookie('facebookid')})
+                  $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1}))
                   .done(function() {
                     tmp = target.text()
                     target.text(Number(tmp) + 1)
@@ -253,7 +254,7 @@
                     target.attr('class', 'ui grey left pointing label')
                   })
                   .fail(function() {
-                    toastr.error('按讚失敗')
+                    toastr.error('請檢查是否登入，或是重新整理頁面')
                   })
                 }
               }).end()
