@@ -66,7 +66,7 @@
            }
            return cookieValue;
     }
-    function activeMenu() {
+    (function activeMenu() {
 
       // selector cache
       var $menuItem = $('div.four.menu a.item')
@@ -94,13 +94,45 @@
         .on('click', activate)
       ;
 
-    };
+    })();
     /*************************************************************************/
 
     $( document ).ready(function() {
-        activeMenu();
-
-        $.getJSON('/sloth/get/cvalue' + window.location.search, function(json){
+        /************************畫雷達圖***************************/
+        (async function run(){
+          function getUser() {
+            return new Promise(function(resolve, reject){
+                let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
+                $.ajax({
+                  url: loginUrl + '/fb/user',
+                  dataType: 'json',
+                  xhrFields: {
+                    withCredentials: true
+                  },
+                  success: (res) => {
+                    $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
+                    window.res = res
+                    resolve(res)
+                  },
+                  error: (res) => {
+                    // User is not logged in
+                    console.log(res)
+                    console.log('not loggin')
+                    resolve(res)
+                  }
+                }); 
+            });
+          };
+          function getCourseList(){
+              id = location.search.split('id=')[1]
+              return new Promise(function(resolve, reject){
+                  $.getJSON( "/sloth/get/cvalue?id="+id, function( j ) {
+                  }).done(result => {
+                      resolve(result);
+                  });
+              });
+          }
+          function renderCourseInfo(json){
             let result = $(`
               <div class="eight wide column" id="profile">
                 <h3 class="ui header" id='name'></h3>
@@ -127,150 +159,150 @@
               .find('#benchmark').text(json['benchmark']).end()
               .find('#feedback_amount').text(json['feedback_amount']).end()
             $('#profile').append(result)
-        }).done(function(result){
-          // semantic-ui activation function
-          $('.rating').rating('setting', 'clearable', true);
-          $('#goquestion').click(function(){
-              if(window.res==null){
-                  toastr.error('請登入後再參與評分')
-                  return
-              }
-              $('.modal')
-                .modal('show')
-              ;            
-          })
-        })
-        /************************畫雷達圖***************************/
-        async function run(){
-          function getArticleList(){
-              id = location.search.split('id=')[1]
-              return new Promise(function(resolve, reject){
-                  $.getJSON( "/sloth/get/cvalue?id="+id, function( j ) {
-                  }).done(result => {
-                      resolve(result);
-                  });
-              });
+            // semantic-ui activation function
+            $('.rating').rating('setting', 'clearable', true);
+            $('#goquestion').click(function(){
+                if(window.res==null){
+                    toastr.error('請登入後再參與評分')
+                    return
+                }
+                $('.modal')
+                  .modal('show')
+                ;            
+            })
           }
-          var result = await getArticleList();
-          data = [
-            {
-                axes: [
-                {axis: "自由", value: result['feedback_freedom']},
-                {axis: "知識性", value: result['feedback_knowledgeable']},
-                {axis: "氛圍", value: result['feedback_FU']},
-                {axis: "成績", value: result['feedback_GPA']},
-                {axis: "簡單", value: result['feedback_easy']}
-                ]
-            }
-          ]
+          function renderCourseRadar(json){
+            data = [
+              {
+                  axes: [
+                  {axis: "自由", value: json['feedback_freedom']},
+                  {axis: "知識性", value: json['feedback_knowledgeable']},
+                  {axis: "氛圍", value: json['feedback_FU']},
+                  {axis: "成績", value: json['feedback_GPA']},
+                  {axis: "簡單", value: json['feedback_easy']}
+                  ]
+              }
+            ]
+            $('#chart-container').empty();
+            var chart = RadarChart.chart();
+            chart.config({
+              containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
+              w: 200,
+              h: 200,
+              factor: 0.9,
+              factorLegend: 1,
+              levels: 5,
+              maxValue: 5,
+              minValue: 0,
+            });
 
-          $('#chart-container').empty();
-          var chart = RadarChart.chart();
-          chart.config({
-            containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
-            w: 200,
-            h: 200,
-            factor: 0.9,
-            factorLegend: 1,
-            levels: 5,
-            maxValue: 5,
-            minValue: 0,
-          });
+            var svg = d3.select('#chart-container').append('svg')
+              .attr('width', 200)
+              .attr('height', 200); 
 
-          var svg = d3.select('#chart-container').append('svg')
-            .attr('width', 200)
-            .attr('height', 200); 
+            // draw one
+            svg = svg.append('g').classed('focus', 3).datum(data)
+            svg.call(chart)
+            d3.selectAll(".axis text").style("font-size","14px")
+          }
 
-          // draw one
-          svg = svg.append('g').classed('focus', 3).datum(data)
-          svg.call(chart)
-          d3.selectAll(".axis text").style("font-size","14px")
-        }
-        run();
-        /************************畫雷達圖***************************/
-        // query留言api，自動生成出留言
-        $.getJSON('/sloth/get/comment' + window.location.search + '&start=1', function(json){
-          for (let j of json){
-            let result = $(
-            `
-            <div class="ui comments" emotion="">
-              <div class="comment">
-                <a class="avatar">
-                  <img src='{% static "../media/student.png" %}'>
-                </a>
-                <div class="content">
-                  <b>同學</b><p class="author"></p>
-                    <div class="metadata">
-                      <div class="date"></div>
-                        <div class="rating">
-                          <i class="star icon"></i>情緒
+          function getComments(){
+            return new Promise(function(resolve, reject){
+              // query留言api，自動生成出留言
+              $.getJSON('/sloth/get/comment' + window.location.search + '&start=1', function(json){
+                  resolve(json);
+              })
+            })
+          }
+          function renderComments(json){
+            for (let j of json){
+              let result = $(
+              `
+              <div class="ui comments" emotion="">
+                <div class="comment">
+                  <a class="avatar">
+                    <img src='{% static "../media/student.png" %}'>
+                  </a>
+                  <div class="content">
+                    <b>同學</b><p class="author"></p>
+                      <div class="metadata">
+                        <div class="date"></div>
+                          <div class="rating">
+                            <i class="star icon"></i>情緒
+                          </div>
                         </div>
+                      <div class="text">
+                        <p class='raw'></p>
                       </div>
-                    <div class="text">
-                      <p class='raw'></p>
-                    </div>
-                    <div class="actions">
-                      <a class="like">
-                        <i class="ui red heart icon"></i>
-                        Like
-                        <span class="like"></span>
-                      </a>
+                      <div class="actions">
+                        <a class="like">
+                          <i class="ui red heart icon"></i>
+                          Like
+                          <span class="like"></span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            `
-            );
-            result
-              .find('div.date').text(j['fields']['create']).end()
-              .find('p.raw').text(j['fields']['raw']).end()
-              .find('span.like').text(j['fields']['like']).end()
-              .find('b').text(j['fields']['author'][0]).end()
-              .attr("emotion", j['fields']['emotion'])
+              `
+              );
+              result
+                .find('div.date').text(j['fields']['create']).end()
+                .find('p.raw').text(j['fields']['raw']).end()
+                .find('span.like').text(j['fields']['like']).end()
+                .find('b').text(j['fields']['author'][0]).end()
+                .attr("emotion", j['fields']['emotion'])
 
-            for(let i of j['fields']['likesfromuser']){
-              if (window.res['id'] == i) {
-                result.find('a').attr('already', 'True')
-                result.find('a').attr('class', 'like')
-              }              
+              for(let i of j['fields']['likesfromuser']){
+                if (window.res['id'] == i) {
+                  result.find('a').attr('already', 'True')
+                  result.find('a').attr('class', 'like')
+                }              
+              }
+                
+              result.find('a').bind('click', (e) => {
+                  let target = $(e.target);
+                  console.log(target)
+                  if(window.res==null){
+                      toastr.error('請登入後再按讚')
+                      return
+                  }
+                  var copy = Object.assign({}, res);
+                  if(target.attr('already')=='True'){
+                    $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1}))
+                    .done(function() {
+                      tmp = target.text()
+                      target.text(Number(tmp) + -1)
+                      target.attr('already', 'False')
+                      target.attr('class', 'like')
+                    })
+                    .fail(function() {
+                      toastr.error('請檢查是否登入，或是重新整理頁面')
+                    })
+                  }
+                  else{
+                    $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1}))
+                    .done(function() {
+                      tmp = target.text()
+                      target.text(Number(tmp) + 1)
+                      target.attr('already', 'True')
+                      target.attr('class', 'like')
+                    })
+                    .fail(function() {
+                      toastr.error('請檢查是否登入，或是重新整理頁面')
+                    })
+                  }
+                }).end()
+              $('#comments').append(result)
             }
-              
-            result.find('a').bind('click', (e) => {
-                let target = $(e.target);
-                console.log(target)
-                if(window.res==null){
-                    toastr.error('請登入後再按讚')
-                    return
-                }
-                var copy = Object.assign({}, res);
-                if(target.attr('already')=='True'){
-                  $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1}))
-                  .done(function() {
-                    tmp = target.text()
-                    target.text(Number(tmp) + -1)
-                    target.attr('already', 'False')
-                    target.attr('class', 'like')
-                  })
-                  .fail(function() {
-                    toastr.error('請檢查是否登入，或是重新整理頁面')
-                  })
-                }
-                else{
-                  $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1}))
-                  .done(function() {
-                    tmp = target.text()
-                    target.text(Number(tmp) + 1)
-                    target.attr('already', 'True')
-                    target.attr('class', 'like')
-                  })
-                  .fail(function() {
-                    toastr.error('請檢查是否登入，或是重新整理頁面')
-                  })
-                }
-              }).end()
-            $('#comments').append(result)
           }
-        })
+          var user = await getUser();
+          var course = await getCourseList();
+          renderCourseInfo(course);
+          renderCourseRadar(course);
+          var comments = await getComments();
+          renderComments(comments);
+        })()
 
         // 提交心得表單
         $('#questionnaire').click(function() {
@@ -293,7 +325,6 @@
             .always(function() {
             });               
         });
-
     });
 
     </script>
