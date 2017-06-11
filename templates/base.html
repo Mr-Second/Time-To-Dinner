@@ -28,7 +28,7 @@
 			</div>
 		</div>
     <div class="right menu">
-      <a class="item" id='fb-login-btn' href="https://www.facebook.com/v2.9/dialog/oauth?client_id= 199021993947051&redirect_uri=http://test.localhost.login.campass.com.tw:8080/fb?redirect_service=www"><i class="fa fa-facebook-square" aria-hidden="true"></i>login</a>
+      <a class="item" id='fb-login-btn' href="https://www.facebook.com/v2.9/dialog/oauth?client_id= 199021993947051&redirect_uri=http://test.localhost.login.campass.com.tw:8080/fb?redirect_service=www"><i class="fa fa-facebook-square" aria-hidden="true"></i>登入</a>
     </div>
 	</header>
 
@@ -67,12 +67,12 @@
                   withCredentials: true
                 },
                 success: (res) => {
-                  $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
+                  $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i>登出').attr('href', loginUrl + '/fb/logout?redirect_service=www');
                   window.res = res
                 },
                 error: (res) => {
                   // User is not logged in
-                  console.log('not loggin')
+                  window.res = {}
                 }
               }); 
             })();

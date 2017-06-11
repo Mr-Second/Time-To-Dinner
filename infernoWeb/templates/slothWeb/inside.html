@@ -110,15 +110,14 @@
                     withCredentials: true
                   },
                   success: (res) => {
-                    $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i> Logout').attr('href', loginUrl + '/fb/logout?redirect_service=www');
+                    $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i>登出').attr('href', loginUrl + '/fb/logout?redirect_service=www');
                     window.res = res
                     resolve(res)
                   },
                   error: (res) => {
                     // User is not logged in
-                    console.log(res)
-                    console.log('not loggin')
-                    resolve(res)
+                    window.res = {}
+                    resolve({})
                   }
                 }); 
             });
@@ -162,7 +161,7 @@
             // semantic-ui activation function
             $('.rating').rating('setting', 'clearable', true);
             $('#goquestion').click(function(){
-                if(window.res==null){
+                if(window.res['id']==undefined){
                     toastr.error('請登入後再參與評分')
                     return
                 }
@@ -234,7 +233,7 @@
                     <div class="text">
                       <p class='raw'></p>
                     </div>
-                    <a class="ui basic red labeled icon button">
+                    <a class="ui basic red labeled icon button" value="">
                       <i class="heart icon"></i><span class="like"></span>
                     </a>
                   </div>
@@ -246,49 +245,16 @@
                 .find('div.date').text(j['fields']['create']).end()
                 .find('p.raw').text(j['fields']['raw']).end()
                 .find('span.like').text(j['fields']['like']).end()
+                .find('a.red.labeled.icon.button').attr('value', '/sloth/get/like?id='+j['pk']).end()
                 .find('b').text(j['fields']['author'][0]).end()
                 .attr("emotion", j['fields']['emotion'])
 
               for(let i of j['fields']['likesfromuser']){
                 if (window.res['id'] == i) {
                   result.find('a').attr('already', 'True')
-                  result.find('a').attr('class', 'like')
+                  result.find('a').removeClass('basic');
                 }              
               }
-                
-              result.find('a').bind('click', (e) => {
-                  let target = $(e.target);
-                  console.log(target)
-                  if(window.res==null){
-                      toastr.error('請登入後再按讚')
-                      return
-                  }
-                  var copy = Object.assign({}, res);
-                  if(target.attr('already')=='True'){
-                    $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1}))
-                    .done(function() {
-                      tmp = target.text()
-                      target.text(Number(tmp) + -1)
-                      target.attr('already', 'False')
-                      target.attr('class', 'like')
-                    })
-                    .fail(function() {
-                      toastr.error('請檢查是否登入，或是重新整理頁面')
-                    })
-                  }
-                  else{
-                    $.post( '/sloth/get/like?id='+j['pk'], Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1}))
-                    .done(function() {
-                      tmp = target.text()
-                      target.text(Number(tmp) + 1)
-                      target.attr('already', 'True')
-                      target.attr('class', 'like')
-                    })
-                    .fail(function() {
-                      toastr.error('請檢查是否登入，或是重新整理頁面')
-                    })
-                  }
-                }).end()
               $('#comments').append(result)
             }
           }
@@ -299,7 +265,38 @@
           var comments = await getComments();
           renderComments(comments);
         })()
-
+        $('body').on('click', 'a.red.labeled.icon.button', function(event) {
+          var target = $(this)
+          if(window.res['id']==undefined){
+              toastr.error('請登入後再按讚');
+              return;
+          }
+          var copy = Object.assign({}, res);
+          if(target.attr('already')=='True'){
+            $.post($(this).attr('value'), Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1}))
+            .done(function() {
+              tmp = target.find('span.like').text()
+              target.find('span.like').text(Number(tmp) + -1)
+              target.attr('already', 'False')
+              target.addClass('basic');
+            })
+            .fail(function() {
+              toastr.error('請檢查是否登入，或是重新整理頁面')
+            })
+          }
+          else{
+            $.post($(this).attr('value'), Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1}))
+            .done(function() {
+              tmp = target.find('span.like').text()
+              target.find('span.like').text(Number(tmp) + 1)
+              target.attr('already', 'True')
+              target.removeClass('basic');
+            })
+            .fail(function() {
+              toastr.error('請檢查是否登入，或是重新整理頁面')
+            })
+          }
+        });
         // 提交心得表單
         $('#questionnaire').click(function() {
             // 取得semantic-ui的星星評分的value

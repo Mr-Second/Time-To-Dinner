@@ -52,7 +52,7 @@
         ;
 
         $('#reply222').click(function(){
-            if(window.res==null){
+            if(window.res['id']==undefined){
                 toastr.error('請登入後再留言')
                 return
             }
