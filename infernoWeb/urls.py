@@ -4,7 +4,9 @@ from django.conf.urls import url
 from infernoWeb.view import gluttony
 from infernoWeb.view import sloth
 from infernoWeb.view import arrogant
+from infernoWeb.view import inferno
 urlpatterns = [
+  url(r'^createUser$',inferno.createUser, name='infernocreateUser'),
   url(r'^gluttony$',gluttony.index, name='gluttony'),#這樣做似乎是對應到,首頁
   url(r'^inside_resturant/$', gluttony.inside_resturant, name='inside_resturant'),
   url(r'^purchase/$', gluttony.purchase, name='purchase'),
@@ -15,7 +17,6 @@ urlpatterns = [
   url(r'^sloth$',sloth.index, name='sloth'),
   url(r'^sloth/inside$',sloth.inside, name='slothInside'),
   url(r'^sloth/search$',sloth.search, name='slothSearch'),
-  url(r'^sloth/createUser$',sloth.createUser, name='slothcreateUser'),
 ] + [
   # 求職網的部份
   url(r'^arrogant$',arrogant.index, name='arrogant'),

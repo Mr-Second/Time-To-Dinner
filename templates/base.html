@@ -68,11 +68,9 @@
                 },
                 success: (res) => {
                   $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i>登出').attr('href', loginUrl + '/fb/logout?redirect_service=www');
-                  window.res = res
                 },
                 error: (res) => {
                   // User is not logged in
-                  window.res = {}
                 }
               }); 
             })();

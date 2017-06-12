@@ -4,13 +4,6 @@ from functools import wraps
 from inferno.settings import USERPOOL_URL as USERPOOL_URL
 import requests
 
-# def user_verify(v_id, v_key):
-#     r = requests.get(
-#         USERPOOL_URL + '/fb/user/verify/{}/{}'.format(v_id, v_key))
-#     if r.text == 'Ok':
-#         return True
-#     return False
-
 def user_verify(function):
     @wraps(function)
     def wrap(request, *args, **kwargs):
@@ -25,10 +18,13 @@ def user_verify(function):
     return wrap
 
 def createUser(request):
-    user, created = User.objects.get_or_create(facebookid=request.POST['id'],defaults={
-        'major':request.POST['profile[major]'],
-        'career':request.POST['profile[career]'],
-        'grade':request.POST['profile[grade]'],
-        'school':request.POST['profile[school]']
-    })
-    return user
+    if request.POST['id']:
+        User.objects.update_or_create(facebookid=request.POST['id'],defaults={
+            'name':request.POST['name'],
+            'major':request.POST.get('profile[major]', ''),
+            'career':request.POST.get('profile[career]', ''),
+            'grade':request.POST.get('profile[grade]', ''),
+            'school':request.POST.get('profile[school]', '')
+        })
+        return JsonResponse({"createUser":'success'})
+    return JsonResponse({"createUser":'"createUser error"'})

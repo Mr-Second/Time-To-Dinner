@@ -58,7 +58,7 @@
             }
             let emotion = $('#emotionDropdown').dropdown('get value')
             let comments = $('textarea').val()
-            let payload = {'csrfmiddlewaretoken':getCookie('csrftoken'),'comments':comments, 'emotion':emotion}
+            let payload = Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken'),'comments':comments, 'emotion':emotion})
             if (emotion==''){
                 toastr.error('請選擇情緒')
                 return
