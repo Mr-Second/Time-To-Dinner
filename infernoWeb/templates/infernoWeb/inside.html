@@ -21,9 +21,6 @@
             <div class="ten wide column">
                 <h2>評論</h2>
                 <div id="comments">
-                    {% block comments %}
-                        {# 列出所有使用者的留言 #}
-                    {% endblock %}
                 </div>
                 <div class="ui reply form">
                     <div class="field">
@@ -68,9 +65,14 @@
                 return
             }
             $.post(location.href, payload)
-            .done(function() {
-               toastr.success('留言成功!');
-               location.reload();
+            .done(function(res) {
+                if(res=='SORRY 目前只開放留言一次喔~~ 未來會再依照情況調整'){
+                    toastr.warning(res);                    
+                }
+                else{
+                    toastr.success('留言成功')
+                    setTimeout("location.reload();", 700)
+                }
             })
             .fail(function() {
                 toastr.error('留言失敗')

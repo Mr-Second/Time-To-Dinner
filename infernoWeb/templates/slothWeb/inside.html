@@ -108,6 +108,7 @@
                     }
 
                     window.res = res;
+                    $.post(location.href, Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}));
                     resolve(res)
                   },
                   error: (res) => {
@@ -210,6 +211,7 @@
             })
           }
           function renderComments(json){
+            $('#comments').empty();
             for (let j of json){
               let result = $(
               `
