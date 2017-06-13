@@ -1,10 +1,8 @@
-from django.shortcuts import render_to_response, render, redirect
-from django.http import JsonResponse, Http404, HttpResponse
+from django.shortcuts import render_to_response, render
+from django.http import HttpResponse
 from djangoApiDec.djangoApiDec import queryString_required
-from slothTw.models import Course, Comment
+from slothTw.models import Course
 from slothTw.views import CreateComment, logPage
-from infernoWeb.models import User
-import datetime, json
 
 @queryString_required(['school'])
 def index(request):
