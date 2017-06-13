@@ -82,44 +82,8 @@
 
     $( document ).ready(function() {
         /************************畫雷達圖***************************/
-        (async function run(){
-          function getUser() {
-            return new Promise(function(resolve, reject){
-                let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
-                $.ajax({
-                  url: loginUrl + '/fb/user',
-                  dataType: 'json',
-                  xhrFields: {
-                    withCredentials: true
-                  },
-                  success: (res) => {
-                    $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i>登出').attr('href', loginUrl + '/fb/logout?redirect_service=www');
-
-                    // if didn't have cookie, create user first and then assign cookie
-                    // else, only update cookie without post to createUser. Preventing our server overload.
-                    if(getCookie('id')!=res['id']){
-                      $.post('/infernoWeb/createUser', Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}))
-                      .done(function(response) {
-                        document.cookie = `id=${res['id']}`;
-                      })
-                      .fail(function(response) {
-                        console.log(response)
-                      })
-                    }
-
-                    window.res = res;
-                    $.post(location.href, Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}));
-                    resolve(res)
-                  },
-                  error: (res) => {
-                    // User is not logged in
-                    window.res = {}
-                    resolve({})
-                  }
-                }); 
-            });
-          };
-          function getCourseList(){
+        async function updateRadar(){
+          function getCourseValue(){
               id = location.search.split('id=')[1]
               return new Promise(function(resolve, reject){
                   $.getJSON( "/sloth/get/cvalue?id="+id, function( j ) {
@@ -154,6 +118,7 @@
               .find('#dept').text(json['dept']).end()
               .find('#benchmark').text(json['benchmark']).end()
               .find('#feedback_amount').text(json['feedback_amount']).end()
+            $('#profile').empty()
             $('#profile').append(result)
             // semantic-ui activation function
             $('.rating').rating('setting', 'clearable', true);
@@ -201,7 +166,48 @@
             svg.call(chart)
             d3.selectAll(".axis text").style("font-size","14px")
           }
+          var course = await getCourseValue();
+          renderCourseInfo(course);
+          renderCourseRadar(course);
+        }
+        /************************畫雷達圖***************************/
+        async function run(){
+          function getUser() {
+            return new Promise(function(resolve, reject){
+                let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
+                $.ajax({
+                  url: loginUrl + '/fb/user',
+                  dataType: 'json',
+                  xhrFields: {
+                    withCredentials: true
+                  },
+                  success: (res) => {
+                    $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i>登出').attr('href', loginUrl + '/fb/logout?redirect_service=www');
 
+                    // if didn't have cookie, create user first and then assign cookie
+                    // else, only update cookie without post to createUser. Preventing our server overload.
+                    if(getCookie('id')!=res['id']){
+                      $.post('/infernoWeb/createUser', Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}))
+                      .done(function(response) {
+                        document.cookie = `id=${res['id']}`;
+                      })
+                      .fail(function(response) {
+                        console.log(response)
+                      })
+                    }
+
+                    window.res = res;
+                    $.post(location.href, Object.assign(res, {'csrfmiddlewaretoken':getCookie('csrftoken')}));
+                    resolve(res)
+                  },
+                  error: (res) => {
+                    // User is not logged in
+                    window.res = {}
+                    resolve({})
+                  }
+                }); 
+            });
+          };
           function getComments(){
             return new Promise(function(resolve, reject){
               // query留言api，自動生成出留言
@@ -263,12 +269,12 @@
             }
           }
           var user = await getUser();
-          var course = await getCourseList();
-          renderCourseInfo(course);
-          renderCourseRadar(course);
           var comments = await getComments();
           renderComments(comments);
-        })()
+        }
+        run();
+        updateRadar();
+
         $('body').on('click', 'a.red.labeled.icon.button', function(event) {
           var target = $(this)
           if(window.res['id']==undefined){
@@ -311,10 +317,10 @@
                 'rating':JSON.stringify(value),
             }
             // pathname + search 就等於url pattern + querystring            
-            $.post( '/sloth/get/questionnaire' + window.location.search, postdata)
+            $.post( '/sloth/get/questionnaire' + window.location.search, Object.assign(res, postdata))
             .done(function() {
                 toastr.success('問卷提交成功')
-                run();
+                updateRadar();
             })
             .fail(function() {
                 toastr.error('問卷提交失敗')
