@@ -148,6 +148,7 @@ with open(BASE_DIR + '/config/' + 'sessionid.txt') as f:
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_REGEX_WHITELIST = (
+    '^(https?://)www.' + DOMAIN,
     '^(https?://)localhost$',
     '(https?://)127.0.0.1'
 )
@@ -178,4 +179,5 @@ BOWER_INSTALLED_APPS = (
 
 if DEBUG:
     USERPOOL_URL = 'http://test.localhost.login.campass.com.tw:8080'
+    CORS_ORIGIN_ALLOW_ALL = True
     del SESSION_COOKIE_DOMAIN
