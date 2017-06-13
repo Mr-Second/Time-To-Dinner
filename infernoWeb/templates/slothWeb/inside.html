@@ -318,9 +318,17 @@
             }
             // pathname + search 就等於url pattern + querystring            
             $.post( '/sloth/get/questionnaire' + window.location.search, Object.assign(res, postdata))
-            .done(function() {
-                toastr.success('問卷提交成功')
-                updateRadar();
+            .done(function(response) {
+                if(response['alreadySubmit']==true){
+                  toastr.warning('SORRY 目前只開放提交一次喔~~ 未來會再依照情況調整')                  
+                }
+                else if(response['submitSuccess']==true){
+                  toastr.success('問卷提交成功')
+                  updateRadar();                  
+                }
+                else{
+                  toastr.error('發生奇怪的事情，請聯絡管理員')                  
+                }
             })
             .fail(function() {
                 toastr.error('問卷提交失敗')
