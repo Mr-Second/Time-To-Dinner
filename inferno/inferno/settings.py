@@ -15,18 +15,22 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Domain name
+DOMAIN = 'campass.com.tw'
+USERPOOL_URL = 'http://login.campass.com.tw'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(BASE_DIR + '/' + 'secret_key.txt') as f:
+with open(BASE_DIR + '/config/' + 'secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
-ALLOWED_HOSTS = ['.stufinite.faith','127.0.0.1']
+ALLOWED_HOSTS = ['.' + DOMAIN, 'localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -81,12 +85,11 @@ WSGI_APPLICATION = 'inferno.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+from .settings_database import DATABASE_SETTINGS
+if DEBUG:
+    DATABASES = DATABASE_SETTINGS['sqlite']
+else:
+    DATABASES = DATABASE_SETTINGS['mysql']
 
 
 # Password validation
@@ -135,22 +138,25 @@ STATICFILES_DIRS = [
 ]
 
 # Shared session
-# SESSION_COOKIE_DOMAIN = '.stufinite.faith'
-# with open(BASE_DIR + '/' + 'sessionid.txt') as f:
-#     SESSION_COOKIE_NAME = f.read().strip()
+
+SESSION_COOKIE_DOMAIN = '.' + DOMAIN
+with open(BASE_DIR + '/config/' + 'sessionid.txt') as f:
+    SESSION_COOKIE_NAME = f.read().strip()
 
 # CORS header
+
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_REGEX_WHITELIST = (
-    '^(https?://)?(\w+\.)?stufinite\.faith$',
+    '^(https?://)www.' + DOMAIN,
     '^(https?://)localhost$',
     '(https?://)127.0.0.1'
-)  # TODO Use HTTPS
+)
 CORS_ALLOW_METHODS = (
     'GET',
 )
 
 # django-bower allow django use bower to manage front-end library.
+
 BOWER_COMPONENTS_ROOT = BASE_DIR
 STATICFILES_DIRS.append(BOWER_COMPONENTS_ROOT)
 STATICFILES_FINDERS = (
@@ -168,10 +174,9 @@ BOWER_INSTALLED_APPS = (
     'toastr#2.1.3'
 )
 
-# USERPOOL_URL config
-USERPOOL_URL = 'http://login.campass.com.tw'
-
 # Dev
 
 if DEBUG:
     USERPOOL_URL = 'http://test.localhost.login.campass.com.tw:8080'
+    CORS_ORIGIN_ALLOW_ALL = True
+    del SESSION_COOKIE_DOMAIN
