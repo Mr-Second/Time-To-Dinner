@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static "stufinite/img/logo.jpg" %}">
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' rel='stylesheet' integrity='sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1' crossorigin='anonymous'>
     <link rel="stylesheet" href={% static "bower_components/semantic/dist/semantic.min.css" %}>
     <link rel='stylesheet' href='{% static "stufinite/css/stufinite.css" %}'> 
@@ -15,9 +16,9 @@
 
 <body>
 	<header class="ui blue inverted stackable container menu">
-        <div class="item">
-            <img src='{% static "stufinite/img/logo.svg" %}' alt="LOGO">
-        </div>
+    <div class="item">
+        <img src='{% static "stufinite/img/logo.svg" %}' alt="LOGO">
+    </div>
 		<a href="https://login.campass.com.tw/accounts/login/" class="item">課表</a>
 		<a href="/infernoWeb/sloth?school=nchu&start=1" class="item">心得</a>
 		<a href="" class="item">職缺</a>
@@ -36,66 +37,66 @@
 
 	<footer class="ui blue inverted stackable container segment">
 		<span>Copyright © 2016 All rights reserved.</span>
-            <a target="_blank" href="https://www.facebook.com/CoursePickingHelper/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
-        </footer>
+    <a target="_blank" href="https://www.facebook.com/CoursePickingHelper/"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+  </footer>
 
-        <script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
-        <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
-        <script type="text/javascript">
-            function getCookie(name) {
-                    //name should be 'csrftoken', as an argument to be sent into getCookie()
-                   var cookieValue = null;
-                   if (document.cookie && document.cookie != '') {
-                       var cookies = document.cookie.split(';');
-                       for (var i = 0; i < cookies.length; i++) {
-                           var cookie = jQuery.trim(cookies[i]);
-                           // Does this cookie string begin with the name we want?
-                           if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                               break;
-                           }
-                       }
-                   }
-                   return cookieValue;
-            }
-            (function main() {
-              let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
-              $.ajax({
-                url: loginUrl + '/fb/user',
-                dataType: 'json',
-                xhrFields: {
-                  withCredentials: true
-                },
-                success: (res) => {
-                  $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i>登出').attr('href', loginUrl + '/fb/logout?redirect_service=www');
-                },
-                error: (res) => {
-                  // User is not logged in
-                }
-              }); 
-            })();
-            $(document).ready(function(){
-                function search(){
-                    $('#courseList').empty()
-                    urlpattern = "{{urlpattern|escapejs}}"
-                    school = "{{school|escapejs}}"
-                    
-                    keyword = $('#search-form').val();
-                    qrystr = `keyword=${keyword}`
-                    window.location.href = `${urlpattern}?school=${school}&${qrystr}`
-                }
-                $('.search-btn').click(function(){
-                    search()
-                })
+  <script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
+  <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
+  <script type="text/javascript">
+      function getCookie(name) {
+              //name should be 'csrftoken', as an argument to be sent into getCookie()
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+      }
+      (function main() {
+        let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
+        $.ajax({
+          url: loginUrl + '/fb/user',
+          dataType: 'json',
+          xhrFields: {
+            withCredentials: true
+          },
+          success: (res) => {
+            $('#fb-login-btn').html('<i class="fa fa-facebook-square" aria-hidden="true"></i>登出').attr('href', loginUrl + '/fb/logout?redirect_service=www');
+          },
+          error: (res) => {
+            // User is not logged in
+          }
+        }); 
+      })();
+      $(document).ready(function(){
+          function search(){
+              $('#courseList').empty()
+              urlpattern = "{{urlpattern|escapejs}}"
+              school = "{{school|escapejs}}"
+              
+              keyword = $('#search-form').val();
+              qrystr = `keyword=${keyword}`
+              window.location.href = `${urlpattern}?school=${school}&${qrystr}`
+          }
+          $('.search-btn').click(function(){
+              search()
+          })
 
-                $("#search-form").keyup(function(event){
-                    if(event.keyCode == 13 || event.which == 13){
-                        search()
-                    }
-                });
-            })
-        </script>
-        {% block javascript %}
-        {% endblock %}
-    </body>
+          $("#search-form").keyup(function(event){
+              if(event.keyCode == 13 || event.which == 13){
+                  search()
+              }
+          });
+      })
+  </script>
+  {% block javascript %}
+  {% endblock %}
+  </body>
 </html>
