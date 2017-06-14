@@ -25,10 +25,10 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-import gluttonyTw.urls
-urlpatterns += [
-    url(r'^t2e/',include(gluttonyTw.urls, namespace="gluttonyTw") ),
-]
+# import gluttonyTw.urls
+# urlpatterns += [
+#     url(r'^t2e/',include(gluttonyTw.urls, namespace="gluttonyTw") ),
+# ]
 
 import slothTw.urls
 urlpatterns += [
