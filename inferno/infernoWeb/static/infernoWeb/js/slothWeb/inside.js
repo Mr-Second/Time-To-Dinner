@@ -174,7 +174,7 @@ $( document ).ready(function() {
           <div class="ui comments" emotion="">
             <div class="comment">
               <a class="avatar">
-                <img src='{% static "media/student.png" %}'>
+                <img src='/media/student.png'>
               </a>
               <div class="content">
                 <b>同學</b><p class="author"></p>
