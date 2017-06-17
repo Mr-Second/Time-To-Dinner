@@ -1,4 +1,5 @@
 from django.http import JsonResponse, Http404
+from django.shortcuts import render
 from infernoWeb.models import User
 from functools import wraps
 from inferno.settings import USERPOOL_URL as USERPOOL_URL
@@ -28,3 +29,6 @@ def createUser(request):
         })
         return JsonResponse({"createUser":'success'})
     return JsonResponse({"createUser":'"createUser error"'})
+    
+def index(request):
+    return render(request, 'infernoWeb/redirect.html', locals())

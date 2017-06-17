@@ -17,18 +17,15 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
+from infernoWeb.view import inferno
 
 urlpatterns = [
+    url(r'^$', inferno.index, name='inferno'),
     url(r'^admin/', admin.site.urls),
 	url(r'^infernoWeb/',include('infernoWeb.urls',namespace="infernoWeb") ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# import gluttonyTw.urls
-# urlpatterns += [
-#     url(r'^t2e/',include(gluttonyTw.urls, namespace="gluttonyTw") ),
-# ]
 
 import slothTw.urls
 urlpatterns += [
