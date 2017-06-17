@@ -30,7 +30,7 @@ $( document ).ready(function() {
             }
         })
         .fail(function() {
-            toastr.error('留言失敗')
+            toastr.error('請檢查是否登入或是重新整理頁面')
         })
         .always(function() {
             console.log( "reply finished" );

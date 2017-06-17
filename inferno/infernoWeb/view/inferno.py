@@ -15,6 +15,7 @@ def user_verify(function):
                 return function(request, *args, **kwargs)
         except Exception as e:
             print(e)
+        print("you need to login!!")
         raise Http404("you need to login!!")
     return wrap
 
