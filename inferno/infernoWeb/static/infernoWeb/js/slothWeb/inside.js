@@ -124,7 +124,7 @@ $( document ).ready(function() {
     async function run(){
       function getUser() {
         return new Promise(function(resolve, reject){
-            let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
+            let loginUrl = "http://login.campass.com.tw"
             $.ajax({
               url: loginUrl + '/fb/user',
               dataType: 'json',

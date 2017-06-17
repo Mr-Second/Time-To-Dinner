@@ -51,6 +51,7 @@
   </script>
   <script src={% static "bower_components/jquery/dist/jquery.min.js" %}></script>
   <script src={% static "bower_components/semantic/dist/semantic.min.js" %}></script>
+  <script src="{% static 'infernoWeb/js/config/config.js' %}"></script>  
   <script type="text/javascript">
       function getCookie(name) {
               //name should be 'csrftoken', as an argument to be sent into getCookie()
@@ -69,7 +70,7 @@
              return cookieValue;
       }
       (function main() {
-        let loginUrl = "http://test.localhost.login.campass.com.tw:8080"
+        let loginUrl = "http://login.campass.com.tw"
         $.ajax({
           url: loginUrl + '/fb/user',
           dataType: 'json',
