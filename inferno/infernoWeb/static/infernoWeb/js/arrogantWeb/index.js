@@ -24,6 +24,15 @@ $( document ).ready(function() {
 
 		})
 	}
+	$.getJSON('/arrogant/get/jcategory', function(json){
+		for(let category of json){
+			let tmp = $(`<a class="item" href="/infernoWeb/arrogant?school=ntu&start=1&category=${category['fields']['name']}">${category['fields']['name']}</a>`)
+			$('#kind').append(tmp)
+		}
+		
+
+	})
+
 	$.getJSON('/arrogant/get/jlist' + window.location.search, function(json){
 		first = json.shift()
 		length = first['TotalPage']
@@ -54,14 +63,13 @@ $( document ).ready(function() {
 					</div>
 				</div>
 			`)
-			School_teacher = $.parseHTML(`<p class="teacher">學校：${i['fields']['school']} 老師：${i['fields']['teacher']}</p>`)
-			tmp = $.parseHTML(i['fields']['feedback_amount']+'人參與評分')
+			School_teacher = $.parseHTML(`<p class="teacher">${i['company']['brand']} 地區：${i['company']['area']}</p>`)
+			tmp = $.parseHTML('0人參與評分')
 			result
-			  .find('a.avatar').attr('href', '/infernoWeb/arrogant/inside?id='+i['pk']).end()
-			  .find('a.title').attr('href', '/infernoWeb/arrogant/inside?id='+i['pk']).end()
-			  .find('img').attr('src', i['fields']['avatar']).end()
-			  .find('div.shopTitle').text(i['fields']['name']).end()
-			  .find('div.type').text(i['fields']['ctype']).end()
+			  .find('a.avatar').attr('href', '/infernoWeb/arrogant/inside?id='+i['id']).end()
+			  .find('img').attr('src', i['avatar']).end()
+			  .find('div.shopTitle').text(i['name']).end()
+			  .find('div.type').text(i['jobtag']).end()
 			  .find('#School_teacher').html(School_teacher).end()
 			  .find('#feedback_amount').html(tmp).end()
 			$('#courseList').append(result)			
