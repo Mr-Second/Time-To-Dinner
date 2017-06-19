@@ -1,4 +1,5 @@
 # Project stuff
+inferno/djangoApiDec
 entrance/settings_database.py
 uwsgi.deploy.ini
 db.sqlite3

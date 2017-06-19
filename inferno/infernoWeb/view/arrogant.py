@@ -4,7 +4,6 @@ from arrogant.models import Job, Comment
 import datetime
 
 def index(request):
-    jlist = Job.objects.all()
     return render_to_response('arrogantWeb/index.html', locals())
 
 @queryString_required(['id'])

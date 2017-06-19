@@ -1,27 +1,25 @@
 {% extends "infernoWeb/index.html" %}
 
+{% load static %}
+
 {% block navbar %}
-	<ul class="nav">
-		<li><a class="nav-link" href="#">實習</a></li>
-		<li><a class="nav-link" href="#">求職</a></li>
-		<li><a class="nav-link" href="#">家教</a></li>
-		<li><a class="nav-link" href="#">公司</a></li>
-	</ul>
+
+	<div class="ui vertical menu" id="kind">
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=通識">通識</a>
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=必修">必修</a>
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=選修">選修</a>
+  		<a class="item" href="/infernoWeb/sloth?school={{school}}&start=1&ctype=其他">其他</a>
+	</div>
+
 {% endblock %}
 
 {% block shopInfoBox %}
-	{% for j in jlist %}
-		<div class="shopInfoBox">
-			<div class="thumbnail">
-				<a href="/infernoWeb/arrogant/inside?id={{j.id}}"><img class="shopImg" src="{{j.avatar.url}}"></a>
-				<div class="shopBoxBody">
-					<span class="shopTitle">{{j.job}}</span> 
-					<p>公司：{{j.company}}</p>
-					<p>工作地點：{{j.工作地點}}</p>
-					<p>資料來源：{{j.fromWitchWeb}}</p>
-					<h3><i class="fa fa-heart" aria-hidden="true"></i>薪資：{{j.薪資}}</h3>
-				</div>
-			</div>
-		</div>
-	{% endfor %}
+
+	<div class="twelve wide mobie eight wide tablet six wide computer column" id="courseList"></div>
+	
+{% endblock %}
+	
+
+{% block javascript %}
+    <script src={% static "infernoWeb/js/arrogantWeb/index.js" %}></script>	
 {% endblock %}
