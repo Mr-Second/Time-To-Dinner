@@ -11,8 +11,13 @@ a{
     border-radius: 0px;
 }
 
+#navbar{
+	width: 100%;
+}
+
 #kind{
 	margin-bottom: 20px;
+	width: 100%;
 }
 
 .ui.menu:last-child{
