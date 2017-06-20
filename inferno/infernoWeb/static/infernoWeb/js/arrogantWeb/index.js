@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-	function pagination(school, category, length){
+	function pagination(category, length){
 		let querystring = (new URL(location)).searchParams;
 		var startID = querystring.get('start')
 		var start = (querystring.get('start')-1)/10+1
@@ -11,22 +11,22 @@ $( document ).ready(function() {
 			if(i+1==start){
 				item.attr("class", "item active")
 			}
-			item.attr('href', `/infernoWeb/arrogant?school=${school}&start=${i*10+1}&category=${category}`)
+			item.attr('href', `/infernoWeb/arrogant?start=${i*10+1}&category=${category}`)
 			$('.borderless.menu').append(item)					
 		}
 		$('.borderless.menu').append($(`<a class="item" id='turnright'><i class="angle right icon"></i></a>`))
 
 		$('#turnleft').click(function(){
-			window.location.href = `/infernoWeb/arrogant?school=${school}&start=${parseInt(startID)-10}&category=${category}`
+			window.location.href = `/infernoWeb/arrogant?start=${parseInt(startID)-10}&category=${category}`
 		})
 		$('#turnright').click(function(){
-			window.location.href = `/infernoWeb/arrogant?school=${school}&start=${parseInt(startID)+10}&category=${category}`
+			window.location.href = `/infernoWeb/arrogant?start=${parseInt(startID)+10}&category=${category}`
 
 		})
 	}
 	$.getJSON('/arrogant/get/jcategory', function(json){
 		for(let category of json){
-			let tmp = $(`<a class="item" href="/infernoWeb/arrogant?school=ntu&start=1&category=${category['fields']['name']}">${category['fields']['name']}</a>`)
+			let tmp = $(`<a class="item" href="/infernoWeb/arrogant?start=1&category=${category['fields']['name']}">${category['fields']['name']}</a>`)
 			$('#kind').append(tmp)
 		}
 		
@@ -36,9 +36,8 @@ $( document ).ready(function() {
 	$.getJSON('/arrogant/get/jlist' + window.location.search, function(json){
 		first = json.shift()
 		length = first['TotalPage']
-		school = first['school']
 		category = first['category']
-		pagination(school, category, length)
+		pagination(category, length)
 
 		for(let i of json){
 			let result = $(`
