@@ -199,7 +199,7 @@ $( document ).ready(function() {
             .find('pre.raw').text(j['fields']['raw']).end()
             .find('span.like').text(j['fields']['like']).end()
             .find('a.red.labeled.icon.button').attr('value', '/sloth/get/like?id='+j['pk']).end()
-            .find('b').text(j['fields']['author'][0][0] + 'O' + j['fields']['author'][0].slice(-1)).end()
+            .find('b').text(j['fields']['author'][0][0] + '同學').end()
             .attr("emotion", j['fields']['emotion'])
 
           emojiTable = {
