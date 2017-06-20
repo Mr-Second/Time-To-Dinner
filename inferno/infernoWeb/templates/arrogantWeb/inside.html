@@ -1,7 +1,6 @@
 {% extends "infernoWeb/inside.html" %}
 {% load static %}
-{% block stylesheet %}
-    <link rel='stylesheet' href='{% static "infernoWeb/css/inside.css" %}'>
+{% block insideStyleSheet %}
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
     <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
     <style>
@@ -25,78 +24,29 @@
     </style>
 {% endblock %}
 {% block profile %}
-    <div class="item">
-        <img src="{{ j.avatar.url }}">
-        <div class="content">
-            <h3>{{ j.job }}</h3>
-            <div class="meta">
-                <p class="cinema">工作性質：{{j.工作性質}}</p>
-            </div>
-            <div class="description">
-                <p>公司：{{ j.company }}</p>
-                <p>工作地點：{{j.工作地點}}</p>
-                <p>職務類別：{{ j.職務類別 }}</p>
-                <p>工作時間：{{ j.工作時間 }}</p>
-                <p>工作說明：{{ j.工作說明 }}</p>
-                <p>資料來源：{{j.fromWitchWeb}}</p>
-            </div>
-            <div class="extra">
-                <div class="ui labeled button" tabindex="0">
-                    <i class="fa fa-star" aria-hidden="true"></i>薪資：{{j.薪資}}
-                </div>
-            </div>
-            <div class="chart-container"></div>
-        </div>
+    <div class="ui two column grid" id='profile'>
+      {# 課程的詳細資訊 #}
     </div>
-    <div class="order"><a href="" class="orderBtn">申請執缺</a></div>
+    <hr class="fade">
+    
+    {# 載入課程問卷 #}
+    {% include "slothWeb/questionnaire.html" %}
+    
 {% endblock %}
-{% block comments %}
-    {# 列出所有使用者的留言 #}
-    {% for i in j.comment_set.all %}
-        <div class="customer">
-            <img src="http://semantic-ui.com/images/avatar/small/matt.jpg">
-        </div>
-        <div class="cusInfo">
-            <b>{{i.author}}</b>　<i>{{i.create}}</i>
-            <div class="text">
-                <p>{{i.raw}}</p>
-            </div>
-        </div>
-    {% endfor %}
+{% block shopDetail %}
+
+  <button class="ui primary button" id="goquestion">參與評比該課程</button>
+  <a class="ui primary button" id="goyourator">前往應徵職缺</a>
+  <div class="ui four item inverted menu">
+    <a class="active blue item" emotion='all'>所有留言</a>
+    <a class="blue item" emotion='neutral'>中立評論</a>
+    <a class="blue item" emotion='pos'>正面評論</a>
+    <a class="blue item" emotion='neg'>反面評論</a>
+  </div>
 {% endblock %}
-{% block javascript %}
+
+{% block insideJavascript %}
     <script src={% static "bower_components/d3/d3.min.js" %}></script>
     <script src={% static "bower_components/radar-chart-d3/src/radar-chart.min.js" %}></script>
-    <script>
-    var data = [
-        {
-            axes: [
-            {axis: "自由", value: 3},
-            {axis: "知識性", value: 3},
-            {axis: "氛圍", value: 3},
-            {axis: "成績", value: 3},
-            {axis: "簡單", value: 3}
-            ]
-        },
-        {
-            axes: [
-            {axis: "自由", value: 5},
-            {axis: "知識性", value: 5},
-            {axis: "氛圍", value: 5},
-            {axis: "成績", value: 5},
-            {axis: "簡單", value: 5}
-            ]
-        }
-    ];
-    var chart = RadarChart.chart();
-    var svg = d3.select('.chart-container').append('svg')
-      .attr('width', 600)
-      .attr('height', 600); 
-
-    // draw one
-    svg = svg.append('g').classed('focus', 3).datum(data)
-    svg.call(chart)
-    d3.selectAll(".axis text").style("font-size","25px")
-    d3.select('polygon.radar-chart-serie1').style('visibility','hidden');
-    </script>
+    <script src={% static "infernoWeb/js/arrogantWeb/inside.js" %}></script>
 {% endblock %}
