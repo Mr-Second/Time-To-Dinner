@@ -50,6 +50,7 @@ $( document ).ready(function() {
           <div class="eight wide column" id="profile">
             <h3 class="ui header" id='name'></h3>
             <p class="cinema">
+              薪水：<span id='salary'></span><br>
               公司：<span id='teacher'></span><br>
               地區：<span id='ctype'></span><br>
               職務類型：<span id='book'></span><br>
@@ -69,11 +70,8 @@ $( document ).ready(function() {
           .find('#book').text(json['Category']['name']).end()
           .find('#dept').text(json['JobTag'].map((obj)=>obj['name'])).end()
           .find('#feedback_amount').text(json['feedback_amount']).end()
+          .find('#salary').text(json['salary']).end()
 
-        if(json['has_salary_info']){
-          result
-            .find('.cinema').append('薪水：' + json['salary'] + '<br>')
-        }
         if(json['skilltag'].length!=0){
           result
             .find('.cinema').append('skill：' + json['skilltag'].map((x)=>x['name']))
