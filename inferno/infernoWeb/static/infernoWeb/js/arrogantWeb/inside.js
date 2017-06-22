@@ -283,7 +283,7 @@ $( document ).ready(function() {
             'rating':JSON.stringify(value),
         }
         // pathname + search 就等於url pattern + querystring            
-        $.post( '/sloth/get/questionnaire' + window.location.search, Object.assign(res, postdata))
+        $.post( '/arrogant/post/questionnaire' + window.location.search, Object.assign(res, postdata))
         .done(function(response) {
             if(response['alreadySubmit']==true){
               toastr.warning('SORRY 目前只開放提交一次喔~~ 未來會再依照情況調整')                  

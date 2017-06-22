@@ -63,7 +63,7 @@ $( document ).ready(function() {
 				</div>
 			`)
 			School_teacher = $.parseHTML(`<p class="teacher">${i['company']['brand']} 地區：${i['company']['area']}</p>`)
-			tmp = $.parseHTML('0人參與評分')
+			tmp = $.parseHTML(i['feedback_amount']+'人參與評分')
 			result
 			  .find('a.avatar').attr('href', '/infernoWeb/arrogant/inside?id='+i['id']).end()
 			  .find('img').attr('src', i['avatar']).end()
