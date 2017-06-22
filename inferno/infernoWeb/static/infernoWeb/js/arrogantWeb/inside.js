@@ -44,6 +44,7 @@ $( document ).ready(function() {
       }
       function renderjobInfo(json){
         $('body').find('#goyourator').attr('href', 'https://www.yourator.co' + json['path']).end()
+        $('body').find('#gocompany').attr('href', 'https://www.yourator.co' + json['company']['path']).end()
 
 
         let result = $(`
@@ -52,9 +53,12 @@ $( document ).ready(function() {
             <p class="cinema">
               薪水：<span id='salary'></span><br>
               公司：<span id='teacher'></span><br>
-              地區：<span id='ctype'></span><br>
+              地址：<span id='ctype'></span><br>
               職務類型：<span id='book'></span><br>
               Job Tag：<span id='dept'></span><br>
+              公司規模：<span id='公司規模'></span><br>
+              資本額：<span id='資本額'></span><br>
+              description：<span id='description'></span><br>
             </p>
             <p>
               <i class="ui red heart outline like icon" aria-hidden="true"></i><span id='feedback_amount'></span>人參與評分
@@ -65,12 +69,15 @@ $( document ).ready(function() {
         result
           .find('#avatar').attr('src', json['avatar']).end()
           .find('#name').text(json['name']).end()
-          .find('#ctype').text(json['company']['area']).end()
+          .find('#ctype').text(json['company']['地址']).end()
           .find('#teacher').text(json['company']['brand']).end()
           .find('#book').text(json['Category']['name']).end()
-          .find('#dept').text(json['JobTag'].map((obj)=>obj['name'])).end()
+          .find('#dept').text(json['JobTag'].length != 0 ? json['JobTag'].map((obj)=>obj['name']) : '無').end()
           .find('#feedback_amount').text(json['feedback_amount']).end()
           .find('#salary').text(json['salary']).end()
+          .find('#公司規模').text(json['company']['公司規模']).end()
+          .find('#資本額').text(json['company']['資本額']).end()
+          .find('#description').text(json['company']['description']).end()
 
         if(json['skilltag'].length!=0){
           result
@@ -98,7 +105,7 @@ $( document ).ready(function() {
               {axis: "自由", value: json['feedback_freedom']},
               {axis: "知識性", value: json['feedback_knowledgeable']},
               {axis: "氛圍", value: json['feedback_FU']},
-              {axis: "成績", value: json['feedback_GPA']},
+              {axis: "成績", value: json['feedback_salary']},
               {axis: "簡單", value: json['feedback_easy']}
               ]
           }
@@ -127,7 +134,7 @@ $( document ).ready(function() {
       }
       var job = await getjobValue();
       renderjobInfo(job);
-      // renderjobRadar(job);
+      renderjobRadar(job);
     }
     /************************畫雷達圖***************************/
     async function run(){
