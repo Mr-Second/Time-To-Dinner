@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, render
 from djangoApiDec.djangoApiDec import queryString_required
 from arrogant.models import Job, Comment
 import datetime
+from django.http import HttpResponse
 from arrogant.views import CreateComment, logPage
 
 def index(request):

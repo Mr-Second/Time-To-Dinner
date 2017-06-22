@@ -102,11 +102,11 @@ $( document ).ready(function() {
         data = [
           {
               axes: [
-              {axis: "自由", value: json['feedback_freedom']},
-              {axis: "知識性", value: json['feedback_knowledgeable']},
-              {axis: "氛圍", value: json['feedback_FU']},
-              {axis: "成績", value: json['feedback_salary']},
-              {axis: "簡單", value: json['feedback_easy']}
+              {axis: "工作內容", value: json['feedback_freedom']},
+              {axis: "工時", value: json['feedback_knowledgeable']},
+              {axis: "環境", value: json['feedback_FU']},
+              {axis: "薪資", value: json['feedback_salary']},
+              {axis: "公司福利", value: json['feedback_easy']}
               ]
           }
         ]
@@ -214,7 +214,7 @@ $( document ).ready(function() {
             .find('div.date').text(j['fields']['create']).end()
             .find('pre.raw').text(j['fields']['raw']).end()
             .find('span.like').text(j['fields']['like']).end()
-            .find('a.red.labeled.icon.button').attr('value', '/sloth/get/like?id='+j['pk']).end()
+            .find('a.red.labeled.icon.button').attr('value', '/arrogant/post/like?id='+j['pk']).end()
             .find('b').text(j['fields']['author'][0][0] + '同學').end()
             .attr("emotion", j['fields']['emotion'])
 
