@@ -177,7 +177,7 @@ $( document ).ready(function() {
                 <img src='/media/student.png'>
               </a>
               <div class="content">
-                <b>同學</b><p class="author"></p>
+                <b>匿名</b><p class="author"></p>
                 <div class="metadata">
                   <div class="date"></div>
                     <div class="rating">
@@ -199,7 +199,7 @@ $( document ).ready(function() {
             .find('pre.raw').text(j['fields']['raw']).end()
             .find('span.like').text(j['fields']['like']).end()
             .find('a.red.labeled.icon.button').attr('value', '/sloth/get/like?id='+j['pk']).end()
-            .find('b').text(j['fields']['author'][0][0] + '同學').end()
+            // .find('b').text(j['fields']['author'][0][0] + '同學').end()
             .attr("emotion", j['fields']['emotion'])
 
           emojiTable = {
