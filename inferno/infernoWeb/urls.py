@@ -20,6 +20,7 @@ urlpatterns = [
 ] + [
   # 求職網的部份
   url(r'^arrogant$',arrogant.index, name='arrogant'),
-  url(r'^arrogant/inside$',arrogant.inside, name='arrogantInside')
+  url(r'^arrogant/inside$',arrogant.inside, name='arrogantInside'),
+  url(r'^arrogant/search$',arrogant.search, name='arrogantSearch')
 ]
 

@@ -29,8 +29,6 @@ $( document ).ready(function() {
 			let tmp = $(`<a class="item" href="/infernoWeb/arrogant?start=1&category=${category['fields']['name']}">${category['fields']['name']}</a>`)
 			$('#kind').append(tmp)
 		}
-		
-
 	})
 
 	$.getJSON('/arrogant/get/jlist' + window.location.search, function(json){
