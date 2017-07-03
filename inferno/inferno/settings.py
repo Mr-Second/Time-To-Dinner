@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'infernoWeb',
     'slothTw',
-    'arrogant'
+    'arrogant',
+    'greed'
 ]
 
 MIDDLEWARE = [

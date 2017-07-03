@@ -6,6 +6,7 @@ db.sqlite3
 gluttonyTw
 slothTw
 arrogant
+greed
 
 # bower 
 bower_components/
@@ -16,6 +17,7 @@ node_modules/
 # webpack
 webpack-stats.json
 assets/bundles/
+bundles/
 
 # virtualenv
 venv

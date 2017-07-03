@@ -24,7 +24,6 @@ urlpatterns = [
     url(r'^$', inferno.index, name='inferno'),
     url(r'^admin/', admin.site.urls),
     url(r'^infernoWeb/',include('infernoWeb.urls',namespace="infernoWeb") ),
-    url(r'^react$', TemplateView.as_view(template_name='index.html')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -37,4 +36,9 @@ urlpatterns += [
 import arrogant.urls
 urlpatterns += [
     url(r'^arrogant/',include(arrogant.urls, namespace="arrogant") ),
+]
+
+
+urlpatterns += [
+    url(r'^greed$', TemplateView.as_view(template_name='greed/index.html')), 
 ]
