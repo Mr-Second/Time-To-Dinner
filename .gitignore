@@ -6,7 +6,16 @@ db.sqlite3
 gluttonyTw
 slothTw
 arrogant
+
+# bower 
 bower_components/
+
+# node
+node_modules/
+
+# webpack
+webpack-stats.json
+assets/bundles/
 
 # virtualenv
 venv

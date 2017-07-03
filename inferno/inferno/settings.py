@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ] + [
     'djangobower',
+    'webpack_loader',
     'infernoWeb',
     'slothTw',
     'arrogant'
@@ -180,3 +181,17 @@ if DEBUG:
     USERPOOL_URL = 'http://test.localhost.login.campass.com.tw:8080'
     CORS_ORIGIN_ALLOW_ALL = True
     del SESSION_COOKIE_DOMAIN
+
+
+# react js config, using webpack
+STATICFILES_DIRS = (
+    #This lets Django's collectstatic store our bundles
+    os.path.join(BASE_DIR, 'assets'), 
+)
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}

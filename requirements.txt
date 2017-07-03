@@ -9,3 +9,5 @@ pillow
 pytz
 slothTw
 arrogant
+bs4
+django-webpack-loader
