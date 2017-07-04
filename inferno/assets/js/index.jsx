@@ -4,10 +4,14 @@ var ReactDOM = require('react-dom')
 class Header extends React.Component {
   constructor(props) {
       super(props);
+      this.search = this.search.bind(this);
+      this.handleKeypress = this.handleKeypress.bind(this);
+
       this.state = {
         url:"https://www.facebook.com/v2.9/dialog/oauth?client_id=199021993947051&redirect_uri=http://login.campass.com.tw/fb?redirect_service=" + props.serviceName,
         loginState: '登入'
       }
+
   }
   componentDidMount() {
     let loginUrl = "http://login.campass.com.tw"
@@ -30,15 +34,15 @@ class Header extends React.Component {
   }
   search() {
     $('#courseList').empty();
-    urlpattern = props.urlpattern
-    school = props.school
-    keyword = $('#search-form').val();
-    qrystr = `keyword=${keyword}`
+    let urlpattern = this.props.urlpattern
+    let school = this.props.school
+    let keyword = $('#search-form').val();
+    let qrystr = `keyword=${keyword}`
     window.location.href = `${urlpattern}?${qrystr}&school=${school}`
   }
   handleKeypress(event){
     if(event.key == 'Enter'){
-      search()
+      this.search()
     }
   }
   render(){
@@ -73,9 +77,60 @@ const Footer = () => {
   );
 }
 
+const Pagination = (props) => {
+  let school = props.items.school,
+      ctype  = props.items.ctype,
+      length = props.items.TotalPage;
+  let querystring = (new URL(location)).searchParams;
+  let startID = querystring.get('start')
+  let start = (querystring.get('start')-1)/10+1
+  let end = start + 11 < length ? start + 11 : length
+  const turnLeft = (event) => {
+    window.location.href = `/infernoWeb/sloth?school=${school}&start=${parseInt(startID)-10}&ctype=${ctype}`
+  }
+  const turnRight = (event) => {
+    window.location.href = `/infernoWeb/sloth?school=${school}&start=${parseInt(startID)+10}&ctype=${ctype}`;
+
+  }
+  return(
+    <div className="ui grid">
+      <div className="three wide column"></div>
+      <div className="ui borderless menu">
+        <a className="item" id='turnleft' onClick={turnLeft}><i className="angle left icon"></i></a>
+        {
+          Array.from({length: end-(start-1)}, (v, k) => (k+start-1) ).map((item, index)=>{
+            if(item+1==start){
+              return <a key={index} className="item active" href={`/infernoWeb/sloth?school=${school}&start=${item*10+1}&ctype=${ctype}`}>{item+1}</a>
+            }
+            return <a key={index} className="item" href={`/infernoWeb/sloth?school=${school}&start=${item*10+1}&ctype=${ctype}`}>{item+1}</a>
+          })
+        }
+        <a className="item" id='turnright' onClick={turnRight}><i className="angle right icon"></i></a>
+      </div>          
+    </div>
+  )
+}
+
+class SideBar extends React.Component{
+  render(){
+    const sidebarCatelog = ['通識', '必修', '選修', '其他'];
+    return(
+      <div className="two wide column">
+        <div className="ui vertical menu" id="kind">
+          {
+            sidebarCatelog.map((item, idx) => (
+              <a key={idx} className="item" href={"/infernoWeb/sloth?school=nchu&start=1&ctype="+item}>{item}</a>             
+            ))
+          }
+        </div>
+      </div>
+    );
+  }
+}
+
 const ContentList = (props) => {
   return(
-    <div>
+    <div className="twelve wide mobie eight wide tablet six wide computer column" id="courseList">
       {
         props.items.map((item, idx) => (
           <div className="ui cards" key={idx}>
@@ -104,32 +159,42 @@ const ContentList = (props) => {
   );
 }
 
-class Content extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          items: [],
-        }
-    }
-    componentDidMount() {
-      $.getJSON(this.props.api, (json) => {
-        var first = json.shift()
-        var length = first['TotalPage']
-        var school = first['school']
-        var ctype = first['ctype']
 
-        this.setState({
-          items: json
-        });
-      })
+
+class Content extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+      pageData:{}
     }
-    render() {
-      return (
-        <div>
-          <ContentList items={this.state.items}/>
+  }
+  componentDidMount() {
+    $.getJSON(this.props.api, (json) => {
+      const first = json.shift()
+      var length = first['TotalPage']
+      var school = first['school']
+      var ctype = first['ctype']
+
+      this.setState({
+        items: json,
+        pageData: first
+      });
+    })
+  }
+  render() {
+    return (
+      <div className="ui centered grid" id="InfoArea">
+        <div className="row">
+          <SideBar/>
+          <ContentList items={this.state.items}/>              
         </div>
-      );
-    }
+        <div className="row">
+          <Pagination items={this.state.pageData}/>
+        </div>
+      </div>
+    );
+  }
 }
 const Layout = (props) => (
   <div>
