@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'infernoWeb',
     'slothTw',
     'arrogant',
-    'greed'
+    'greed',
+    'videoDemo'
 ]
 
 MIDDLEWARE = [
@@ -137,6 +138,7 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'assets'), 
 ]
 
 # Shared session
@@ -185,10 +187,6 @@ if DEBUG:
 
 
 # react js config, using webpack
-STATICFILES_DIRS = (
-    #This lets Django's collectstatic store our bundles
-    os.path.join(BASE_DIR, 'assets'), 
-)
 
 WEBPACK_LOADER = {
     'DEFAULT': {
