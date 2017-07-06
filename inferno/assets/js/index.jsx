@@ -136,19 +136,25 @@ const ContentList = (props) => {
           <div className="ui cards" key={idx}>
             <div className="card">
               <div className="content">
-                <a className="avatar" href="">
-                    <img className="right floated mini ui image" src=""/>
+                <a className="avatar" href={'/infernoWeb/sloth/inside?id='+item['pk']}>
+                    <img className="right floated mini ui image" src={item['fields']['avatar']}/>
                   </a>
-                  <a className="avatar" href="">
+                  <a className="avatar" href={'/infernoWeb/sloth/inside?id='+item['pk']}>
                     <div className="header shopTitle">{item['fields']['name']}</div>
                   </a>
-                  <div className="meta type"></div>
-                  <div className="description" id='School_teacher'></div>
+                  <div className="meta type">
+                    {item['fields']['ctype']}
+                  </div>
+                  <div className="description" id='School_teacher'>
+                    <p className="teacher">學校：{item['fields']['school']} 老師：{item['fields']['teacher']}</p>
+                  </div>
               </div>
               <div className="extra content">
                   <span className="right floated">
                     <i className="ui red heart icon"></i>
-                    <span id='feedback_amount'></span>
+                    <span id='feedback_amount'>
+                      {item['fields']['feedback_amount']+'人參與評分'}
+                    </span>
                 </span>
               </div>  
             </div>
