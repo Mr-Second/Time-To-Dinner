@@ -15,8 +15,8 @@ bower_components/
 node_modules/
 
 # webpack
-webpack-stats.json
-assets/bundles/
+webpack-stats-index.json
+webpack-stats-inside.json
 bundles/
 
 # virtualenv

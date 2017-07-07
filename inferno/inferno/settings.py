@@ -189,8 +189,13 @@ if DEBUG:
 # react js config, using webpack
 
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'bundles/',
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    'INDEX': {
+        'BUNDLE_DIR_NAME': 'bundles/index/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-index.json'),
+    },
+    'INSIDE': {
+        'BUNDLE_DIR_NAME': 'bundles/inside/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-inside.json'),
     }
+
 }

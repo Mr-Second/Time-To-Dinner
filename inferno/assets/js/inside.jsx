@@ -13,7 +13,6 @@ const Layout = (props) => (
 );
 
 
-
 ReactDOM.render(
   <Layout serviceName='course' school='nchu' urlpattern='/infernoWeb/sloth/search'/>,
   document.getElementById('app')

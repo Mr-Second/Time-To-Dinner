@@ -41,4 +41,10 @@ urlpatterns += [
 
 urlpatterns += [
     url(r'^greed$', TemplateView.as_view(template_name='greed/index.html')), 
+    url(r'^greed/inside$', TemplateView.as_view(template_name='greed/inside.html')), 
+]
+
+# videoDemo
+urlpatterns += [
+    url(r'^videoDemo/',include("videoDemo.urls", namespace="videoDemo") ),
 ]
