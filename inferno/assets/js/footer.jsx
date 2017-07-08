@@ -1,5 +1,4 @@
 var React = require('react')
-var ReactDOM = require('react-dom')
 
 const Footer = () => {
   return(
@@ -10,8 +9,3 @@ const Footer = () => {
   );
 }
 export default  Footer;
-
-ReactDOM.render(
-  <Footer/>,
-  document.getElementById('app')
-);

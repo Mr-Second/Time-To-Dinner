@@ -4,6 +4,8 @@ from django.conf.urls import url
 # from infernoWeb.view import gluttony
 from infernoWeb.view import sloth
 from infernoWeb.view import arrogant
+from infernoWeb.view import greed
+from infernoWeb.view import videoDemo
 from infernoWeb.view import inferno
 urlpatterns = [
   url(r'^createUser$',inferno.createUser, name='infernocreateUser'),
@@ -22,5 +24,13 @@ urlpatterns = [
   url(r'^arrogant$',arrogant.index, name='arrogant'),
   url(r'^arrogant/inside$',arrogant.inside, name='arrogantInside'),
   url(r'^arrogant/search$',arrogant.search, name='arrogantSearch')
+] + [
+  # 求職網的部份
+  # url(r'^videoDemo$',videoDemo.index, name='videoDemo'),
+  # url(r'^videoDemo/inside$',videoDemo.inside, name='videoDemoInside'),
+  # url(r'^videoDemo/search$',videoDemo.search, name='videoDemoSearch')
+] + [
+  # 求職網的部份
+  url(r'^greed$',greed.index, name='greed'),
+  url(r'^greed/inside$',greed.inside, name='greedInside'),
 ]
-
