@@ -70,6 +70,7 @@ export default class InsidePage extends React.Component{
   };
   activeMenu() {
     let $menuItem = $('div.four.menu a.item')
+    console.log($(this).attr('data-emotion'))
     function activate() {
       $(this)
       .addClass('active')
@@ -78,10 +79,10 @@ export default class InsidePage extends React.Component{
       .not($(this))
       .removeClass('active');
       for(let i of $('div.comments')){
-        if ($(this).attr('emotion')=='all'){
+        if ($(this).attr('data-emotion')=='all'){
           $(i).css('display', '')
         }
-        else if ($(i).attr('emotion')==$(this).attr('emotion')){
+        else if ($(i).attr('data-emotion')==$(this).attr('data-emotion')){
           $(i).css('display', '')
         }
         else{
@@ -106,7 +107,7 @@ export default class InsidePage extends React.Component{
             <a className="blue item" data-emotion='neg' onClick={this.activeMenu}>反面評論</a>
           </div>
         </div>
-        <Reply user={this.userId}/>
+        <Reply userId={this.state.userId}/>
       </div>
     )   
   }

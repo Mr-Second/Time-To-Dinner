@@ -1,10 +1,10 @@
 var React = require('react')
 
-const EmojiShow = (emoji) => {
-  if (emoji=='neutral'){
+const EmojiShow = (props) => {
+  if (props.emoji=='neutral'){
     return (<div><i className="meh icon"></i>中立</div>)
   }
-  else if(emoji=='pos'){
+  else if(props.emoji=='pos'){
     return(<div><i className="smile icon"></i>正面</div>)
   }
   else{

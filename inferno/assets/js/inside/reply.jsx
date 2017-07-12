@@ -9,7 +9,7 @@ const Reply = (props) => {
       <div className="ui reply form">
         <div className="field">
           <textarea placeholder="新增公開留言" name="comments"></textarea>
-          <button className="ui primary button" id="reply222">送出</button> 
+          <button className="ui primary button">送出</button> 
           <div className="ui floating dropdown button" id='emotionDropdown'>
             <div className="text"><i className="heart icon"></i>選擇情緒</div>
             <i className="dropdown icon"></i>

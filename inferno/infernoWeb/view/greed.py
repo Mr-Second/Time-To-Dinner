@@ -12,4 +12,4 @@ def inside(request):
         if 'comments' in request.POST:
             if CreateComment(request)==False:
                 return HttpResponse("SORRY 目前只開放留言一次喔~~ 未來會再依照情況調整")
-    return render(request, 'slothWeb/inside.html', locals())
+    return render(request, 'greed/inside.html', locals())
