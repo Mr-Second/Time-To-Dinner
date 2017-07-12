@@ -7,6 +7,40 @@ export default class UserComments extends React.Component{
     this.state = {
       UserComment:[]
     }
+
+    this.handleLike = this.handleLike.bind(this)
+  }
+  handleLike(){
+    var target = $(this)
+    if(window.res['id']==undefined){
+        toastr.error('請登入後再按讚');
+        return;
+    }
+    var copy = Object.assign({}, res);
+    if(target.attr('already')=='True'){
+      $.post($(this).attr('value'), Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':-1}))
+      .done(function() {
+        tmp = target.find('span.like').text()
+        target.find('span.like').text(Number(tmp) + -1)
+        target.attr('already', 'False')
+        target.addClass('basic');
+      })
+      .fail(function() {
+        toastr.error('請檢查是否登入，或是重新整理頁面')
+      })
+    }
+    else{
+      $.post($(this).attr('value'), Object.assign(copy, {'csrfmiddlewaretoken':getCookie('csrftoken'),'like':1}))
+      .done(function() {
+        tmp = target.find('span.like').text()
+        target.find('span.like').text(Number(tmp) + 1)
+        target.attr('already', 'True')
+        target.removeClass('basic');
+      })
+      .fail(function() {
+        toastr.error('請檢查是否登入，或是重新整理頁面')
+      })
+    }
   }
 
   componentDidMount() {
