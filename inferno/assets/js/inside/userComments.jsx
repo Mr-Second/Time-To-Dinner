@@ -19,7 +19,7 @@ export default class UserComments extends React.Component{
       <div>
         {
           this.state.UserComment.map((item, index) => (
-            <div key={index} className="ui comments">
+            <div key={index} className="ui comments" data-emotion={item['fields']['emotion']}>
               <div className="comment">
                 <a className="avatar">
                   <img src='/media/student.png'/>

@@ -68,31 +68,28 @@ export default class InsidePage extends React.Component{
       }
     }); 
   };
-  activeMenu() {
-    let $menuItem = $('div.four.menu a.item')
-    console.log($(this).attr('data-emotion'))
-    function activate() {
-      $(this)
-      .addClass('active')
-      .closest('.ui.menu')
-      .find('.item')
-      .not($(this))
-      .removeClass('active');
-      for(let i of $('div.comments')){
-        if ($(this).attr('data-emotion')=='all'){
-          $(i).css('display', '')
-        }
-        else if ($(i).attr('data-emotion')==$(this).attr('data-emotion')){
-          $(i).css('display', '')
-        }
-        else{
-          $(i).css('display', 'none')
-        }
+  activeMenu(e) {
+    let $target = $(e.currentTarget)
+    console.log($target)
+    $target
+    .addClass('active')
+    .closest('.ui.menu')
+    .find('.item')
+    .not($target)
+    .removeClass('active');
+    for(let i of $('div.comments')){
+      console.log($(i).attr('data-emotion'))
+
+      if ($target.attr('data-emotion')=='all'){
+        $(i).css('display', '')
+      }
+      else if ($(i).attr('data-emotion')==$target.attr('data-emotion')){
+        $(i).css('display', '')
+      }
+      else{
+        $(i).css('display', 'none')
       }
     }
-    $menuItem
-      .on('click', activate)
-    ;
   }
   render() {
     return(
