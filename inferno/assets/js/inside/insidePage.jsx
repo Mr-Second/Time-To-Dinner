@@ -1,13 +1,14 @@
 var React = require('react')
 import Information from './information.jsx'
-import Interaction from './interaction.jsx'
+import Questionnaire from './questionnaire.jsx'
+import ModalPage from './modalpage.jsx'
 import Reply from './reply.jsx'
 
 export default class InsidePage extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      userId: {},
+      userId: null,
     }
     this.activeMenu = this.activeMenu.bind(this)
     this.getCookie = this.getCookie.bind(this)
@@ -55,7 +56,6 @@ export default class InsidePage extends React.Component{
         $.post(location.href, Object.assign(res, {'csrfmiddlewaretoken':this.getCookie('csrftoken')}))
         .done(function(response){
           console.log('success')
-          console.log(response)
         })
         .fail(function(response){
           console.log('fail')
@@ -96,7 +96,8 @@ export default class InsidePage extends React.Component{
       <div className="ui centered grid">
         <Information/>
         <div className="eight wide column">
-          <Interaction/>
+          <ModalPage/>
+          <Questionnaire userId={this.state.userId}/>
           <div className="ui four item inverted menu">
             <a className="active blue item" data-emotion='all' onClick={this.activeMenu}>所有留言</a>
             <a className="blue item" data-emotion='neutral' onClick={this.activeMenu}>中立評論</a>

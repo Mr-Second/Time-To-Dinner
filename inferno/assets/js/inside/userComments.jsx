@@ -35,7 +35,7 @@ export default class UserComments extends React.Component{
                   <div className="text">
                     <pre className='raw'>{item['fields']['raw']}</pre>
                   </div>
-                  <LikeButton userId={this.props.userId} likeNum={item['fields']['like']}/>
+                  <LikeButton userId={this.props.userId} likeNum={item['fields']['like']} pk={item['pk']} likesfromuser={item['fields']['likesfromuser']}/>
                 </div>
               </div>
             </div>
