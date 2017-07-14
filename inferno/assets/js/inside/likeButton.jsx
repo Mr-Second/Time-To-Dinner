@@ -30,7 +30,12 @@ export default class LikeButton extends React.Component {
       toastr.error('請登入後再按讚');
       return;
     }
-  	$.post('/sloth/get/like?id=' + this.props.pk, {'id':this.props.userId, 'csrfmiddlewaretoken':this.getCookie('csrftoken'),'like':(this.state.likesfromuser.includes(this.props.userId) ? -1 : 1)})
+  	$.post('/sloth/get/like?id=' + this.props.pk, 
+      {
+        'id':this.props.userId, 
+        'csrfmiddlewaretoken':this.getCookie('csrftoken'),
+        'like':(this.state.likesfromuser.includes(this.props.userId) ? -1 : 1)
+      })
   	.done(() => {
   		this.setState({
         likeNum:this.state.likeNum + (this.state.likesfromuser.includes(this.props.userId) ? -1 : 1),

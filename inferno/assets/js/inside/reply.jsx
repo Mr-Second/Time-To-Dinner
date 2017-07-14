@@ -1,7 +1,41 @@
 var React = require('react')
 import UserComments from './userComments.jsx'
+import { Dropdown, Button } from 'semantic-ui-react'
+const emotionOptions = [
+  {
+    text: '中立',
+    value: 'neutral',
+    image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
+  },
+  {
+    text: '反面評論',
+    value: 'neg',
+    image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
+  },
+  {
+    text: '正面評論',
+    value: 'pos',
+    image: { avatar: true, src: '/assets/images/avatar/small/jenny.jpg' },
+  }
+]
 
 const Reply = (props) => {
+	const getCookie = (name) => {
+      //name should be 'csrftoken', as an argument to be sent into getCookie()
+     let cookieValue = null;
+     if (document.cookie && document.cookie != '') {
+         let cookies = document.cookie.split(';');
+         for (let i = 0; i < cookies.length; i++) {
+             let cookie = jQuery.trim(cookies[i]);
+             // Does this cookie string begin with the name we want?
+             if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                 break;
+             }
+         }
+     }
+     return cookieValue;
+  }
 	const handleSubmit = () => {
 		if(props.userId==undefined){
 			toastr.error('請登入後再留言')
@@ -42,15 +76,10 @@ const Reply = (props) => {
 				<div className="field">
 					<textarea placeholder="新增公開留言" name="comments"></textarea>
 					<button className="ui primary button" onClick={handleSubmit}>送出</button> 
-					<div className="ui floating dropdown button" id='emotionDropdown'>
-						<div className="text"><i className="heart icon"></i>選擇情緒</div>
-						<i className="dropdown icon"></i>
-						<div className="menu">
-							<a className="item" data-value='neutral'><i className="meh icon"></i>中立</a>
-							<a className="item" data-value='neg'><i className="frown icon"></i>反面評論</a>
-							<a className="item" data-value='pos'><i className="smile icon"></i>正面評論</a>
-						</div>
-					</div>
+					<Button>
+						選擇情緒
+				    <Dropdown inline options={emotionOptions} defaultValue='選擇情緒' />
+				  </Button>
 				</div>
 			</div>
 		</div>
